@@ -1,0 +1,312 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>timeIntervalsByDayOfWeek</title>
+<link href="../css/ea.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript" src="../js/displayToc.js" type="text/javascript"></script>
+<script>
+
+  function switchProjectProperties() {
+			if (document.getElementById("proj00").style.display == "none") {
+				document.getElementById("proj00").style.display = "revert";
+				document.getElementById("proj01").style.display = "revert";
+				document.getElementById("proj02").style.display = "revert";
+				document.getElementById("proj03").style.display = "revert";
+				document.getElementById("proj04").style.display = "revert";
+				document.getElementById("proj05").style.display = "revert";
+			} else {
+				document.getElementById("proj00").style.display = "none";
+				document.getElementById("proj01").style.display = "none";
+				document.getElementById("proj02").style.display = "none";
+				document.getElementById("proj03").style.display = "none";
+				document.getElementById("proj04").style.display = "none";
+				document.getElementById("proj05").style.display = "none";
+			}
+}
+
+		function switchAdvancedProperties(){
+
+			if (document.getElementById("adv00").style.display == "none") {;
+				document.getElementById("adv00").style.display = "revert";
+				document.getElementById("adv01").style.display = "revert";
+			} else {
+				document.getElementById("adv00").style.display = "none";
+				document.getElementById("adv01").style.display = "none";
+			}
+		}
+		function initPage()
+        {			
+			var divs = document.getElementsByClassName("ObjectDetailsNotes");
+			for (var j = 0; j < divs.length; j++) {
+				var tmpStr = divs[j].innerHTML;
+				tmpStr = tmpStr.replace(/#gt;/g, "&gt;");
+				tmpStr = tmpStr.replace(/#lt;/g, "&lt;");
+
+				tmpStr = tmpStr.replace(/&gt;/g, ">");
+				tmpStr = tmpStr.replace(/&lt;/g, "<");
+
+				divs[j].innerHTML = tmpStr;
+			}
+
+            if (document.getElementById('TableGroup') != null)
+            {
+                toggleItem(document.getElementById('TableGroup').getElementsByTagName('li')[0].id.replace("Title", ""));
+            }
+
+        }
+</script>
+<style>
+
+</style>
+</head>
+<body onload="initPage();">
+<div class="section group" >
+
+		<div class="col span_2_of_2 header_frame">
+			<h1> timeIntervalsByDayOfWeek </h1>
+			<!-- <img class="header_image" src="../images/ea-banner.png" align="right" alt="Header Image" />-->
+			<img class="header_image" src="../images/ea-banner.png" align="right" alt="Header Image" />
+		</div>
+		<div class="col span_2_of_2 breadcrumb_frame">
+			<p><a href="EA27.htm">S-122 Domain Model</a> / <a href="EA69.htm">timeIntervalsByDayOfWeek</a></p>
+		</div>
+			
+		<table class="contentmaintable">
+			<!-- <tfoot>
+				<tr>
+					<td>foot1</td>
+					<td>foot2</td>
+				</tr>
+			</tfoot> -->
+			<tbody>
+				<tr>
+					<td class="indexcell">
+						<div class="projectBrowserTitle">Project: </div>
+						<ul>
+<li><img src="../images/202.png" alt="Constraint"/> <a href="EA99.htm"></a></li>
+<li><img src="../images/202.png" alt="Constraint"/> <a href="EA98.htm"></a></li>
+</ul>
+
+					</td>
+					<td class="contentcell"><div class="pageHeader"></div>
+<div class="PageBody">
+	<span class="ObjectTitle">timeIntervalsByDayOfWeek  : Public  &lt;&lt;ComplexAttributeType&gt;&gt; Class</span>
+	<table border="0" class="ObjectDetails">
+		<tr>
+			<td width="15%" class="ObjectDetailsTopic">Created:</td>
+			<td width="85%" class="ObjectDetailsValue">17/11/2015 22:59:16</td>
+		</tr>
+		<tr>
+			<td class="ObjectDetailsTopic">Modified:</td>
+			<td class="ObjectDetailsValue">25/06/2024 08:12:27</td>
+		</tr>
+		<tr style="height: 10px"><td colspan="2"></td></tr>
+		<tr>
+			<td class="ObjectDetailsTopic"><button onclick="switchProjectProperties()"><img src="../images/plus03.gif" align="absmiddle" id="proj" /></button>Project:</td>
+			<td class="ObjectDetailsValue"></td>
+		</tr>
+		<tr id="proj00" style="display: none;">
+			<td class="ObjectDetailsTopic" style="padding-left: 18px;">Author:</td>
+			<td class="ObjectDetailsValue">raphael.malyankar</td>
+		</tr>
+		<tr id="proj01" style="display: none;">
+			<td class="ObjectDetailsTopic" style="padding-left: 18px;">Version:</td>
+			<td class="ObjectDetailsValue">1.0</td>
+		</tr>
+		<tr id="proj02" style="display: none;">
+			<td class="ObjectDetailsTopic" style="padding-left: 18px;">Phase:</td>
+			<td class="ObjectDetailsValue">1.0</td>
+		</tr>
+		<tr id="proj03" style="display: none;">
+			<td class="ObjectDetailsTopic" style="padding-left: 18px;">Status:</td>
+			<td class="ObjectDetailsValue">Proposed</td>
+		</tr>
+		<tr id="proj04" style="display: none;">
+			<td class="ObjectDetailsTopic" style="padding-left: 18px;">Complexity:</td>
+			<td class="ObjectDetailsValue">Easy</td>
+		</tr>
+		<tr id="proj05" style="display: none;">
+			<td class="ObjectDetailsTopic" style="padding-left: 18px;">Difficulty:</td>
+			<td class="ObjectDetailsValue"></td>
+		</tr>
+		<tr id="proj06" style="display: none;">
+			<td class="ObjectDetailsTopic" style="padding-left: 18px;">Priority:</td>
+			<td class="ObjectDetailsValue"></td>
+		</tr>
+		<tr id="proj05" style="display: none;">
+			<td class="ObjectDetailsTopic" >Multiplicity:</td>
+			<td class="ObjectDetailsValue"></td>
+		</tr>
+		<tr>
+			<td class="ObjectDetailsTopic"><button onclick="switchAdvancedProperties()"><img src="../images/plus03.gif" align="absmiddle" id="adv" /></button>Advanced:</td>
+			<td class="ObjectDetailsValue"></td>
+		</tr>
+		<tr id="adv00" style="display: none;">
+			<td class="ObjectDetailsTopic" style="padding-left: 18px;">UUID:</td>
+			<td class="ObjectDetailsValue">{0472CA32-BD91-4998-A364-F86310A9DFB5}</td>
+		</tr>
+		<tr id="adv01" style="display: none;">
+			<td class="ObjectDetailsTopic" style="padding-left: 18px;">Appears In:</td>
+			<td class="ObjectDetailsValue"><a href="EA25.htm">WorkingTimes</a></td>
+		</tr>
+	</table>
+	<div class="ObjectDetailsNotes">Proposed definition, constraints and remarks:&lt;br/&gt;Time intervals by days of the week.&lt;br/&gt;Remarks:&lt;br/&gt;&lt;ul&gt;<br />&lt;li&gt;The sub-attribute dayOfWeekIsRange indicates whether an instance of this complex attribute encodes a range of days or discrete days. The days or day-range(s) are encoded in sub-attribute dayOfWeek. An indeterminate range may be indicated with a null value at the appropriate position.&lt;/li&gt;&lt;/ul&gt;<br />&lt;ul&gt;<br />&lt;li&gt;Multiple ranges or multiple days are allowed in one instance of this complex attribute, but mixing range with discrete days(s) is not allowed (encode another instance of this attribute instead).&lt;/li&gt;&lt;/ul&gt;<br />&lt;ul&gt;<br />&lt;li&gt;Product specifications may need to allow repetition of this complex attribute in order to allow encoding of schedules which vary for different days of the week.&lt;/li&gt;&lt;/ul&gt;<br />&lt;ul&gt;<br />&lt;li&gt;Ranges may &#39;wrap&#39;; for example, the range 7-2 (meaning Sunday through Tuesday, inclusive) is permitted.&lt;/li&gt;&lt;li&gt;To encode multiple intervals during the day, repeat TIMSTW and TIMENW as necessary.&lt;/li&gt;&lt;/ul&gt;<br />&lt;br/&gt;Constraints: Duplicates or overlaps are not permitted.&lt;br/&gt;&lt;br/&gt;Examples:&lt;br/&gt;&lt;ol&gt;<br />&lt;li&gt;To encode &#8220;Monday through Friday&#8221; use the sequence: dayOfWeek=1, dayOfWeek=5 and set dayOfWeekIsRange=TRUE.&lt;/li&gt;&lt;li&gt;To encode the days Monday, Wednesday, Friday, use the sequence dayOfWeek=1, dayOfWeek=3, dayOfWeek=5 and set dayOfWeekIsRange=FALSE.&lt;/li&gt;&lt;li&gt;The sequence dayOfWeek=1, dayOfWeek=3, dayOfWeek=5 to indicate Mon-Wed and Thursday is not allowed. Encode the Mon-Wed and Thursday schedules in different instances of this complex attribute.&lt;/li&gt;&lt;li&gt;To encode times that are the same through the US/European work week (Monday through Friday) but different on weekends (Saturday/Sunday), encode two instances of the complex attribute tmIntervalsByDoW bound to the same object.&lt;/li&gt;&lt;li&gt;Office hours from 0800-1200 and 1300-1700 from Monday through Friday are encoded using one instance of tmIntervalsByDoW with TIMSTW=0800, TIMENW = 1200, and TIMSTW=1300, TIMENW=1700 (and dayOfWeek and DayOfWeekIsRange as in example 1 above).&lt;/li&gt;&lt;/ol&gt;<br />&lt;br/&gt;Old remarks:&lt;br/&gt;Remarks:&lt;br/&gt;The sub-attribute &lt;i&gt;dayOfWeekIsRanges&lt;/i&gt; indicates whether an instance of this attribute&lt;b&gt; &lt;/b&gt;encodes a range of days or discrete days. The days or day-range(s) are encoded in sub-attribute &lt;i&gt;dayOfWeek&lt;/i&gt;. Multiple ranges are allowed but mixing range with discrete days(s) is not allowed (encode another instance of this attribute instead).&lt;br/&gt;An indeterminate range may be indicated with a null value at the appropriate position in the sequence.&lt;br/&gt;&lt;br/&gt;Examples:&lt;br/&gt;&lt;ul&gt;<br />&lt;li&gt;To code the range &#8220;Monday through Friday&#8221; use the sequence: &lt;i&gt;dayOfWeek&lt;/i&gt;=1, &lt;i&gt;dayOfWeek&lt;/i&gt;=5 and set &lt;i&gt;dayOfWeekIsRanges&lt;/i&gt;=TRUE.&#160;&#160;&#160;&#160;&#160;&lt;/li&gt;&lt;li&gt;To encode the days Monday, Wednesday, Friday, use the sequence &lt;i&gt;dayOfWeek&lt;/i&gt;=1, &lt;i&gt;dayOfWeek&lt;/i&gt;=3, &lt;i&gt;dayOfWeek&lt;/i&gt;=5 and set &lt;i&gt;dayOfWeekIsRanges&lt;/i&gt;=FALSE.&#160;&#160;&#160;&#160;&#160;&lt;/li&gt;&lt;li&gt;The sequence &lt;i&gt;dayOfWeek&lt;/i&gt;=1, &lt;i&gt;dayOfWeek&lt;/i&gt;=3, &lt;i&gt;dayOfWeek&lt;/i&gt;=5&#160;&#160;to indicate Mon-Wed and Thursday is not allowed. Encode the Mon-Wed and Thursday schedules in different instances of this complex attribute.&#160;&#160;&#160;&#160;&#160;&lt;/li&gt;&lt;/ul&gt;<br />&lt;br/&gt;Product specifications may need to allow this attribute&lt;b&gt; &lt;/b&gt;to be repeated in order to allow encoding of schedules which vary for different days of the week.&lt;br/&gt;</div>
+
+	<div class="TableGroup" id="TableGroup">
+		<ul class="ItemTitle">
+			<li onClick="parent != null ? parent.toggleItem('Attributes') : toggleItem('Attributes');" id="AttributesTitle">Attributes</li>
+			<li onClick="parent != null ? parent.toggleItem('CustomProperties') : toggleItem('CustomProperties');" id="CustomPropertiesTitle">Advanced</li>
+		</ul>
+<div class="ItemBody" id="AttributesTable">
+	<table border="0" cellspacing="0" cellpadding="0" class="Table">
+		<tr>
+			<td width="50%" class="TableHeading">Attribute</td>
+			<td width="25%" class="TableHeading">Scope</td>
+			<td width="25%" class="TableHeading">Type</td>
+		</tr>
+						<tr>
+				<td width="50%" class="TableRow">
+					dayOfWeek
+				</td>
+				<td width="25%" class="TableRow">
+					Public 
+				</td>
+				<td width="25%" class="TableRow">
+					<a href="EA89.htm">dayOfWeek</a>
+				</td>
+			</tr>
+			<tr>
+				<td class="TableRowBottomDashed"  colspan="3">										
+					
+						<div class="ObjectDetailsNotes"><table>
+	<tr>
+		<td valign="top">
+			<i>Notes: </i><span style="margin-left: .4cm;"> </span>
+		</td>
+		<td>
+			Encodes either range(s) of days or discrete days. &lt;br/&gt;
+		</td>
+	</tr>
+</table></div>
+
+						<i>Constraints:</i><br><span style= "margin-left: .5cm;">Pre-condition sequential </span>
+<table>
+	<tr>
+		<td>
+			<span style= "margin-left: 1.5cm;"> </span>
+		</td>
+		<td>
+			&nbsp;
+		</td>
+	</td>
+</table> 
+				</td>
+			</tr>			<tr>
+				<td width="50%" class="TableRow">
+					dayOfWeekIsRange
+				</td>
+				<td width="25%" class="TableRow">
+					Public 
+				</td>
+				<td width="25%" class="TableRow">
+					boolean
+				</td>
+			</tr>
+			<tr>
+				<td class="TableRowBottomDashed"  colspan="3">										
+					
+						<div class="ObjectDetailsNotes"><table>
+	<tr>
+		<td valign="top">
+			<i>Notes: </i><span style="margin-left: .4cm;"> </span>
+		</td>
+		<td>
+			Indicates whether the values in dayOfWeek indicate a range of days (true) or discrete days (false).&lt;br/&gt;Mandatory if co-attribute dayOfWeek has cardinality #gt; 1..&lt;br/&gt;
+		</td>
+	</tr>
+</table></div>
+
+						
+				</td>
+			</tr>			<tr>
+				<td width="50%" class="TableRow">
+					timeOfDayStart
+				</td>
+				<td width="25%" class="TableRow">
+					Public 
+				</td>
+				<td width="25%" class="TableRow">
+					Time
+				</td>
+			</tr>
+			<tr>
+				<td class="TableRowBottomDashed"  colspan="3">										
+					
+						<div class="ObjectDetailsNotes"><table>
+	<tr>
+		<td valign="top">
+			<i>Notes: </i><span style="margin-left: .4cm;"> </span>
+		</td>
+		<td>
+			Starting time of day, possibly for a period within the day.&lt;br/&gt;Distinction: Time start (TIMSTA) (S-101) which has a format YYYYMMDD&lt;b&gt;T&lt;/b&gt;hhmmss &lt;b&gt;(mandatory)&lt;/b&gt; in the baseline S-101 DCEG as of October 2015.&lt;br/&gt;
+		</td>
+	</tr>
+</table></div>
+
+						
+				</td>
+			</tr>			<tr>
+				<td width="50%" class="TableRow">
+					timeOfDayEnd
+				</td>
+				<td width="25%" class="TableRow">
+					Public 
+				</td>
+				<td width="25%" class="TableRow">
+					Time
+				</td>
+			</tr>
+			<tr>
+				<td class="TableRowBottomDashed"  colspan="3">										
+					
+						<div class="ObjectDetailsNotes"><table>
+	<tr>
+		<td valign="top">
+			<i>Notes: </i><span style="margin-left: .4cm;"> </span>
+		</td>
+		<td>
+			Ending time of day, possibly for a period within the day.&lt;br/&gt;Distinction: Time end (TIMEND) (S-101) which has a format YYYYMMDD&lt;b&gt;T&lt;/b&gt;hhmmss &lt;b&gt;(mandatory)&lt;/b&gt; in the baseline S-101 DCEG as of October 2015.&lt;br/&gt;
+		</td>
+	</tr>
+</table></div>
+
+						
+				</td>
+			</tr>
+	</table>
+</div>
+		<div class="ItemBody" id="CustomPropertiesTable">
+			<table class="Table ea_table">
+				<tr>
+					<td width="30%" class="TableHeading">Property</td>
+					<td width="70%" class="TableHeading">Value</td>
+				</tr>
+			<tr>
+				<td width="30%" class="TableRow">isFinalSpecialization:</td>
+				<td width="70%" class="TableRow">0</td>
+			</tr>
+
+
+			</table>
+		</div>	</div>
+ </div>
+ </td>
+				</tr>
+			</tbody>
+		</table>
+		
+</div>
+</body>
+</html>
+

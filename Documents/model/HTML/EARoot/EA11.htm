@@ -1,0 +1,223 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>SupplementaryInformation</title>
+<link href="../css/ea.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript" src="../js/displayToc.js" type="text/javascript"></script>
+<script>
+
+  function switchProjectProperties() {
+			if (document.getElementById("proj00").style.display == "none") {
+				document.getElementById("proj00").style.display = "revert";
+				document.getElementById("proj01").style.display = "revert";
+				document.getElementById("proj02").style.display = "revert";
+				document.getElementById("proj03").style.display = "revert";
+				document.getElementById("proj04").style.display = "revert";
+				document.getElementById("proj05").style.display = "revert";
+			} else {
+				document.getElementById("proj00").style.display = "none";
+				document.getElementById("proj01").style.display = "none";
+				document.getElementById("proj02").style.display = "none";
+				document.getElementById("proj03").style.display = "none";
+				document.getElementById("proj04").style.display = "none";
+				document.getElementById("proj05").style.display = "none";
+			}
+}
+
+		function switchAdvancedProperties(){
+
+			if (document.getElementById("adv00").style.display == "none") {;
+				document.getElementById("adv00").style.display = "revert";
+				document.getElementById("adv01").style.display = "revert";
+			} else {
+				document.getElementById("adv00").style.display = "none";
+				document.getElementById("adv01").style.display = "none";
+			}
+		}
+		function initPage()
+        {			
+			var divs = document.getElementsByClassName("ObjectDetailsNotes");
+			for (var j = 0; j < divs.length; j++) {
+				var tmpStr = divs[j].innerHTML;
+				tmpStr = tmpStr.replace(/#gt;/g, "&gt;");
+				tmpStr = tmpStr.replace(/#lt;/g, "&lt;");
+
+				tmpStr = tmpStr.replace(/&gt;/g, ">");
+				tmpStr = tmpStr.replace(/&lt;/g, "<");
+
+				divs[j].innerHTML = tmpStr;
+			}
+
+            if (document.getElementById('TableGroup') != null)
+            {
+                toggleItem(document.getElementById('TableGroup').getElementsByTagName('li')[0].id.replace("Title", ""));
+            }
+
+        }
+</script>
+<style>
+
+</style>
+</head>
+<body onload="initPage();">
+<div class="section group" >
+
+		<div class="col span_2_of_2 header_frame">
+			<h1> SupplementaryInformation </h1>
+			<!-- <img class="header_image" src="../images/ea-banner.png" align="right" alt="Header Image" />-->
+			<img class="header_image" src="../images/ea-banner.png" align="right" alt="Header Image" />
+		</div>
+		<div class="col span_2_of_2 breadcrumb_frame">
+			<p><a href="EA27.htm">S-122 Domain Model</a> / <a href="EA11.htm">SupplementaryInformation</a></p>
+		</div>
+			
+		<table class="contentmaintable">
+			<!-- <tfoot>
+				<tr>
+					<td>foot1</td>
+					<td>foot2</td>
+				</tr>
+			</tfoot> -->
+			<tbody>
+				<tr>
+					<td class="indexcell">
+						<div class="projectBrowserTitle">Project: </div>
+						<ul>
+<li><img src="../images/175.png" alt="Diagram"/> <a href="EA1.htm">FeatureTypes</a></li>
+<li><img src="../images/175.png" alt="Diagram"/> <a href="EA3.htm">InfoTypesShowingAttributes</a></li>
+<li><img src="../images/175.png" alt="Diagram"/> <a href="EA5.htm">InfoTypesAbbreviated</a></li>
+<li><img src="../images/175.png" alt="Diagram"/> <a href="EA7.htm">ContactDetails</a></li>
+<li><img src="../images/175.png" alt="Diagram"/> <a href="EA9.htm">ApplicabilityAssociations</a></li>
+<li><img src="../images/175.png" alt="Diagram"/> <a href="EA11.htm">SupplementaryInformation</a></li>
+<li><img src="../images/175.png" alt="Diagram"/> <a href="EA13.htm">MPACategoryEnumsAndCodelists</a></li>
+<li><img src="../images/175.png" alt="Diagram"/> <a href="EA15.htm">MPAOtherEnumsAndCodelists</a></li>
+<li><img src="../images/175.png" alt="Diagram"/> <a href="EA17.htm">MPAAuthoritiesAndContacts</a></li>
+<li><img src="../images/175.png" alt="Diagram"/> <a href="EA19.htm">RXNTypes</a></li>
+<li><img src="../images/175.png" alt="Diagram"/> <a href="EA21.htm">RulesForFeatures</a></li>
+<li><img src="../images/175.png" alt="Diagram"/> <a href="EA23.htm">ShipCharacteristicSubsets</a></li>
+<li><img src="../images/175.png" alt="Diagram"/> <a href="EA25.htm">WorkingTimes</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA35.htm">Class1</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA36.htm">designation</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA37.htm">InformationType</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA39.htm">AbstractRXN</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA40.htm">FeatureType</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA41.htm">MarineProtectedArea</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA42.htm">RestrictedArea</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA43.htm">VesselTrafficServiceArea</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA44.htm">Applicability</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA45.htm">Authority</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA46.htm">ContactDetails</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA47.htm">NauticalInformation</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA48.htm">NonStandardWorkingDay</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA49.htm">Recommendations</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA50.htm">Regulations</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA51.htm">Restrictions</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA52.htm">ServiceHours</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA53.htm">InclusionType</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA54.htm">PermissionType</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA55.htm">bearingInformation</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA56.htm">contactAddress</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA57.htm">featureName</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA58.htm">fixedDateRange</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA59.htm">frequencyPair</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA60.htm">graphic</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA61.htm">information</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA62.htm">onlineResource</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA63.htm">orientation</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA64.htm">periodicDateRange</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA65.htm">rxnCode</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA66.htm">scheduleByDayOfWeek</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA67.htm">telecommunications</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA68.htm">textContent</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA69.htm">timeIntervalsByDayOfWeek</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA70.htm">vesselsMeasurements</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA71.htm">actionOrActivity</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA72.htm">categoryOfMarineProtectedArea</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA73.htm">categoryOfRxN</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA74.htm">categoryOfSchedule</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA75.htm">categoryOfVessel</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA76.htm">onlineFunction</a></li>
+<li><img src="../images/5.png" alt="Class"/> <a href="EA77.htm">telecommunicationService</a></li>
+<li><img src="../images/247.png" alt="Enumeration"/> <a href="EA38.htm">nameUsage</a></li>
+<li><img src="../images/247.png" alt="Enumeration"/> <a href="EA78.htm">cardinalDirection</a></li>
+<li><img src="../images/247.png" alt="Enumeration"/> <a href="EA79.htm">categoryOfAuthority</a></li>
+<li><img src="../images/247.png" alt="Enumeration"/> <a href="EA80.htm">categoryOfCargo</a></li>
+<li><img src="../images/247.png" alt="Enumeration"/> <a href="EA81.htm">categoryOfDangerousOrHazardousCargo</a></li>
+<li><img src="../images/247.png" alt="Enumeration"/> <a href="EA82.htm">categoryOfRelationship</a></li>
+<li><img src="../images/247.png" alt="Enumeration"/> <a href="EA83.htm">categoryOfRestrictedArea</a></li>
+<li><img src="../images/247.png" alt="Enumeration"/> <a href="EA84.htm">categoryOfText</a></li>
+<li><img src="../images/247.png" alt="Enumeration"/> <a href="EA85.htm">categoryOfVesselTrafficService</a></li>
+<li><img src="../images/247.png" alt="Enumeration"/> <a href="EA86.htm">categoryOfVesselRegistry</a></li>
+<li><img src="../images/247.png" alt="Enumeration"/> <a href="EA87.htm">categoryOfCommunicationPreference</a></li>
+<li><img src="../images/247.png" alt="Enumeration"/> <a href="EA88.htm">comparisonOperator</a></li>
+<li><img src="../images/247.png" alt="Enumeration"/> <a href="EA89.htm">dayOfWeek</a></li>
+<li><img src="../images/247.png" alt="Enumeration"/> <a href="EA90.htm">jurisdiction</a></li>
+<li><img src="../images/247.png" alt="Enumeration"/> <a href="EA91.htm">logicalConnectives</a></li>
+<li><img src="../images/247.png" alt="Enumeration"/> <a href="EA92.htm">membership</a></li>
+<li><img src="../images/247.png" alt="Enumeration"/> <a href="EA93.htm">restriction</a></li>
+<li><img src="../images/247.png" alt="Enumeration"/> <a href="EA94.htm">sourceType</a></li>
+<li><img src="../images/247.png" alt="Enumeration"/> <a href="EA95.htm">status</a></li>
+<li><img src="../images/247.png" alt="Enumeration"/> <a href="EA96.htm">vesselsCharacteristics</a></li>
+<li><img src="../images/247.png" alt="Enumeration"/> <a href="EA97.htm">vesselsCharacteristicsUnit</a></li>
+</ul>
+
+					</td>
+					<td class="contentcell"><div class="PageBody">
+	<div class="diagram_image"> 
+<img src="EA12.png" usemap="#EA12" border="0" />
+
+<MAP NAME="EA12">
+<area shape="rect" coords="548,350,668,430" href="EA49.htm" target="_self">
+<area shape="rect" coords="402,350,522,430" href="EA51.htm" target="_self">
+<area shape="rect" coords="256,350,376,430" href="EA50.htm" target="_self">
+<area shape="rect" coords="10,190,100,269" href="EA30.htm" target="_self">
+<area shape="rect" coords="230,140,503,288" href="EA39.htm" target="_self">
+<area shape="rect" coords="100,350,230,430" href="EA47.htm" target="_self">
+<area shape="rect" coords="580,10,750,90" href="EA40.htm" target="_self">
+</MAP>
+ </div>
+	<div class="ObjectTitle">SupplementaryInformation : Class diagram</div>
+	<table border="0" cellpadding="0" cellspacing="0" class="ObjectDetails">
+		<tr>
+			<td width="15%" class="ObjectDetailsTopic">Created:</td>
+			<td width="85%" class="ObjectDetailsValue">09/04/2014 00:00:00</td>
+		</tr>
+		<tr>
+			<td width="15%" class="ObjectDetailsTopic">Modified:</td>
+			<td width="85%" class="ObjectDetailsValue">05/09/2017 18:24:06</td>
+		</tr>
+		<tr style="padding-top: 10px;">
+			<td width="15%" class="ObjectDetailsTopic"><button onclick="switchProjectProperties()"><img src="../images/plus03.gif" align="absmiddle" id="proj" /></button>Project:</td>
+			<td width="85%" class="ObjectDetailsValue"></td>			
+		</tr>
+		<tr id="proj00" style="display: none;">
+			<td width="15%" class="ObjectDetailsTopic" style="padding-left: 18px;">Author:</td>
+			<td width="85%" class="ObjectDetailsValue">raphaelm</td>
+		</tr>
+		<tr id="proj01" style="display: none;">
+			<td width="15%" class="ObjectDetailsTopic" style="padding-left: 18px;">Version:</td>
+			<td width="85%" class="ObjectDetailsValue">1.0</td>
+		</tr>
+		<tr>
+			<td width="15%" class="ObjectDetailsTopic"><button onclick="switchAdvancedProperties()"><img src="../images/plus03.gif" align="absmiddle" id="adv" /></button>Advanced:</td>
+			<td width="85%" class="ObjectDetailsValue"></td>			
+		</tr>
+		<tr id="adv00" style="display: none;">
+			<td width="15%" class="ObjectDetailsTopic" style="padding-left: 18px;">ID:</td>
+			<td width="85%" class="ObjectDetailsValue">{22F9C375-C25D-428d-A70A-6B050D3A54A3}</td>
+		</tr>
+	</table>
+	<div class="ObjectDetailsNotes">S-122 uses the &lt;b&gt;associatedRXN &lt;/b&gt;association to link &lt;b&gt;NauticalInformation &lt;/b&gt;with feature types, like other sub-types of &lt;b&gt;AbstractRXN&lt;/b&gt;. S-101 defines only &lt;b&gt;NauticalInformation &lt;/b&gt;and uses its standard &lt;b&gt;additionalInformation &lt;/b&gt;association.&lt;br/&gt;&lt;br/&gt;The problem with using &lt;b&gt;additionalinformation &lt;/b&gt;everywhere is that you have to access the target object before you know its type - whether it is &lt;b&gt;Regulations&lt;/b&gt;, &lt;b&gt;Restrictions&lt;/b&gt;, &lt;b&gt;Recommendations&lt;/b&gt;, &lt;b&gt;NauticalInformation&lt;/b&gt;, or some other info type like &lt;b&gt;ContactDetails&lt;/b&gt;, &lt;b&gt;Authority&lt;/b&gt;, etc.&lt;br/&gt;</div>
+
+</div>
+
+ </td>
+				</tr>
+			</tbody>
+		</table>
+		
+</div>
+</body>
+</html>
+

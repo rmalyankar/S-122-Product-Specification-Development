@@ -1,0 +1,355 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>S-122 Domain Model</title>
+<link href="css/ea.css" rel="stylesheet" type="text/css" />
+<script>
+const guid_look = new Map([['D3E6EF62-91A6-4C99-9B3E-54B7CCD795E9', 'EA1.htm'],
+['2A2A4675-09AF-4E2D-8906-B76DAADA1541', 'EA3.htm'],
+['FFFA7AA3-BE20-42C4-8E92-734009DA3897', 'EA5.htm'],
+['0FA0F0CD-793D-46F1-813E-249403976895', 'EA7.htm'],
+['425EC106-BF22-453C-AB8A-11E8F08FEBDC', 'EA9.htm'],
+['22F9C375-C25D-428D-A70A-6B050D3A54A3', 'EA11.htm'],
+['5F0FA8BD-BADE-4156-95B6-2EB4B898704D', 'EA13.htm'],
+['51D20ECE-1EC7-453D-B990-FDA2B797D56A', 'EA15.htm'],
+['03CF0CB2-5C99-4E69-AF59-F35AE34C7FA3', 'EA17.htm'],
+['99A9061A-2A98-4BF1-BEF1-77C90B36C1C4', 'EA19.htm'],
+['25E52007-3CA4-47F6-B6EB-DF254C69786D', 'EA21.htm'],
+['CFCA0156-CD6C-452B-B37A-DF7364A5904D', 'EA23.htm'],
+['2D55169C-BEFA-4B9D-BD84-13A999C71A80', 'EA25.htm'],
+['F7E94307-26E8-4C80-A00A-1E321E7D002C', 'EA27.htm'],
+['BDD3460C-CB3E-4594-A5A6-6877D2922CCA', 'EA28.htm'],
+['22DCA5D9-9BF7-4C7E-B9A3-90F62582BC60', 'EA29.htm'],
+['0D304D66-9B48-42B8-8B02-EB70259DF0EA', 'EA30.htm'],
+['2C9066AB-79E6-46E8-A596-6FEC58A62F27', 'EA31.htm'],
+['948A29BA-C9C0-4571-A781-17E5CD490460', 'EA32.htm'],
+['D420D872-DA26-4F11-9960-4F6429934E19', 'EA33.htm'],
+['2A1BDAAF-FE1C-467D-B81D-FB39B84E182C', 'EA34.htm'],
+['594F4B46-B6EA-410D-89EF-982035AB95DF', 'EA35.htm'],
+['B76835A8-4B05-4DBE-8E3F-865DAAB638C7', 'EA36.htm'],
+['BECAB05A-6ECF-4061-BF9E-6E5DB71C2709', 'EA37.htm'],
+['B709B648-B3BA-41A5-8587-0D2A4755BDC5', 'EA38.htm'],
+['74F495B3-2A8B-4AC8-AEF6-81F72DFED0B3', 'EA39.htm'],
+['115E07C0-B387-4E01-9301-FADB2BBD5C12', 'EA40.htm'],
+['E41C6E1E-A9A4-481C-9963-CDB1C9D9C92E', 'EA41.htm'],
+['14D79574-9180-48F1-9A5D-EC5D0834FD30', 'EA42.htm'],
+['68873876-1302-4D8B-BB69-C35185F6DD90', 'EA43.htm'],
+['D18D8B73-3ED6-4881-82B9-82D72780DE26', 'EA44.htm'],
+['6A2B9A05-37BE-4BD6-BC73-67415CEAAA31', 'EA45.htm'],
+['F0ADFD98-0FA5-4E83-A76B-E37839821C2E', 'EA46.htm'],
+['184082D5-C916-4671-BA87-3BD3383964B1', 'EA47.htm'],
+['E3DE77D0-002C-4A57-9DB6-24A4C9846A96', 'EA48.htm'],
+['D75FF533-84CC-43B8-95BD-2C734E0EBD7A', 'EA49.htm'],
+['7B34880C-F3D0-4570-8A1B-1C53E92D0FCA', 'EA50.htm'],
+['7BBFEC12-20AC-424C-831E-C02444556BEA', 'EA51.htm'],
+['05313C63-889E-4525-938B-614D15CC60D1', 'EA52.htm'],
+['EEB135BB-9520-4E6A-906E-A478E0A46501', 'EA53.htm'],
+['FADC8258-812E-49C3-B391-E4FB47B0187D', 'EA54.htm'],
+['E583AC46-3C8C-46B6-8829-CA676D362A5E', 'EA55.htm'],
+['1AF7EFB7-F3AF-4BBC-BB0F-06FDDC5A6B14', 'EA56.htm'],
+['312B59A1-4D85-4F68-9530-642C830FF551', 'EA57.htm'],
+['CF553FD5-7345-4AD7-BC25-C34A0549DA8E', 'EA58.htm'],
+['E762CDD0-B1F6-4413-A99E-C5B4F3AC6C3F', 'EA59.htm'],
+['F8018425-C50C-4B4E-8D53-03CF7C93F4E4', 'EA60.htm'],
+['7B66635A-D362-4204-9058-CA43E1898F8D', 'EA61.htm'],
+['50091687-409C-42FD-844A-9CFBE176B3C9', 'EA62.htm'],
+['710FC252-1775-4F45-A9EC-2990EC3CB582', 'EA63.htm'],
+['91CC0C39-E16A-4145-8FFC-9DA80CC7D115', 'EA64.htm'],
+['D91F9B0B-AC46-4700-A61A-943F837943C3', 'EA65.htm'],
+['9082999F-795B-439F-B38A-52F4D178A1EE', 'EA66.htm'],
+['84CADC68-F43E-47E4-BD75-A126898722E5', 'EA67.htm'],
+['70A3DAE2-B3A8-48D3-A438-E868A2E2FA83', 'EA68.htm'],
+['0472CA32-BD91-4998-A364-F86310A9DFB5', 'EA69.htm'],
+['A82B5FB8-8A8D-449E-A8EB-F9FA6F0C17BF', 'EA70.htm'],
+['7D0FC221-93A9-4D76-97BD-E95752F7EB2A', 'EA71.htm'],
+['738E7CCA-986A-4A4A-B881-AF6DADC67D08', 'EA72.htm'],
+['9B2FA374-BCDE-492A-A2B7-17F9ED70A8ED', 'EA73.htm'],
+['D9EDA63D-4432-4BBF-A764-05944F23C120', 'EA74.htm'],
+['8D1AB4B9-912A-407D-86A4-63D70656CF33', 'EA75.htm'],
+['2AB2A727-557F-4DF3-AC7F-09249440377E', 'EA76.htm'],
+['023DD1AA-163D-4DC9-A84E-6A44B7D4E56F', 'EA77.htm'],
+['7A8A5437-ED16-4BAA-8FF0-74989D655A75', 'EA78.htm'],
+['FBDF0229-36CF-49DD-92DD-FECAE76C4964', 'EA79.htm'],
+['56731D32-569D-4A73-AB90-6A3BB9C36204', 'EA80.htm'],
+['FCD53BFE-17AB-4F0B-AB06-EC7E144A13C5', 'EA81.htm'],
+['9E8CCDB7-8644-4081-9EDC-328ED0A7FDE7', 'EA82.htm'],
+['827E64A1-31D5-41BF-8572-55EF73969A11', 'EA83.htm'],
+['097CFAE8-8397-47FB-A1A2-D07ED0D0364C', 'EA84.htm'],
+['254AC93A-F551-40DB-999E-7B204B86906E', 'EA85.htm'],
+['D59245AF-8BA2-4F44-B1FF-4C272790344A', 'EA86.htm'],
+['E7B1FA22-DA4A-4BE6-8CAF-1B4F47BCC1C3', 'EA87.htm'],
+['B510C0A2-0769-408F-9FEB-9D66A20C7324', 'EA88.htm'],
+['909C33DF-E73D-46D6-A3F6-5F51081422FA', 'EA89.htm'],
+['A46E12FD-67D3-4E29-8140-F1C58EEA065E', 'EA90.htm'],
+['FE2A192E-BFFF-4A4E-8907-36DC73D85DB5', 'EA91.htm'],
+['82E372C4-A858-45B5-8438-B881D937E034', 'EA92.htm'],
+['26649DBF-F37B-41D6-B076-CC585418E297', 'EA93.htm'],
+['B2EB6802-BEDC-40D0-AF57-B116B48A9CDD', 'EA94.htm'],
+['69C09AFA-986F-4E23-82A7-E138120C0C01', 'EA95.htm'],
+['B3581F31-523C-4A60-8416-328E3879DDB3', 'EA96.htm'],
+['71F5FE8B-D792-41DD-A4B5-6467D98EAD7E', 'EA97.htm'],
+['8949E096-68F6-4E67-B42D-24D2FA9751BD', 'EA98.htm'],
+['365F28B0-17BD-4A75-A803-E89BCBA50F8B', 'EA99.htm'],
+]);
+
+		function switchProjectProperties()
+		{
+			if (document.getElementById("proj00").style.display == "none")
+			{
+				document.getElementById("proj00").style.display = "revert";
+				document.getElementById("proj01").style.display = "revert";
+				document.getElementById("proj02").style.display = "revert";
+				document.getElementById("proj03").style.display = "revert";
+				document.getElementById("proj04").style.display = "revert";
+				document.getElementById("proj05").style.display = "revert";
+			}
+			else
+			{
+				document.getElementById("proj00").style.display = "none";
+				document.getElementById("proj01").style.display = "none";
+				document.getElementById("proj02").style.display = "none";
+				document.getElementById("proj03").style.display = "none";
+				document.getElementById("proj04").style.display = "none";
+				document.getElementById("proj05").style.display = "none";
+			}
+		}
+
+		function switchAdvancedProperties()
+		{
+
+			if (document.getElementById("adv00").style.display == "none")
+			{
+				document.getElementById("adv00").style.display = "revert";
+				document.getElementById("adv01").style.display = "revert";
+			}
+			else
+			{
+				document.getElementById("adv00").style.display = "none";
+				document.getElementById("adv01").style.display = "none";
+			}
+		}
+
+		function initPage()
+        {
+			const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const guidlink = urlParams.get('guid');
+
+            if (guidlink != null)
+            {
+                var link = guidlink.toUpperCase();
+                var pageredir = guid_look.get(link);
+
+                if (pageredir != null)
+				{
+                    window.location.replace("EARoot/" + pageredir);
+                    return;
+                }
+            }
+
+			var divs = document.getElementsByClassName("ObjectDetailsNotes");
+			for (var j = 0; j < divs.length; j++)
+			{
+				var tmpStr = divs[j].innerHTML;
+				tmpStr = tmpStr.replace(/&gt;/g, ">");
+				tmpStr = tmpStr.replace(/&lt;/g, "<");
+
+				tmpStr = tmpStr.replace(/#gt;/g, "&gt;");
+				tmpStr = tmpStr.replace(/#lt;/g, "&lt;");
+
+				divs[j].innerHTML = tmpStr;
+			}
+
+            if (document.getElementById('TableGroup') != null)
+            {
+                toggleItem(document.getElementById('TableGroup').getElementsByTagName('li')[0].id.replace("Title", ""));
+            }
+
+        }
+</script>
+<style>
+
+</style>
+</head>
+<body onload="initPage();">
+<div class="section group" >
+
+		<div class="col span_2_of_2 header_frame">
+			<h1> S-122 Domain Model </h1>
+			<img class="header_image" src="images/ea-banner.png" align="right" alt="Header Image" />
+		</div>
+		<div class="col span_2_of_2 breadcrumb_frame">
+			<p></p>
+		</div>
+		
+		<table class="contentmaintable">
+			<!-- <tfoot>
+				<tr>
+					<td>foot1</td>
+					<td>foot2</td>
+				</tr>
+			</tfoot> -->
+			<tbody>
+				<tr>
+					<td class="indexcell">
+						<div class="projectBrowserTitle">Project: </div>
+						<ul>
+<li><img src="images/175.png" alt="Diagram"/> <a href="./EARoot/EA1.htm">FeatureTypes</a></li>
+<li><img src="images/175.png" alt="Diagram"/> <a href="./EARoot/EA3.htm">InfoTypesShowingAttributes</a></li>
+<li><img src="images/175.png" alt="Diagram"/> <a href="./EARoot/EA5.htm">InfoTypesAbbreviated</a></li>
+<li><img src="images/175.png" alt="Diagram"/> <a href="./EARoot/EA7.htm">ContactDetails</a></li>
+<li><img src="images/175.png" alt="Diagram"/> <a href="./EARoot/EA9.htm">ApplicabilityAssociations</a></li>
+<li><img src="images/175.png" alt="Diagram"/> <a href="./EARoot/EA11.htm">SupplementaryInformation</a></li>
+<li><img src="images/175.png" alt="Diagram"/> <a href="./EARoot/EA13.htm">MPACategoryEnumsAndCodelists</a></li>
+<li><img src="images/175.png" alt="Diagram"/> <a href="./EARoot/EA15.htm">MPAOtherEnumsAndCodelists</a></li>
+<li><img src="images/175.png" alt="Diagram"/> <a href="./EARoot/EA17.htm">MPAAuthoritiesAndContacts</a></li>
+<li><img src="images/175.png" alt="Diagram"/> <a href="./EARoot/EA19.htm">RXNTypes</a></li>
+<li><img src="images/175.png" alt="Diagram"/> <a href="./EARoot/EA21.htm">RulesForFeatures</a></li>
+<li><img src="images/175.png" alt="Diagram"/> <a href="./EARoot/EA23.htm">ShipCharacteristicSubsets</a></li>
+<li><img src="images/175.png" alt="Diagram"/> <a href="./EARoot/EA25.htm">WorkingTimes</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA35.htm">Class1</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA36.htm">designation</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA37.htm">InformationType</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA39.htm">AbstractRXN</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA40.htm">FeatureType</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA41.htm">MarineProtectedArea</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA42.htm">RestrictedArea</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA43.htm">VesselTrafficServiceArea</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA44.htm">Applicability</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA45.htm">Authority</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA46.htm">ContactDetails</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA47.htm">NauticalInformation</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA48.htm">NonStandardWorkingDay</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA49.htm">Recommendations</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA50.htm">Regulations</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA51.htm">Restrictions</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA52.htm">ServiceHours</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA53.htm">InclusionType</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA54.htm">PermissionType</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA55.htm">bearingInformation</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA56.htm">contactAddress</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA57.htm">featureName</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA58.htm">fixedDateRange</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA59.htm">frequencyPair</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA60.htm">graphic</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA61.htm">information</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA62.htm">onlineResource</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA63.htm">orientation</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA64.htm">periodicDateRange</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA65.htm">rxnCode</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA66.htm">scheduleByDayOfWeek</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA67.htm">telecommunications</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA68.htm">textContent</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA69.htm">timeIntervalsByDayOfWeek</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA70.htm">vesselsMeasurements</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA71.htm">actionOrActivity</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA72.htm">categoryOfMarineProtectedArea</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA73.htm">categoryOfRxN</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA74.htm">categoryOfSchedule</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA75.htm">categoryOfVessel</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA76.htm">onlineFunction</a></li>
+<li><img src="images/5.png" alt="Class"/> <a href="./EARoot/EA77.htm">telecommunicationService</a></li>
+<li><img src="images/247.png" alt="Enumeration"/> <a href="./EARoot/EA38.htm">nameUsage</a></li>
+<li><img src="images/247.png" alt="Enumeration"/> <a href="./EARoot/EA78.htm">cardinalDirection</a></li>
+<li><img src="images/247.png" alt="Enumeration"/> <a href="./EARoot/EA79.htm">categoryOfAuthority</a></li>
+<li><img src="images/247.png" alt="Enumeration"/> <a href="./EARoot/EA80.htm">categoryOfCargo</a></li>
+<li><img src="images/247.png" alt="Enumeration"/> <a href="./EARoot/EA81.htm">categoryOfDangerousOrHazardousCargo</a></li>
+<li><img src="images/247.png" alt="Enumeration"/> <a href="./EARoot/EA82.htm">categoryOfRelationship</a></li>
+<li><img src="images/247.png" alt="Enumeration"/> <a href="./EARoot/EA83.htm">categoryOfRestrictedArea</a></li>
+<li><img src="images/247.png" alt="Enumeration"/> <a href="./EARoot/EA84.htm">categoryOfText</a></li>
+<li><img src="images/247.png" alt="Enumeration"/> <a href="./EARoot/EA85.htm">categoryOfVesselTrafficService</a></li>
+<li><img src="images/247.png" alt="Enumeration"/> <a href="./EARoot/EA86.htm">categoryOfVesselRegistry</a></li>
+<li><img src="images/247.png" alt="Enumeration"/> <a href="./EARoot/EA87.htm">categoryOfCommunicationPreference</a></li>
+<li><img src="images/247.png" alt="Enumeration"/> <a href="./EARoot/EA88.htm">comparisonOperator</a></li>
+<li><img src="images/247.png" alt="Enumeration"/> <a href="./EARoot/EA89.htm">dayOfWeek</a></li>
+<li><img src="images/247.png" alt="Enumeration"/> <a href="./EARoot/EA90.htm">jurisdiction</a></li>
+<li><img src="images/247.png" alt="Enumeration"/> <a href="./EARoot/EA91.htm">logicalConnectives</a></li>
+<li><img src="images/247.png" alt="Enumeration"/> <a href="./EARoot/EA92.htm">membership</a></li>
+<li><img src="images/247.png" alt="Enumeration"/> <a href="./EARoot/EA93.htm">restriction</a></li>
+<li><img src="images/247.png" alt="Enumeration"/> <a href="./EARoot/EA94.htm">sourceType</a></li>
+<li><img src="images/247.png" alt="Enumeration"/> <a href="./EARoot/EA95.htm">status</a></li>
+<li><img src="images/247.png" alt="Enumeration"/> <a href="./EARoot/EA96.htm">vesselsCharacteristics</a></li>
+<li><img src="images/247.png" alt="Enumeration"/> <a href="./EARoot/EA97.htm">vesselsCharacteristicsUnit</a></li>
+</ul>
+
+					</td>
+					<td class="contentcell">	
+						<div class="welcome_message">
+						<h2>Welcome to your model</h2>
+						<p>To get started navigate through the model via the index on the left</p> 
+						</div>
+						<div class="PageBody">
+	<div class="diagram_image"> 
+<img src="./EARoot/EA4.png" usemap="#EA4" border="0" />
+
+<MAP NAME="EA4">
+<area shape="rect" coords="45,10,257,185" href="./EARoot/EA37.htm" target="_self">
+<area shape="rect" coords="13,1157,366,1335" href="./EARoot/EA67.htm" target="_self">
+<area shape="rect" coords="993,895,1234,1099" href="./EARoot/EA62.htm" target="_self">
+<area shape="rect" coords="10,951,271,1139" href="./EARoot/EA68.htm" target="_self">
+<area shape="rect" coords="10,821,265,941" href="./EARoot/EA65.htm" target="_self">
+<area shape="rect" coords="1091,745,1316,849" href="./EARoot/EA63.htm" target="_self">
+<area shape="rect" coords="584,745,849,917" href="./EARoot/EA55.htm" target="_self">
+<area shape="rect" coords="10,751,240,800" href="./EARoot/EA31.htm" target="_self">
+<area shape="rect" coords="331,544,510,696" href="./EARoot/EA61.htm" target="_self">
+<area shape="rect" coords="1374,755,1657,927" href="./EARoot/EA60.htm" target="_self">
+<area shape="rect" coords="1462,31,1894,367" href="./EARoot/EA46.htm" target="_self">
+<area shape="rect" coords="317,786,527,890" href="./EARoot/EA64.htm" target="_self">
+<area shape="rect" coords="582,1153,829,1257" href="./EARoot/EA58.htm" target="_self">
+<area shape="rect" coords="407,449,527,519" href="./EARoot/EA49.htm" target="_self">
+<area shape="rect" coords="10,449,143,519" href="./EARoot/EA47.htm" target="_self">
+<area shape="rect" coords="280,449,400,519" href="./EARoot/EA51.htm" target="_self">
+<area shape="rect" coords="150,449,270,519" href="./EARoot/EA50.htm" target="_self">
+<area shape="rect" coords="1246,383,1730,687" href="./EARoot/EA44.htm" target="_self">
+<area shape="rect" coords="1180,31,1436,155" href="./EARoot/EA45.htm" target="_self">
+<area shape="rect" coords="856,446,1157,566" href="./EARoot/EA52.htm" target="_self">
+<area shape="rect" coords="20,221,270,393" href="./EARoot/EA39.htm" target="_self">
+<area shape="rect" coords="1056,193,1266,349" href="./EARoot/EA48.htm" target="_self">
+<area shape="rect" coords="866,745,1061,865" href="./EARoot/EA57.htm" target="_self">
+</MAP>
+ </div>
+	<div class="ObjectTitle">InfoTypesShowingAttributes : Class diagram</div>
+	<table border="0" cellpadding="0" cellspacing="0" class="ObjectDetails">
+		<tr>
+			<td width="15%" class="ObjectDetailsTopic">Created:</td>
+			<td width="85%" class="ObjectDetailsValue">26/11/2014 00:00:00</td>
+		</tr>
+		<tr>
+			<td width="15%" class="ObjectDetailsTopic">Modified:</td>
+			<td width="85%" class="ObjectDetailsValue">25/06/2024 08:24:40</td>
+		</tr>
+		<tr style="padding-top: 10px;">
+			<td width="15%" class="ObjectDetailsTopic"><button onclick="switchProjectProperties()"><img src="./images//plus03.gif" align="absmiddle" id="proj" /></button>Project:</td>
+			<td width="85%" class="ObjectDetailsValue"></td>			
+		</tr>
+		<tr id="proj00" style="display: none;">
+			<td width="15%" class="ObjectDetailsTopic" style="padding-left: 18px;">Author:</td>
+			<td width="85%" class="ObjectDetailsValue">raphaelm</td>
+		</tr>
+		<tr id="proj01" style="display: none;">
+			<td width="15%" class="ObjectDetailsTopic" style="padding-left: 18px;">Version:</td>
+			<td width="85%" class="ObjectDetailsValue">1.0</td>
+		</tr>
+		<tr>
+			<td width="15%" class="ObjectDetailsTopic"><button onclick="switchAdvancedProperties()"><img src="./images//plus03.gif" align="absmiddle" id="adv" /></button>Advanced:</td>
+			<td width="85%" class="ObjectDetailsValue"></td>			
+		</tr>
+		<tr id="adv00" style="display: none;">
+			<td width="15%" class="ObjectDetailsTopic" style="padding-left: 18px;">ID:</td>
+			<td width="85%" class="ObjectDetailsValue">{2A2A4675-09AF-4e2d-8906-B76DAADA1541}</td>
+		</tr>
+	</table>
+	
+</div>
+
+
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		
+
+</div>
+</body>
+</html>
