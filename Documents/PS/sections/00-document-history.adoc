@@ -14,11 +14,6 @@ Changes to this Specification are coordinated by IHO NIPWG. New editions will be
 |1.0.0
 |April 2012
 |TSMAD
-|Approved edition of S-102
+|Approved edition of S-122
 
-|2.0.0
-|March 2017
-|S-102PT
-|Updated clause 4.0 and 12.0. +
-Populated clause 9.0 and Annex B.
 |===
