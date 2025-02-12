@@ -5,33 +5,12 @@
 === Introduction
 The S-102 data set must be encoded using the Hierarchical Data Format standard, Version 5 (HDF5).
 
-*Format Name*:: HDF5
+*Format Name*:: GML
 
-*Version*:: 1.8.8
+*Version*:: 2.1.0
 
 *Character Set*:: UTF-8
 
-*Specification*:: https://www.hdfgroup.org/
-
-The key idea behind the S-102 product structure is that each coverage is a feature. Each of these features is co-located with the others. Therefore, they share the same spatial metadata, and each is required to correctly interpret the others.
-
-For the use of HDF5, the following key concepts (<<iho-s100,part=10c,clause=5.1>>) are important:
-
-_File_:: a contiguous string of bytes in a computer store (memory, disk, etc.), and the bytes represent zero or more objects of the model;
-
-_Group_:: a collection of objects (including groups);
-
-_Dataset_:: a multidimensional array of data elements with attributes and other metadata;
-
-_Dataspace_:: a description of the dimensions of a multidimensional array;
-
-_Datatype_:: a description of a specific class of data element including its storage layout as a pattern of bits; (Enumerations are encoded with unsigned 8-bit or unsigned 16-bit indices, depending on the number of transported values.)
-
-_Attribute_:: a named data value associated with a group, dataset, or named datatype and stored as a scalar;
-
-_Property List_:: a collection of parameters (some permanent and some transient) controlling options in the library.
-
-In addition, datasets may be a compound (a single record consisting of an array of simple value types) and have multiple dimensions.
 
 [[subsec-product-structure]]
 === Product structure

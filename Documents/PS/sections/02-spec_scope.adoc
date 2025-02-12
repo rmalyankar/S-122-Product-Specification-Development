@@ -3,3 +3,12 @@
 This product specification defines only one general scope which applies to all its sections.
 
 *Scope Identification*:: GeneralScope
+
+This product specification describes one data product and therefore requires only one scope
+which is described below:
+
+*Scope ID*: Marine Protected Areas datasets.
+**Hierarchical leve**l: MD_ScopeCode - 005
+*Hierarchical level name*: dataset.
+*Level description*: information applies to the dataset
+*Extent: EX_Extent.description:* Global coverage of maritime areas

@@ -23,8 +23,6 @@ environment and places a general obligation on States to implement global conven
 addressing particular forms of pollution protection and regional agreements tailored to the
 requirements of discrete sea areas.
 
-=== Scope
-This document describes an S-100 compliant product specification for a bathymetric surface product. Incorporating aspects of the navigation surface concept <<NavigationSurface,[Smith et al, 2002]>>, an S-102 bathymetric surface product is a digital elevation model which represents the seafloor in a regular grid structure. It can be used alone or as an important element/source for future S-100 conformant ECDIS navigation. The product specification is based on the IHO S-100 framework specification and the ISO 19100 series of standards. It comprises the content model (spatial structure and metadata), encoding structure, portrayal and exchange file format for a bathymetric surface product.
 
 [bibliography]
 === References
@@ -67,28 +65,6 @@ This document describes an S-100 compliant product specification for a bathymetr
 * [[[iso-19139-1,ISO/TS 19139-1:2019]]]
 
 * [[[iso-10646-1,ISO/IEC 10646-1:2000]]]
-
-* [[[NavigationSurface,The Navigation Surface]]],
-span:surname[Smith], span:givenname[Shep M. LT];
-span:surname[Alexander], span:givenname[Lee]; and
-span:surname[Armstrong], span:givenname[Andy],
-"span:title[_The Navigation Surface: A New Database Approach to Creating Multiple Products from High-Density Surveys_]" (span:date[2002]).
-span:publisher[International Hydrographic Review].
-span:uri[http://scholars.unh.edu/ccom/976]
-
-* [[[OpenNavigation,The Open Navigation Surface Project]]],
-span:surname[Calder], span:givenname[Brian]; 
-span:surname[Byrne], span:givenname[Shannon];
-span:surname[Brennan], span:givenname[Richard T.];
-span:surname[Case], span:givenname[James D.];
-span:surname[Fabre], span:givenname[David];
-span:surname[Gallagher], span:givenname[Barry];
-span:surname[Ladner], span:givenname[Wade R.];
-span:surname[Moggert], span:givenname[Friedhelm]; and
-span:surname[Patron], span:givenname[Mark],
-"span:title[_The Open Navigation Surface Project_]" (span:date[2005]).
-span:publisher[International Hydrographic Review].
-span:uri[https://scholars.unh.edu/ccom/1011]
 
 === Terms, definitions and abbreviations
 
@@ -251,7 +227,7 @@ DCEG:: Data Classification and Encoding Guide
 ECDIS:: Electronic Chart Display Information System
 ENC:: Electronic Navigational Chart
 EPSG:: European Petroleum Survey Group
-HDF:: Hierarchical Data Format
+GML:: Geographic Markup Language
 HSSC:: IHO Hydrographic Services and Standards Committee (formerly CHRIS)
 IEC:: International Electrotechnical Commission
 IHO:: International Hydrographic Organization
@@ -260,14 +236,14 @@ IOGP:: International association of Oil and Gas Producers (formerly OGP)
 ISO:: International Organization for Standardization
 MRN:: Maritime Resource Name
 S-100 WG:: S-100 Working Group
-S-102 PT:: S-102 Project Team
+S-122 PT:: S-122 Project Team
 TS:: Technical Specification
 TSMAD:: Transfer Standard Maintenance and Application Development Working Group
 UML:: Universal Modelling Language
 URI:: Uniform Resource Identifier
 XML:: eXtensible Markup Language
 
-=== General S-102 data product description
+=== General S-122 data product description
 
 *Title*:: Marine Protected Area Product Specification.
 
@@ -308,15 +284,13 @@ publication date.The DCEG provides guidance on how data product content must be 
             for utilization in ECDIS, and to allow the producer to exchange marine
             protected area information with interested stakeholders.
 
-// ported from S-122 product specification.
-
 === Product Specification metadata
 This information uniquely identifies this Product Specification and provides information about its creation and maintenance. For further information on dataset metadata, see <<sec-metadata>>.
 
 *Title*:: Marine Protected Area Product Specification
 *S-100 Version*:: 5.2.0
-*S-122 Version*:: 1.2.1
-*Date*:: November 2024
+*S-122 Version*:: 1.2.0
+*Date*:: February 2025
 
 *Language*:: English
 *Classification*:: Unclassified
