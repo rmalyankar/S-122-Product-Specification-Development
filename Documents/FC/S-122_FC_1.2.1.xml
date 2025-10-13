@@ -179,6 +179,37 @@
 			<S100FC:valueType>text</S100FC:valueType>
 		</S100FC:S100_FC_SimpleAttribute>
 		<S100FC:S100_FC_SimpleAttribute>
+			<S100FC:name>Optimum Display Scale</S100FC:name>
+			<S100FC:definition>The largest intended viewing scale for the data.</S100FC:definition>
+			<S100FC:code>optimumDisplayScale</S100FC:code>
+			<S100FC:alias>CSCALE</S100FC:alias>
+			<S100FC:definitionReference>
+				<S100FC:sourceIdentifier>1223</S100FC:sourceIdentifier>
+				<S100FC:definitionSource ref="IHOREG" />
+			</S100FC:definitionReference>
+			<S100FC:valueType>integer</S100FC:valueType>
+		</S100FC:S100_FC_SimpleAttribute>
+		<S100FC:S100_FC_SimpleAttribute>
+			<S100FC:name>Minimum Display Scale</S100FC:name>
+			<S100FC:definition>The smallest intended viewing scale for the data.</S100FC:definition>
+			<S100FC:code>minimumDisplayScale</S100FC:code>
+			<S100FC:definitionReference>
+				<S100FC:sourceIdentifier>1222</S100FC:sourceIdentifier>
+				<S100FC:definitionSource ref="IHOREG" />
+			</S100FC:definitionReference>
+			<S100FC:valueType>integer</S100FC:valueType>
+		</S100FC:S100_FC_SimpleAttribute>
+		<S100FC:name>Maximum Display Scale</S100FC:name>
+		<S100FC:definition>The value considered by the Data Producer to be the maximum (largest) scale at which the data is to be displayed before it can be considered to be "grossly overscaled".</S100FC:definition>
+		<S100FC:code>maximumDisplayScale</S100FC:code>
+		<S100FC:alias>CSCALE</S100FC:alias>
+		<S100FC:definitionReference>
+			<S100FC:sourceIdentifier>1237</S100FC:sourceIdentifier>
+			<S100FC:definitionSource ref="IHOREG" />
+		</S100FC:definitionReference>
+		<S100FC:valueType>integer</S100FC:valueType>
+		</S100FC:S100_FC_SimpleAttribute>
+		<S100FC:S100_FC_SimpleAttribute>
 			<S100FC:name>Online Function</S100FC:name>
 			<S100FC:definition>Code for function performed by the online resource (ISO 19115)</S100FC:definition>
 			<S100FC:code>onlineFunction</S100FC:code>
@@ -5487,6 +5518,34 @@ Both the long and short ton are defined as 20 hundredweights, but a hundredweigh
 				<S100FC:sourceIdentifier>187</S100FC:sourceIdentifier>
 				<S100FC:definitionSource ref="IHOREG" />
 			</S100FC:definitionReference>
+			<S100FC:attributeBinding sequential="false">
+				<S100FC:multiplicity>
+					<S100Base:lower>1</S100Base:lower>
+					<S100Base:upper xsi:nil="false" infinite="false">1</S100Base:upper>
+				</S100FC:multiplicity>
+				<S100FC:attribute ref="maximumDisplayScale" />
+			</S100FC:attributeBinding>
+			<S100FC:attributeBinding sequential="false">
+				<S100FC:multiplicity>
+					<S100Base:lower>1</S100Base:lower>
+					<S100Base:upper xsi:nil="false" infinite="false">1</S100Base:upper>
+				</S100FC:multiplicity>
+				<S100FC:attribute ref="minimumDisplayScale" />
+			</S100FC:attributeBinding>
+			<S100FC:attributeBinding>
+				<S100FC:multiplicity>
+					<S100Base:lower>1</S100Base:lower>
+					<S100Base:upper xsi:nil="false" infinite="false">1</S100Base:upper>
+				</S100FC:multiplicity>
+				<S100FC:attribute ref="optimumDisplayScale" />
+			</S100FC:attributeBinding>
+			<S100FC:attributeBinding sequential="false">
+				<S100FC:multiplicity>
+					<S100Base:lower>0</S100Base:lower>
+					<S100Base:upper xsi:nil="true" infinite="true" />
+				</S100FC:multiplicity>
+				<S100FC:attribute ref="information" />
+			</S100FC:attributeBinding>
 			<S100FC:featureUseType>meta</S100FC:featureUseType>
 			<S100FC:permittedPrimitives>surface</S100FC:permittedPrimitives>
 		</S100FC:S100_FC_FeatureType>
