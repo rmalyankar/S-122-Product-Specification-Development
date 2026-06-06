@@ -1,0 +1,41 @@
+
+[.preface]
+== Document History
+
+Changes to this Specification are coordinated by IHO NIPWG. New editions will be made available via the IHO web site. Maintenance of the Specification shall conform to IHO Resolution 2/2007 (as amended).
+
+[%unnumbered]
+[[tab-document-history]]
+.Document History
+[cols="a,a,a,a",options="headers,unnumbered"]
+|===
+|Version Number |Date |Approved By |Purpose
+
+|0.1    |2015   | TP |
+|0.2    |2017-03-31 |RM, EM |Draft 
+|1.0.0 Draft 2 | 2017-05-04 |RM |Draft; Added App. D-1; Harmonized with S-123 2017-04-30 
+|1.0.0 |2017-07-14 |EM |Revisions arising from NIPWG document review 
+|1.0.0 Draft 3 |2017-07-27 |RM |Updates to application schema arising from NIPWG review 
+|1.0.0 RC1 |2017-08-20 |RM |Release Candidate 1
+|2.0.0 |December 2025 |  |Draft Edition 2.0.0; apply amendmenta accepted by task group; align with S-100 5.2.0. 
+|2.0.0 |January 2026 |  |Draft Edition 2.0.0; align more closely with S-131 and S-127 including nilling; miscellaneous requirements for validation.
+|2.0.0 | March 2026 | NIPWG | Applied NIPWG review comments
+
+|===
+
+////
+[.preface]
+== Summary of Significant Changes in Edition 2.0.0
+
+Bold references in the Clauses Affected column indicate the principal sections/clauses that are affected by the described change.
+
+[cols="75,25",options="unnumbered,header"]
+|===
+^h| Change Summary ^h| Clauses Affected
+
+| Aligned with S-100 Edition 5.2.0 | *12*, *14*
+| Modified application schema | *4.2.1*
+| |
+| | 
+|===
+////
