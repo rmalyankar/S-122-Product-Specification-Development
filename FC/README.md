@@ -4,5 +4,11 @@ This folder is for work-in-progress feature catalogues and accompanying document
 
 FC files for work in progress are named 122_FC_2.0.0.YYYYMMDD.xml where YYYYMMDD is the date of the draft, to be more consistent with apparent IHO Secretariat practice (which will probably replace "FC" with "Feature_Catalogue"...).
 
+## 08/2026
+* HSSC Draft updated with source identifiers for recently approved data dictionary entries (suffix 20260804) 
+
+## 03/2026
+* HSSC Draft (suffix 20260313)
+
 ## 01/2026
 * FC updated to correct multiplicity of attribute in MPAArea (file suffixed 20260116)
