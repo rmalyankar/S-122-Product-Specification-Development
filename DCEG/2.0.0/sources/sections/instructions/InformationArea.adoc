@@ -1,0 +1,18 @@
+==== General
+
+Ballast water management areas defined under the Ballast Water Management Convention can be encoded using *InformationArea* features. Areas where
+ballast water exchange is permitted can be encoded as features with _categoryOfRelationship = Permitted_ and areas where ballast water exhange is
+prohibited can be encoded as features with _categoryOfRelationship = Prohibited_.
+
+[[fig_bwm]]
+.Ballast water management
+image::../../../../EAP/UML-images/S122-BWMAreas.png[]
+
+As a sub-type of *FeatureType*, the attributes and associations of *FeatureType* are inherited by *InformationArea* and available to the cartographer.
+For example, regulations may be encoded in a *Regulations* type referenced by the *InformationArea* feature instance.
+
+Seasonal periodicity or fixed temporal limits may be encoded using _periodicDateRange_ and _fixedDateRange_, which are inherited from *FeatureType*.
+
+==== Remarks
+
+

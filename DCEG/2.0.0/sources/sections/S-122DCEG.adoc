@@ -1,0 +1,3638 @@
+[%portrait]
+<<<
+
+
+== Meta Feature Types
+
+=== Data Coverage
+
+*Definition* : A geographical area that describes the coverage and extent of spatial objects.
+
+*CamelCase* : DataCoverage
+
+*Alias* : M_COVR
+
+*SuperType* : 
+
+*FeatureUseType* : meta
+
+*Primitive* : surface 
+
+*Remarks* : No remarks.
+
+*AttributeBindings* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|S-10x Attribute|S-57 Acronym|Allowable Encoding Value|Type|Multiplicity
+|Maximum Display Scale|||IN|1, 1
+|Minimum Display Scale|||IN|1, 1
+|Optimum Display Scale|(CSCALE)||IN|0, 1
+|===
+
+==== General
+
+The meta feature Data Coverage encodes the area covered by the dataset. This feature is also used to provide 
+the ECDIS with the scale information necessary for the determination of dataset loading and unloading in relation 
+to the user selected viewing scale in the ECDIS. There must be a minimum of one Data Coverage feature in a 
+dataset. Data Coverage features must cover at least the extent of the spatial types in the dataset, and must not 
+overlap. 
+
+EDITOR: S-122 2.0.0 is not scale-independent since it uses DataCoverage objects for loading/unloading(?)
+
+The use of S-122 data is scale-independent (see clause 2.8) and minimum display scale will normally be (null) 
+and maximum display scale 1000 (the extreme values in the table of scales in the S-101 ENC, see Table 2-11).
+
+Should a producer need to encode different maximum and minimum display scales from the extreme (i.e., create 
+scale-dependent datasets), the values of maximum and minimum display scales should be harmonized with 
+base layer S-101 datasets (see the S-101 DCEG clause X.X).
+
+The mandatory attribute maximumDisplayScale is used to indicate the largest intended viewing scale 
+for the data. 
+ 
+The mandatory attribute minimumDisplayScale is used to indicate the smallest intended viewing 
+scale for the data.
+  
+Given that S-122 data will overlay ENC and possibly other datasets, the conditions described in S-101 clause 
+for displaying overscale warnings and setting the viewing scale may be overridden by interoperability 
+constraints or the presence of higher-priority datasets. The specification of such behaviour is out of scope for 
+this document (the S-100 interoperability specification should address it for ECDIS).
+
+==== Remarks
+
+This meta feature is intended to support an indication of coverage.
+
+* Where a dataset consists of only one DataCoverage feature, the value for the maximum 
+display scale populated in the dataset discovery metadata must be the same as the value 
+populated for maximum display scale on the DataCoverage.
+
+* For any DataCoverage feature, maximum display scale < minimum display scale.
+
+* S-122 does not use the NULL value, which is permitted in S-101 for minimumDisplayScale 
+when maximumDisplayScale=10,000,000. An appropriate greater value may be used 
+instead. 
+ 
+
+=== Quality of Non-Bathymetric Data
+
+*Definition* : An area within which a uniform assessment of the quality of the non-bathymetric data exists.
+
+*CamelCase* : QualityOfNonBathymetricData
+
+*Alias* : M_ACCY
+
+*SuperType* : 
+
+*FeatureUseType* : meta
+
+*Primitive* : surface 
+
+*Remarks* : No remarks.
+
+*AttributeBindings* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|S-10x Attribute|S-57 Acronym|Allowable Encoding Value|Type|Multiplicity
+|Category of Temporal Variation||1:Extreme Event +
+4:Likely to Change +
+5:Unlikely to Change +
+6:Unassessed +
+|EN|0, 1
+|Horizontal Distance Uncertainty|(HORACC)||RE|0, 1
+|Horizontal Position Uncertainty|(POSACC)||C|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Uncertainty Fixed|(POSACC)||(S) RE|1, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Uncertainty Variable Factor|||(S) RE|0, 1
+|Orientation Uncertainty|||RE|0, 1
+|Survey Date Range|||C|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date Start|(DATSTA)||(S) TD|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date End|(DATEND)||(S) TD|1, 1
+|Information|(INFORM)||C|0, *
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;File Locator|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;File Reference|(TXTDSC)||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Headline|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Language|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Text|(INFORM)||(S) TE|0, 1
+|===
+
+
+== Geographic Feature Types
+
+=== Feature Type
+
+*Definition* : Generalized feature type which carries all the common attributes.
+
+*CamelCase* : FeatureType
+
+*Alias* : 
+
+*SuperType* : 
+
+*FeatureUseType* : geographic
+
+*Primitive* : noGeometry 
+
+*Remarks* : No remarks.
+
+*AttributeBindings* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|S-10x Attribute|S-57 Acronym|Allowable Encoding Value|Type|Multiplicity
+|Interoperability Identifier|||UN|0, *
+|Feature Name|||C|0, *
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Language|||(S) TE|1, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Name|(OBJNAM)||(S) TE|1, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Name Usage||1:Default Name Display +
+2:Alternate Name Display +
+3:No Chart Display +
+|(S) EN|0, 1
+|Fixed Date Range|||C|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date Start|(DATSTA)||(S) TD|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date End|(DATEND)||(S) TD|0, 1
+|Periodic Date Range|||C|0, *
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date Start|(DATSTA)||(S) TD|1, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date End|(DATEND)||(S) TD|1, 1
+|RxN Code|||C|0, *
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Category of RxN||1:Navigation +
+2:Communication +
+3:Environmental Protection +
+4:Wildlife Protection +
+5:Security +
+6:Customs +
+7:Cargo Operation +
+8:Refuge +
+9:Health +
+10:Natural Resources or Exploitation +
+11:Port +
+12:Finance +
+13:Agriculture +
+|(S) CL|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Action or Activity||1:Navigating With a Pilot +
+2:Entering Port +
+3:Leaving Port +
+4:Berthing +
+5:Slipping +
+6:Anchoring +
+7:Weighing Anchor +
+8:Transiting +
+9:Overtaking +
+10:Reporting +
+11:Working Cargo +
+12:Landing +
+13:Diving +
+14:Fishing +
+15:Discharging Overboard +
+16:Passing +
+17:Ballast Water Exchange +
+18:Hull Cleaning +
+|(S) CL|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Headline|||(S) TE|0, 1
+|Graphic|||C|0, *
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pictorial Representation|(PICREP)||(S) TE|1, *
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Picture Caption|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Source Date|(SORDAT)||(S) DA|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Picture Information|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bearing Information|||(S) C|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cardinal Direction|(CARDIR)|1:North +
+2:North Northeast +
+3:Northeast +
+4:East Northeast +
+5:East +
+6:East Southeast +
+7:Southeast +
+8:South Southeast +
+9:South +
+10:South Southwest +
+11:Southwest +
+12:West Southwest +
+13:West +
+14:West Northwest +
+15:Northwest +
+16:North Northwest +
+|(S) EN|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Distance|||(S) RE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Information|(INFORM)||(S) C|0, *
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;File Locator|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;File Reference|(TXTDSC)||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Headline|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Language|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Text|(INFORM)||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Orientation|||(S) C|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Orientation Uncertainty|||(S) RE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Orientation Value|(ORIENT)||(S) RE|1, 1
+|Source Indication|||C|0, *
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Category of Authority|(CATAUT)||(S) EN|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Country Name|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Source|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Source Type||1:Law or Regulation +
+2:Official Publication +
+7:Mariner Report, Confirmed +
+8:Mariner Report, Not Confirmed +
+9:Industry Publications and Reports +
+10:Remotely Sensed Images +
+11:Photographs +
+12:Products Issued by HO Services +
+13:News Media +
+14:Traffic Data +
+|(S) EN|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reported Date|(SORDAT)||(S) TD|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feature Name|||(S) C|0, *
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Language|||(S) TE|1, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Name|(OBJNAM)||(S) TE|1, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Name Usage||1:Default Name Display +
+2:Alternate Name Display +
+3:No Chart Display +
+|(S) EN|0, 1
+|Text Content|(TXTCON)||C|0, *
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Category of Text|(CATTXT)|1:Abstract or Summary +
+2:Extract +
+3:Full Text +
+|(S) EN|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Source|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Source Type||1:Law or Regulation +
+2:Official Publication +
+7:Mariner Report, Confirmed +
+8:Mariner Report, Not Confirmed +
+9:Industry Publications and Reports +
+10:Remotely Sensed Images +
+11:Photographs +
+12:Products Issued by HO Services +
+13:News Media +
+14:Traffic Data +
+|(S) EN|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reported Date|(SORDAT)||(S) TD|0, 1
+|===
+
+*InfomationBindings* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|Type|Association Name|Class|Role|Multiplicity
+|association|Permission Type|Applicability|permission|0, *
+|association|Associated RxN|AbstractRxN|theRxN|0, *
+|association|Additional information|NauticalInformation|theInformation|0, *
+|===
+
+==== Geographic features in general
+
+Where a complex attribute has all its sub-attributes optional (e.g., multiplicity 0..1 or 0..*), at least one of the sub-attributes must be populated. 
+
+The featureName attribute in complex attribute sourceIndication is intended for the name of the source.
+
+The additionalInformation association to a NauticalInfomation object can be used to attach an additional chunk of information to an information type, and there is no applicable specific information type or association. This should be used sparingly if at all. 
+Restrictions, regulations, etc., related to geographic features
+
+Navigation and other activities in areas can be limited by regulations/restrictions and recommendations. That information is usually provided by relevant authorities. If the feature has specific attributes to encode such information (such as a restriction attribute), those attributes must be used wherever possible; if  the specific attributes are insufficient, an appropriate Restrictions, Regulations, Recommendations, or NauticalInformation information type can be associated to the feature using an associatedRxN association. 
+Restrictions, regulations, etc., that depend on vessel characteristics 
+
+Information that is conditional on vessel characteristics may be encoded using the PermissionType association to an information type that defines the set of vessels to which the conditions apply. (See sections 2.5, 7.8, and 8.1 of this DCEG and section 6.2 of the S-122 Product Specification for more information about coding such conditions.)
+
+
+=== Information Area
+
+*Definition* : An area for which general information regarding navigation, but not directly related to safety of navigation, is available.
+
+*CamelCase* : InformationArea
+
+*Alias* : M_NPUB
+
+*SuperType* : 
+
+*FeatureUseType* : geographic
+
+*Primitive* : surface 
+
+*Remarks* : No remarks.
+
+*AttributeBindings* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|S-10x Attribute|S-57 Acronym|Allowable Encoding Value|Type|Multiplicity
+|Category of Relationship||1:Prohibited +
+3:Permitted +
+|EN|1, 1
+|Action or Activity||17:Ballast Water Exchange +
+|CL|1, 1
+|===
+
+==== General
+
+The **InformationArea** feature is used to encode areas for which ballast water management rules have been defined.
+Encode the areas using an InformationArea feature and set the attributes as follows:
+
+* actionOrActivity is set to "Ballast Water Exchange"
+* categoryOfRelationship attribute is set to either __prohibited__ or __permitted__ to indicate whether it is an area where ballast water exchange is prohibited or permitted.
+
+Special regulations pertaining to the area, if any, can be encoded using a **Regulations** information type and associating the **InformationArea** feature to the **Regulations** instance
+using an **AssociatedRxN** association, which **InformationArea** inherits from its super-type **FeatureType**. Similarly, any recommendations, restrictions, or general information can be encoded
+using the appropriate information type (Recommendations, Restrictions, or NauticalInformation).
+
+[[fig_BWMAreas]]
+.Ballast Water Management Areas
+image::S122-BWMAreas.png[]
+
+
+=== Marine Protected Area
+
+*Definition* : Any area of the intertidal or sub-tidal terrain, together with its overlying water and associated flora, fauna, historical and cultural features, which has been reserved by law or other effective means to protect part or all of the enclosed environment.
+
+*CamelCase* : MarineProtectedArea
+
+*Alias* : MPAARE
+
+*SuperType* : 
+
+*FeatureUseType* : geographic
+
+*Primitive* : curve surface 
+
+*Remarks* : No remarks.
+
+*AttributeBindings* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|S-10x Attribute|S-57 Acronym|Allowable Encoding Value|Type|Multiplicity
+|Category of Marine Protected Area||1:IUCN Category Ia +
+2:IUCN Category Ib +
+3:IUCN Category II +
+4:IUCN Category III +
+5:IUCN Category IV +
+6:IUCN Category V +
+7:IUCN Category VI +
+|CL|1, *
+|Category of Restricted Area|(CATREA)|1:Offshore Safety Zone +
+4:Nature Reserve +
+5:Bird Sanctuary +
+6:Game Reserve +
+7:Seal Sanctuary +
+10:Historic Wreck Area +
+20:Research Area +
+22:Fish Sanctuary +
+23:Ecological Reserve +
+27:Environmentally Sensitive Sea Area +
+28:Particularly Sensitive Sea Area +
+31:Coral Sanctuary +
+32:Recreation Area +
+33:Ship Pollution Emission Control +
+|EN|0, *
+|Jurisdiction|(JRSDTN)|1:International +
+2:National +
+3:National Sub-Division +
+|EN|0, 1
+|Restriction|(RESTRN)|1:Anchoring Prohibited +
+2:Anchoring Restricted +
+3:Fishing Prohibited +
+4:Fishing Restricted +
+5:Trawling Prohibited +
+6:Trawling Restricted +
+7:Entry Prohibited +
+8:Entry Restricted +
+9:Dredging Prohibited +
+10:Dredging Restricted +
+11:Diving Prohibited +
+12:Diving Restricted +
+13:No Wake +
+14:Area To Be Avoided +
+15:Construction Prohibited +
+16:Discharging Prohibited +
+17:Discharging Restricted +
+18:Industrial or Mineral Exploration/Development Prohibited +
+19:Industrial or Mineral Exploration/Development Restricted +
+20:Drilling Prohibited +
+21:Drilling Restricted +
+22:Removal of Historical Artefacts Prohibited +
+23:Cargo Transhipment (Lightening) Prohibited +
+24:Dragging Prohibited +
+25:Stopping Prohibited +
+26:Landing Prohibited +
+27:Speed Restricted +
+38:Use of Spuds Prohibited +
+39:Swimming Prohibited +
+40:SOx Emission Restricted +
+41:NOx Emission Restricted +
+42:Power-Driven Vessels Prohibited +
+|EN|0, *
+|Status|(STATUS)|1:Permanent +
+2:Occasional +
+3:Recommended +
+4:Not in Use +
+5:Periodic/Intermittent +
+6:Reserved +
+7:Temporary +
+9:Mandatory +
+18:Existence Doubtful +
+28:Buoyed +
+13:Historic +
+14:Public +
+|EN|0, *
+|Designation|||C|0, *
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Designation Scheme|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Designation Identifier|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Jurisdiction|(JRSDTN)|1:International +
+2:National +
+3:National Sub-Division +
+|(S) EN|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Text|(INFORM)||(S) TE|0, 1
+|===
+
+*InfomationBindings* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|Type|Association Name|Class|Role|Multiplicity
+|association|Protected area authority|Authority|responsibleAuthority|0, *
+|===
+
+==== Protected area categories
+ 
+The Marine Protected Area categoryOfMarineProtectedArea attribute is an open enumeration codelist whose ‘standard’ values are specified by the IUCN categorization. National or other categorizations may be used for ‘additional’ values by agreement, but must be discussed with the S-122 project specification team before use. Producers must not use local categorizations unilaterally, without discussion. 
+If the value cannot be provided the categoryOfMarineProtectedArea attribute has to set to "unknown".
+
+==== Restrictions and regulations for protected areas
+
+Navigation within Marine Protected areas can be limited by regulations/restrictions and recommendations. That information is usually provided by relevant authorities. If the restriction attribute suffices to encode such information, it must be used; otherwise an appropriate Restrictions, Regulations, Recommendations, or NauticalInformation information type can be associated to the MarineProtectedArea. 
+Information that is conditional on vessel characteristics may be encoded using the PermissionType association to an information type that defines the set of vessels to which the conditions apply. (See Section 6.2 of the S-122 Product Specification and sections 2.5 and 7.8 of this DCEG for more information about coding such conditions.)
+
+==== Natura 2000 categories
+
+The complex attribute __designation__ should be used to encode Natura 2000 area classifications. The sub-attributes of __designation__ must be encoded as follows:
+
+* The sub-attribute __designationScheme__ must be populated with the string "Natura2000" (without quotes) optionally suffixed with the identifier of the list,
+using a colon as separator. For example, Natura2000:eea_t_natura2000_p_2023_v01_r00.
+* The sub-attribute __designationIdentifier__ must be populated with the official identifier in the Natura 2000 list, for example NL2008001
+
+
+=== Restricted Area
+
+*Definition* : A specified area designated by an appropriate authority within which navigation is restricted in accordance with certain specified conditions.
+
+*CamelCase* : RestrictedArea
+
+*Alias* : RESARE
+
+*SuperType* : 
+
+*FeatureUseType* : geographic
+
+*Primitive* : surface 
+
+*Remarks* : No remarks.
+
+*AttributeBindings* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|S-10x Attribute|S-57 Acronym|Allowable Encoding Value|Type|Multiplicity
+|Category of Restricted Area|(CATREA)|1:Offshore Safety Zone +
+4:Nature Reserve +
+5:Bird Sanctuary +
+6:Game Reserve +
+7:Seal Sanctuary +
+10:Historic Wreck Area +
+20:Research Area +
+22:Fish Sanctuary +
+23:Ecological Reserve +
+27:Environmentally Sensitive Sea Area +
+28:Particularly Sensitive Sea Area +
+31:Coral Sanctuary +
+32:Recreation Area +
+33:Ship Pollution Emission Control +
+|EN|0, *
+|Restriction|(RESTRN)|1:Anchoring Prohibited +
+2:Anchoring Restricted +
+3:Fishing Prohibited +
+4:Fishing Restricted +
+5:Trawling Prohibited +
+6:Trawling Restricted +
+7:Entry Prohibited +
+8:Entry Restricted +
+9:Dredging Prohibited +
+10:Dredging Restricted +
+11:Diving Prohibited +
+12:Diving Restricted +
+13:No Wake +
+14:Area To Be Avoided +
+15:Construction Prohibited +
+16:Discharging Prohibited +
+17:Discharging Restricted +
+18:Industrial or Mineral Exploration/Development Prohibited +
+19:Industrial or Mineral Exploration/Development Restricted +
+20:Drilling Prohibited +
+21:Drilling Restricted +
+22:Removal of Historical Artefacts Prohibited +
+23:Cargo Transhipment (Lightening) Prohibited +
+24:Dragging Prohibited +
+25:Stopping Prohibited +
+26:Landing Prohibited +
+27:Speed Restricted +
+38:Use of Spuds Prohibited +
+39:Swimming Prohibited +
+40:SOx Emission Restricted +
+41:NOx Emission Restricted +
+42:Power-Driven Vessels Prohibited +
+|EN|1, *
+|Status|(STATUS)|1:Permanent +
+2:Occasional +
+3:Recommended +
+4:Not in Use +
+5:Periodic/Intermittent +
+6:Reserved +
+7:Temporary +
+9:Mandatory +
+18:Existence Doubtful +
+28:Buoyed +
+13:Historic +
+14:Public +
+|EN|0, *
+|===
+
+INT 1 Reference: L 3, 5.2; M 29.1, N 2.1-2, 20-22, 25, 26, 31, 34, 63
+
+==== Restricted areas in general (see S-4 – B-431.4; B-435.7; B-435.11; B-437.1-7; B-439.2-4; B-445.9; B-448; B-448.1 and B-449.5)
+
+There are many types of areas within which certain activities are discouraged or prohibited, or from which certain classes of vessels are excluded. The general term for all areas in which certain aspects of navigation may be restricted or prohibited by regulations is “Restricted Area”, or equivalent. The word “prohibited”, or its equivalent, may appear in terms relating to activities which are contrary to the regulations, e.g. “Anchoring Prohibited”, “Entry Prohibited”. 
+If it is required to encode a restricted area, it must be done using the feature Restricted Area or Marine Protected Areas. 
+
+Restricted Areas should be encoded in S-122 datasets only when they are one of the listed categories or otherwise related to marine protected areas, environmental, or wildlife protection.  
+
+The attribute category of restricted area is used to describe the type of area, while the attribute restriction describes the restrictions. 
+An associated instance of the information types Restrictions, Regulations, Recommendations and Nautical Information, complex attributes text content sub-attribute information or solely attribute information may be used to provide an additional explanation about the restriction, where required. 
+
+==== Nature reserves (see S-4 – B-437.3)
+
+If it is required to encode a marine nature reserve area with navigational restrictions, it must be done using a Restricted Area feature, with attribute category of restricted area = 4 (nature reserve). 
+
+==== Speed limits (see S-4 – B-430.2)
+
+Speed is often limited inside MPAs in order to protect the species that inhabit the area. If it is required to encode this restriction, it must be done using a Restricted Area Navigational feature, with the attribute restriction = 27 (speed restricted), with the speed limit and its unit of measurement encoded using an associated instance of the information type Regulations(see clause 7.9),  
+
+==== Areas to be avoided (see S-4 – B-435.7)
+
+If it is required to encode an IMO designated Area to be Avoided, it must be done using a Restricted Area Navigational feature, with attribute restriction = 14 (area to be avoided).  
+
+==== Environmentally Sensitive Sea Areas (see S-4 – B-437)
+ 
+If it is required to encode an Environmentally Sensitive Sea Area with navigational restrictions, it must be done using a Restricted Area Navigational feature, with attribute category of restricted area = 27 (ESSA) or 28 (PSSA). 
+An Environmentally Sensitive Sea Area that is shown on the source as a point symbol should be encoded using a small surface Restricted Area Navigational feature. 
+
+==== Anchoring restricted (see S-4 – B-431.4)
+
+If it is required to encode a restricted anchoring area, it must be done using a Restricted Area Regulatory feature or using other features with the attribute restriction, where restriction = 1 (anchoring prohibited) or 2 (anchoring restricted). Additional information about the restriction should be encoded using an associated instance of the information class Nautical Information, complex attribute information.
+
+Distinction: Marine Protected Area;
+
+
+=== Vessel Traffic Service Area
+
+*Definition* : The area of any service implemented by a relevant authority primarily designed to improve safety and efficiency of traffic flow and the protection of the environment. It may range from simple information messages, to extensive organisation of the traffic involving national or regional schemes.
+
+*CamelCase* : VesselTrafficServiceArea
+
+*Alias* : ADMARE VTS Area
+
+*SuperType* : 
+
+*FeatureUseType* : geographic
+
+*Primitive* : surface 
+
+*Remarks* : No remarks.
+
+
+*InfomationBindings* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|Type|Association Name|Class|Role|Multiplicity
+|association|Service control|Authority|controlAuthority|0, 1
+|===
+
+
+==== General
+ 
+Vessel traffic service areas are encoded in S-122 datasets only when they are related to protected area information in some way, for example if it is necessary to provide information about reporting entry into and departure from a protected area.
+
+
+== Cartographic Feature Types
+
+=== Text Placement
+
+*Definition* : The Text Placement feature is used in association with the Feature Name attribute or a light description to optimize text positioning in ECDIS.
+
+*CamelCase* : TextPlacement
+
+*Alias* : 
+
+*SuperType* : 
+
+*FeatureUseType* : cartographic
+
+*Primitive* : point 
+
+*Remarks* : No remarks.
+
+*AttributeBindings* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|S-10x Attribute|S-57 Acronym|Allowable Encoding Value|Type|Multiplicity
+|Text Offset Bearing|||IN|1, 1
+|Text Offset Distance|||IN|1, 1
+|Text Rotation|||BO|0, 1
+|Text Type||1:Name +
+|EN|1, 2
+|Scale Minimum|(SCAMIN)||IN|0, 1
+|===
+
+
+== Information Types
+
+=== Information Type
+
+*Definition* : Generalized information type which carries all the common attributes.
+
+*CamelCase* : InformationType
+
+*Alias* : 
+
+*SuperType* : 
+
+*AttributeBindings* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|S-10x Attribute|S-57 Acronym|Allowable Encoding Value|Type|Multiplicity
+|Feature Name|||C|0, *
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Language|||(S) TE|1, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Name|(OBJNAM)||(S) TE|1, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Name Usage||1:Default Name Display +
+2:Alternate Name Display +
+3:No Chart Display +
+|(S) EN|0, 1
+|Fixed Date Range|||C|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date Start|(DATSTA)||(S) TD|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date End|(DATEND)||(S) TD|0, 1
+|Periodic Date Range|||C|0, *
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date Start|(DATSTA)||(S) TD|1, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date End|(DATEND)||(S) TD|1, 1
+|Graphic|||C|0, *
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pictorial Representation|(PICREP)||(S) TE|1, *
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Picture Caption|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Source Date|(SORDAT)||(S) DA|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Picture Information|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bearing Information|||(S) C|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cardinal Direction|(CARDIR)|1:North +
+2:North Northeast +
+3:Northeast +
+4:East Northeast +
+5:East +
+6:East Southeast +
+7:Southeast +
+8:South Southeast +
+9:South +
+10:South Southwest +
+11:Southwest +
+12:West Southwest +
+13:West +
+14:West Northwest +
+15:Northwest +
+16:North Northwest +
+|(S) EN|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Distance|||(S) RE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Information|(INFORM)||(S) C|0, *
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;File Locator|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;File Reference|(TXTDSC)||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Headline|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Language|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Text|(INFORM)||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Orientation|||(S) C|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Orientation Uncertainty|||(S) RE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Orientation Value|(ORIENT)||(S) RE|1, 1
+|Source Indication|||C|0, *
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Category of Authority|(CATAUT)||(S) EN|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Country Name|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Source|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Source Type||1:Law or Regulation +
+2:Official Publication +
+7:Mariner Report, Confirmed +
+8:Mariner Report, Not Confirmed +
+9:Industry Publications and Reports +
+10:Remotely Sensed Images +
+11:Photographs +
+12:Products Issued by HO Services +
+13:News Media +
+14:Traffic Data +
+|(S) EN|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reported Date|(SORDAT)||(S) TD|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feature Name|||(S) C|0, *
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Language|||(S) TE|1, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Name|(OBJNAM)||(S) TE|1, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Name Usage||1:Default Name Display +
+2:Alternate Name Display +
+3:No Chart Display +
+|(S) EN|0, 1
+|===
+
+
+=== AbstractRxN
+
+*Definition* : An abstract superclass for information types that encode rules, recommendations, and general information in text or graphic form.
+
+*CamelCase* : AbstractRxN
+
+*Alias* : 
+
+*SuperType* : 
+
+*AttributeBindings* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|S-10x Attribute|S-57 Acronym|Allowable Encoding Value|Type|Multiplicity
+|Category of Authority|(CATAUT)|2:Border Control +
+3:Police +
+4:Port +
+5:Immigration +
+6:Health +
+7:Coast Guard +
+8:Agricultural +
+9:Military +
+10:Private Company +
+11:Maritime Police +
+12:Environmental +
+13:Fishery +
+14:Finance +
+15:Maritime +
+16:Customs +
+|EN|0, 1
+|RxN Code|||C|0, *
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Category of RxN||1:Navigation +
+2:Communication +
+3:Environmental Protection +
+4:Wildlife Protection +
+5:Security +
+6:Customs +
+7:Cargo Operation +
+8:Refuge +
+9:Health +
+10:Natural Resources or Exploitation +
+11:Port +
+12:Finance +
+13:Agriculture +
+|(S) CL|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Action or Activity||1:Navigating With a Pilot +
+2:Entering Port +
+3:Leaving Port +
+4:Berthing +
+5:Slipping +
+6:Anchoring +
+7:Weighing Anchor +
+8:Transiting +
+9:Overtaking +
+10:Reporting +
+11:Working Cargo +
+12:Landing +
+13:Diving +
+14:Fishing +
+15:Discharging Overboard +
+16:Passing +
+17:Ballast Water Exchange +
+18:Hull Cleaning +
+|(S) CL|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Headline|||(S) TE|0, 1
+|Text Content|(TXTCON)||C|0, *
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Category of Text|(CATTXT)|1:Abstract or Summary +
+2:Extract +
+3:Full Text +
+|(S) EN|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Source|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Source Type||1:Law or Regulation +
+2:Official Publication +
+7:Mariner Report, Confirmed +
+8:Mariner Report, Not Confirmed +
+9:Industry Publications and Reports +
+10:Remotely Sensed Images +
+11:Photographs +
+12:Products Issued by HO Services +
+13:News Media +
+14:Traffic Data +
+|(S) EN|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reported Date|(SORDAT)||(S) TD|0, 1
+|===
+
+*InfomationBindings* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|Type|Association Name|Class|Role|Multiplicity
+|association|InclusionType|Applicability|isApplicableTo|0, *
+|association|Related organisation|Authority|theOrganisation|0, *
+|===
+
+=== Applicability
+
+*Definition* : Describes the relationship between vessel characteristics and: (i) the applicability of an associated information object or feature to the vessel; or, (ii) the use of a facility, place, or service by the vessel; or, (iii) passage of the vessel through an area.
+
+*CamelCase* : Applicability
+
+*Alias* : 
+
+*SuperType* : 
+
+*AttributeBindings* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|S-10x Attribute|S-57 Acronym|Allowable Encoding Value|Type|Multiplicity
+|In Ballast|||BO|0, 1
+|Category of Cargo|(CATCGO)|1:Bulk +
+2:Container +
+3:General +
+4:Liquid +
+5:Passenger +
+6:Livestock +
+7:Dangerous or Hazardous +
+8:Heavy Lift +
+10:Dry Bulk Cargo +
+11:Liquid Bulk Cargo +
+12:Reefer Container Cargo +
+13:Ro-Ro Cargo +
+14:Project Cargo +
+15:Break Bulk Cargo +
+|EN|0, *
+|Category Of Dangerous Or Hazardous Cargo|(CATDHC)|1:IMDG Code Class 1 Div. 1.1 +
+2:IMDG Code Class 1 Div. 1.2 +
+3:IMDG Code Class 1 Div. 1.3 +
+4:IMDG Code Class 1 Div. 1.4 +
+5:IMDG Code Class 1 Div. 1.5 +
+6:IMDG Code Class 1 Div. 1.6 +
+7:IMDG Code Class 2 Div. 2.1 +
+8:IMDG Code Class 2 Div. 2.2 +
+9:IMDG Code Class 2 Div. 2.3 +
+10:IMDG Code Class 3 +
+11:IMDG Code Class 4 Div. 4.1 +
+12:IMDG Code Class 4 Div. 4.2 +
+13:IMDG Code Class 4 Div. 4.3 +
+14:IMDG Code Class 5 Div. 5.1 +
+15:IMDG Code Class 5 Div. 5.2 +
+16:IMDG Code Class 6 Div. 6.1 +
+17:IMDG Code Class 6 Div. 6.2 +
+18:IMDG Code Class 7 +
+19:IMDG Code Class 8 +
+20:IMDG Code Class 9 +
+21:Harmful Substances in Packaged Form +
+|EN|0, *
+|Category of Vessel||1:General Cargo Vessel +
+2:Container Carrier +
+3:Tanker +
+4:Bulk Carrier +
+5:Passenger Vessel +
+6:Roll-On Roll-Off +
+7:Refrigerated Cargo Vessel +
+8:Fishing Vessel +
+9:Service +
+10:Warship +
+11:Towed or Pushed Composite Unit +
+12:Tug and Tow +
+13:Light Recreational +
+14:Semi-Submersible Offshore Installation +
+15:Jack-Up Exploration or Project Installation +
+16:Livestock Carrier +
+17:Sport Fishing +
+|CL|0, 1
+|Category of Vessel Registry||1:Domestic +
+2:Foreign +
+|EN|0, 1
+|Logical Connectives|(LOGCON)|1:Logical Conjunction +
+2:Logical Disjunction +
+|EN|0, 1
+|Thickness of Ice Capability|||IN|0, 1
+|Vessel Performance|||TE|0, 1
+|Destination|||TE|0, 1
+|Information|(INFORM)||C|0, *
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;File Locator|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;File Reference|(TXTDSC)||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Headline|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Language|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Text|(INFORM)||(S) TE|0, 1
+|Vessel Measurements Specification|||C|0, *
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Comparison Operator|(COMPOP)|1:Greater Than +
+2:Greater Than or Equal To +
+3:Less Than +
+4:Less Than or Equal To +
+5:Equal To +
+6:Not Equal To +
+|(S) EN|1, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vessels Characteristics||1:Length Overall +
+2:Length at Waterline +
+3:Breadth +
+4:Draught +
+6:Displacement Tonnage +
+7:Displacement Tonnage, Light +
+8:Displacement Tonnage, Loaded +
+9:Deadweight Tonnage +
+10:Gross Tonnage +
+11:Net Tonnage +
+12:Panama Canal/Universal Measurement System Net Tonnage +
+13:Suez Canal Net Tonnage +
+|(S) EN|1, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vessels Characteristics Value|||(S) RE|1, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vessels Characteristics Unit|(VSLUNT)|1:Metres +
+3:Metric Ton +
+4:Ton +
+5:Short Ton +
+6:Gross Ton +
+7:Net Ton +
+9:Suez Canal Net Tonnage +
+|(S) EN|1, 1
+|===
+
+*InfomationBindings* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|Type|Association Name|Class|Role|Multiplicity
+|association|InclusionType|AbstractRxN|theApplicableRxN|0, *
+|===
+
+=== Authority
+
+*Definition* : A person or organisation having political or administrative power and control.
+
+*CamelCase* : Authority
+
+*Alias* : 
+
+*SuperType* : 
+
+*AttributeBindings* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|S-10x Attribute|S-57 Acronym|Allowable Encoding Value|Type|Multiplicity
+|Category of Authority|(CATAUT)|2:Border Control +
+3:Police +
+4:Port +
+5:Immigration +
+6:Health +
+7:Coast Guard +
+8:Agricultural +
+9:Military +
+10:Private Company +
+11:Maritime Police +
+12:Environmental +
+13:Fishery +
+14:Finance +
+15:Maritime +
+16:Customs +
+|EN|1, 1
+|Text Content|(TXTCON)||C|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Category of Text|(CATTXT)|1:Abstract or Summary +
+2:Extract +
+3:Full Text +
+|(S) EN|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Source|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Source Type||1:Law or Regulation +
+2:Official Publication +
+7:Mariner Report, Confirmed +
+8:Mariner Report, Not Confirmed +
+9:Industry Publications and Reports +
+10:Remotely Sensed Images +
+11:Photographs +
+12:Products Issued by HO Services +
+13:News Media +
+14:Traffic Data +
+|(S) EN|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reported Date|(SORDAT)||(S) TD|0, 1
+|===
+
+*InfomationBindings* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|Type|Association Name|Class|Role|Multiplicity
+|association|Authority contact|ContactDetails|theContactDetails|0, *
+|association|Related organisation|AbstractRxN|organisationRelatedRxN|0, *
+|association|Authority hours|ServiceHours|theServiceHours|0, *
+|===
+
+=== Contact Details
+
+*Definition* : Information on how to reach a person or organisation by postal, internet, telephone, telex and radio systems.
+
+*CamelCase* : ContactDetails
+
+*Alias* : 
+
+*SuperType* : 
+
+*AttributeBindings* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|S-10x Attribute|S-57 Acronym|Allowable Encoding Value|Type|Multiplicity
+|Call Name|||TE|0, 1
+|Call Sign|(CALSGN)||TE|0, 1
+|Category of Communication Preference||1:Preferred Calling +
+2:Alternate Calling +
+3:Preferred Working +
+4:Alternate Working +
+|EN|0, 1
+|Communication Channel|(COMCHA)||TE|0, *
+|Contact Instructions|||TE|0, 1
+|Language|||TE|0, *
+|MMSI Code|||TE|0, 1
+|Contact Address|||C|0, *
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Delivery Point|(DELPNT)||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;City Name|(CITYNM)||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Administrative Division|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Country Name|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Postal Code|(POSCOD)||(S) TE|0, 1
+|Frequency Pair|(FRQPAR)||C|0, *
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Frequency Shore Station Receives|(FRQRXV)||(S) IN|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Frequency Shore Station Transmits|(FRQTXM)||(S) IN|0, 1
+|Information|(INFORM)||C|0, *
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;File Locator|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;File Reference|(TXTDSC)||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Headline|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Language|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Text|(INFORM)||(S) TE|0, 1
+|Online Resource|||C|0, *
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Linkage|||(S) UI|1, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Protocol|(PROTCL)||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Application Profile|(APPPRF)||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Name of Resource|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Online Resource Description|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Protocol Request|(PROTRQ)||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Online Function||1:Download +
+3:Offline Access +
+4:Order +
+5:Search +
+6:Complete Metadata +
+7:Browse Graphic +
+8:Upload +
+9:Email Service +
+10:Browsing +
+11:File Access +
+|(S) EN|0, 1
+|Telecommunications|||C|0, *
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Category of Communication Preference||1:Preferred Calling +
+2:Alternate Calling +
+3:Preferred Working +
+4:Alternate Working +
+|(S) EN|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Telecommunication Identifier|||(S) TE|1, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Telecommunication Carrier|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contact Instructions|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Telecommunication Service||1:Voice +
+2:Facsimile +
+3:SMS +
+4:Data +
+5:Streamed Data +
+6:Telex +
+7:Telegraph +
+8:Email +
+|(S) EN|0, *
+|===
+
+*InfomationBindings* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|Type|Association Name|Class|Role|Multiplicity
+|association|Authority contact|Authority|theAuthority|0, *
+|===
+
+=== Nautical Information
+
+*Definition* : Nautical information about a related area or facility.
+
+*CamelCase* : NauticalInformation
+
+*Alias* : 
+
+*SuperType* : 
+
+
+
+=== Non-Standard Working Day
+
+*Definition* : Days when many services are not available. Often days of festivity or recreation or public holidays when normal working hours are limited, especially a national or religious festival, etc.
+
+*CamelCase* : NonStandardWorkingDay
+
+*Alias* : 
+
+*SuperType* : 
+
+*AttributeBindings* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|S-10x Attribute|S-57 Acronym|Allowable Encoding Value|Type|Multiplicity
+|Date Fixed|||TD|0, *
+|Date Variable|||TE|0, *
+|Information|(INFORM)||C|0, *
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;File Locator|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;File Reference|(TXTDSC)||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Headline|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Language|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Text|(INFORM)||(S) TE|0, 1
+|===
+
+
+=== Recommendations
+
+*Definition* : Recommendations for a related area or facility.
+
+*CamelCase* : Recommendations
+
+*Alias* : RCMDTS
+
+*SuperType* : 
+
+
+
+=== Regulations
+
+*Definition* : Regulations for a related area or facility.
+
+*CamelCase* : Regulations
+
+*Alias* : REGLTS
+
+*SuperType* : 
+
+
+
+=== Restrictions
+
+*Definition* : Restrictions for a related area or facility.
+
+*CamelCase* : Restrictions
+
+*Alias* : RESDES
+
+*SuperType* : 
+
+
+
+=== Service Hours
+
+*Definition* : The time when a service is available and known exceptions.
+
+*CamelCase* : ServiceHours
+
+*Alias* : 
+
+*SuperType* : 
+
+*AttributeBindings* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|S-10x Attribute|S-57 Acronym|Allowable Encoding Value|Type|Multiplicity
+|Schedule by Day of Week|||C|1, *
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Category of Schedule||1:Normal Operation +
+2:Closure +
+3:Unmanned Operation +
+|(S) EN|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Time Intervals by Day of Week|||(S) C|1, 10
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Day of Week||1:Sunday +
+2:Monday +
+3:Tuesday +
+4:Wednesday +
+5:Thursday +
+6:Friday +
+7:Saturday +
+|(S) EN|0, 7
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Day of Week is Range|||(S) BO|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Time of Day End|||(S) TI|0, 99
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Time of Day Start|||(S) TI|0, 99
+|Information|(INFORM)||C|0, *
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;File Locator|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;File Reference|(TXTDSC)||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Headline|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Language|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Text|(INFORM)||(S) TE|0, 1
+|===
+
+*InfomationBindings* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|Type|Association Name|Class|Role|Multiplicity
+|association|Exceptional workday|NonStandardWorkingDay|partialWorkingDay|0, *
+|association|Authority hours|Authority|theAuthority_srvHrs|0, *
+|===
+
+=== Spatial Quality
+
+*Definition* : The indication of the quality of the locational information for features in a dataset.
+
+*CamelCase* : SpatialQuality
+
+*Alias* : 
+
+*SuperType* : 
+
+*AttributeBindings* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|S-10x Attribute|S-57 Acronym|Allowable Encoding Value|Type|Multiplicity
+|Quality of Horizontal Measurement|(QUAPOS)|1:Surveyed +
+2:Unsurveyed +
+3:Inadequately Surveyed +
+4:Approximate +
+5:Position Doubtful +
+6:Unreliable +
+7:Reported (Not Surveyed) +
+8:Reported (Not Confirmed) +
+9:Estimated +
+10:Precisely Known +
+11:Calculated +
+|EN|0, 1
+|Spatial Accuracy|||C|0, *
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fixed Date Range|||(S) C|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date Start|(DATSTA)||(S) TD|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date End|(DATEND)||(S) TD|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Horizontal Position Uncertainty|(POSACC)||(S) C|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Uncertainty Fixed|(POSACC)||(S) RE|1, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Uncertainty Variable Factor|||(S) RE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vertical Uncertainty|(VERACC)||(S) C|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Uncertainty Fixed|(POSACC)||(S) RE|1, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Uncertainty Variable Factor|||(S) RE|0, 1
+|===
+
+
+== Simple Attributes
+
+=== Administrative Division
+
+*Definition* : A generic term for an administrative region within a country at a level below that of the sovereign state.
+
+*CamelCase* : administrativeDivision
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+
+=== Application Profile
+
+*Definition* : Name of an application profile that can be used with the online resource.
+
+*CamelCase* : applicationProfile
+
+*Alias* : APPPRF 
+
+*Remarks* : No remarks.
+
+
+=== Call Name
+
+*Definition* : The designated call name of a station; for example, radio station, radar station, pilot.
+
+*CamelCase* : callName
+
+*Alias* : 
+
+*Remarks* : This is the name used when calling a radio station by radio; for example, "Singapore Pilots".
+
+
+=== Call Sign
+
+*Definition* : The designated call-sign of a station (radio station, radar station, pilot, ...).
+
+*CamelCase* : callSign
+
+*Alias* : CALSGN 
+
+*Remarks* : No remarks.
+
+
+=== Cardinal Direction
+
+*Definition* : Principal and intermediate compass points.
+
+*CamelCase* : cardinalDirection
+
+*Alias* : CARDIR 
+
+*Remarks* : No remarks.
+
+*ListedValue* : 
+[cols="a,a,a,*",options="headers"]
+|===
+|Code|Label|Definition
+|1|North|348.75-011.25 degrees (true north).
+|2|North Northeast|011.25 - 033.75 degrees.
+|3|Northeast|033.75 - 056.25 degrees.
+|4|East Northeast|056.25-078.75 degrees.
+|5|East|078.75-101.25 degrees.
+|6|East Southeast|101.25-123.75 degrees.
+|7|Southeast|123.75-146.25 degrees.
+|8|South Southeast|146.25-168.75 degrees.
+|9|South|168.75-191.25 degrees.
+|10|South Southwest|191.25-213.75 degrees.
+|11|Southwest|213.75-236.25 degrees.
+|12|West Southwest|236.25-258.75 degrees.
+|13|West|258.75-281.25 degrees.
+|14|West Northwest|281.25-303.75 degrees.
+|15|Northwest|303.75 - 326.25 degrees.
+|16|North Northwest|326.25 - 348.75 degrees.
+|===
+
+=== Category of Authority
+
+*Definition* : The type of person, government agency or organisation granted powers of managing or controlling access to and/or activity in an area.
+
+*CamelCase* : categoryOfAuthority
+
+*Alias* : CATAUT 
+
+*Remarks* : No remarks.
+
+*ListedValue* : 
+[cols="a,a,a,*",options="headers"]
+|===
+|Code|Label|Definition
+|2|Border Control|The administration to prevent or detect and prosecute violations of rules and regulations at international boundaries.
+|3|Police|The department of government, or civil force, charged with maintaining public order.
+|4|Port|Person or corporation, owners of, or entrusted with or invested with the power of managing a port. May be called a Harbour Board, Port Trust, Port Commission, Harbour Commission, Marine Department.
+|5|Immigration|The authority controlling people entering a country.
+|6|Health|The authority with responsibility for checking the validity of the health declaration of a vessel and for declaring free pratique.
+|7|Coast Guard|Organization keeping watch on shipping and coastal waters according to governmental law; normally the authority with responsibility for search and rescue.
+|8|Agricultural|The authority with responsibility for preventing infection of the agriculture of a country and for the protection of the agricultural interests of a country.
+|9|Military|A military authority which provides control of access to or approval for transit through designated areas or airspace.
+|10|Private Company|A private or publicly owned company or commercial enterprise which exercises control of facilities, for example a calibration area.
+|11|Maritime Police|A governmental or military force with jurisdiction in territorial waters. Examples could include Gendarmerie Maritime, Carabinierie, and Guardia Civil.
+|12|Environmental|An authority with responsibility for the protection of the environment.
+|13|Fishery|An authority with responsibility for the control of fisheries.
+|14|Finance|An authority with responsibility for the control and movement of money.
+|15|Maritime|A national or regional authority charged with administration of maritime affairs.
+|16|Customs|The agency or establishment for collecting duties, tolls.
+|===
+
+=== Category of Cargo
+
+*Definition* : Classification of the different types of cargo that a ship may be carrying.
+
+*CamelCase* : categoryOfCargo
+
+*Alias* : CATCGO 
+
+*Remarks* : If item 7 is used, the nature of dangerous or hazardous cargoes can be amplified with category of dangerous or hazardous cargo.
+
+*ListedValue* : 
+[cols="a,a,a,*",options="headers"]
+|===
+|Code|Label|Definition
+|1|Bulk|Unpacked homogenous cargo poured loose in a certain space of a vessel, for example oil or grain.
+|2|Container|One of a number of standard sized cargo carrying units, secured using standard corner attachments and bar.
+|3|General|Break bulk cargo normally loaded by crane.
+|4|Liquid|Any cargo loaded by pipeline.
+|5|Passenger|A fee paying traveller.
+|6|Livestock|Live animals carried in bulk.
+|7|Dangerous or Hazardous|Dangerous or hazardous cargo as described by the IMO International Maritime Dangerous Goods code.
+|8|Heavy Lift|Indivisible heavy items of weight generally over 100 tons, and width or height greater than 100 metres.
+|10|Dry Bulk Cargo|Commodity cargo that is transported unpackaged in large quantities. These types of goods usually need to be kept dry during the whole transportation period.
+|11|Liquid Bulk Cargo|Liquids or gases that are transported in bulk and carried unpackaged.
+|12|Reefer Container Cargo|Cargo transported in refrigerated containers, generally perishable commodities which require temperature-controlled transportation, such as fruit, meat, fish, vegetables, dairy products and other foods.
+|13|Ro-Ro Cargo|Wheeled cargo, such as cars, busses, trucks, agricultural vehicles and cranes, that are driven on and off the ship on their own wheels or using a platform vehicle, such as a self-propelled modular transporter.
+|14|Project Cargo|Project cargo is a term used to broadly describe the national or international transportation of large, heavy, high value, or critical (to the project they are intended for) pieces of equipment. Also commonly referred to as heavy lift, this includes shipments made of various components which need disassembly for shipment and reassembly after delivery.
+|15|Break Bulk Cargo|Goods that are stowed on board ship in individually counted units, and not in intermodal containers nor in bulk as with oil or grain.
+|===
+
+=== Category of Communication Preference
+
+*Definition* : Classification of frequencies, VHF channels, telephone numbers, or other means of communication based on preference.
+
+*CamelCase* : categoryOfCommunicationPreference
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*ListedValue* : 
+[cols="a,a,a,*",options="headers"]
+|===
+|Code|Label|Definition
+|1|Preferred Calling|The first choice channel or frequency to be used when calling a radio station.
+|2|Alternate Calling|A channel or frequency to be used for calling a radio station when the preferred channel or frequency is busy or is suffering from interference.
+|3|Preferred Working|The first choice channel or frequency to be used when working with a radio station.
+|4|Alternate Working|A channel or frequency to be used for working with a radio station when the preferred working channel or frequency is busy or is suffering from interference.
+|===
+
+=== Category Of Dangerous Or Hazardous Cargo
+
+*Definition* : Classification of dangerous goods or hazardous materials based on the International Maritime Dangerous Goods Code (IMDG Code).
+
+*CamelCase* : categoryOfDangerousOrHazardousCargo
+
+*Alias* : CATDHC 
+
+*Remarks* : No remarks.
+
+*ListedValue* : 
+[cols="a,a,a,*",options="headers"]
+|===
+|Code|Label|Definition
+|1|IMDG Code Class 1 Div. 1.1|Explosives, Division 1: Substances and articles which have a mass explosion hazard.
+|2|IMDG Code Class 1 Div. 1.2|Explosives, Division 2: Substances and articles which have a projection hazard but not a mass explosion hazard.
+|3|IMDG Code Class 1 Div. 1.3|Explosives, Division 3: Substances and articles which have a fire hazard and either a minor blast hazard or a minor projection hazard or both, but not a mass explosion hazard.
+|4|IMDG Code Class 1 Div. 1.4|Explosives, Division 4: Substances and articles which present no significant hazard.
+|5|IMDG Code Class 1 Div. 1.5|Explosives, Division 5: Very insensitive substances which have a mass explosion hazard.
+|6|IMDG Code Class 1 Div. 1.6|Explosives, Division 6: Extremely insensitive articles which do not have a mass explosion hazard.
+|7|IMDG Code Class 2 Div. 2.1|Gases, flammable gases.
+|8|IMDG Code Class 2 Div. 2.2|Gases, non-flammable, non-toxic gases.
+|9|IMDG Code Class 2 Div. 2.3|Gases, toxic gases.
+|10|IMDG Code Class 3|Flammable liquids.
+|11|IMDG Code Class 4 Div. 4.1|Flammable solids, self-reactive substances and desensitized explosives.
+|12|IMDG Code Class 4 Div. 4.2|Substances liable to spontaneous combustion.
+|13|IMDG Code Class 4 Div. 4.3|Substances which, in contact with water, emit flammable gases.
+|14|IMDG Code Class 5 Div. 5.1|Oxidizing substances.
+|15|IMDG Code Class 5 Div. 5.2|Organic peroxides.
+|16|IMDG Code Class 6 Div. 6.1|Toxic substances.
+|17|IMDG Code Class 6 Div. 6.2|Infectious substances.
+|18|IMDG Code Class 7|Radioactive material.
+|19|IMDG Code Class 8|Corrosive substances.
+|20|IMDG Code Class 9|Miscellaneous dangerous substances and articles.
+|21|Harmful Substances in Packaged Form|Harmful substances are those substances which are identified as marine pollutants in the International Maritime Dangerous Goods Code (IMDG Code). Packaged form is defined as the forms of containment specified for harmful substances in the IMDG Code.
+|===
+
+=== Category of Relationship
+
+*Definition* : Expresses constraints or requirements on vessel actions or activities in relation to a geographic feature, facility, or service.
+
+*CamelCase* : categoryOfRelationship
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*ListedValue* : 
+[cols="a,a,a,*",options="headers"]
+|===
+|Code|Label|Definition
+|1|Prohibited|Use of facility, waterway or service is forbidden.
+|2|Not Recommended|Use of facility, waterway or service is not recommended.
+|3|Permitted|Use of facility, waterway, or service is permitted but not required.
+|4|Recommended|Use of facility, waterway, or service is recommended.
+|5|Required|Use of facility, waterway, or service is required.
+|6|Not Required|Use of facility, waterway, or service is not required.
+|7|Exclusively Permitted|Only vessels of the specified characteristics may use the facility, waterway, or service.
+|===
+
+=== Category of Restricted Area
+
+*Definition* : The official legal status of each kind of restricted area defines the kind of restriction(s), for example the restriction for a 'game reserve' may be 'entering prohibited'.
+
+*CamelCase* : categoryOfRestrictedArea
+
+*Alias* : CATREA 
+
+*Remarks* : No remarks.
+
+*ListedValue* : 
+[cols="a,a,a,*",options="headers"]
+|===
+|Code|Label|Definition
+|1|Offshore Safety Zone|The area around an offshore installation within which vessels are prohibited from entering without permission. Special regulations protect installations within a safety zone and vessels of all nationalities are required to respect the zone.
+|4|Nature Reserve|A tract of land or water managed so as to preserve its flora, fauna, physical features, etc.
+|5|Bird Sanctuary|A place where birds are bred and protected.
+|6|Game Reserve|A place where wild animals or birds hunted for sport or food are kept undisturbed for private use.
+|7|Seal Sanctuary|A place where seals are protected.
+|10|Historic Wreck Area|An area around certain wrecks of historical importance to protect the wrecks from unauthorized interference by diving, salvage or deposition (including anchoring).
+|20|Research Area|An area where marine research takes place.
+|22|Fish Sanctuary|A place where fish (including shellfish and crustaceans) are protected.
+|23|Ecological Reserve|A tract of land managed so as to preserve the relation of plants and living creatures to each other and to their surroundings.
+|27|Environmentally Sensitive Sea Area|A generic term which may be used to describe a wide range of areas, considered sensitive for a variety of environmental reasons.
+|28|Particularly Sensitive Sea Area|An area that needs special protection through action by IMO because of its significance for regional ecological, socio-economic or scientific reasons and because it may be vulnerable to damage by international shipping activities.
+|31|Coral Sanctuary|A place where coral is protected.
+|32|Recreation Area|An area within which recreational activities regularly take place and therefore vessel movement may be restricted.
+|33|Ship Pollution Emission Control|An area within which the ship pollution emission is controlled.
+|===
+
+=== Category of Schedule
+
+*Definition* : The type of schedule, for instance opening, closure, etc.
+
+*CamelCase* : categoryOfSchedule
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*ListedValue* : 
+[cols="a,a,a,*",options="headers"]
+|===
+|Code|Label|Definition
+|1|Normal Operation|The service, office, is open, fully manned, and operating normally, or the area is accessible as usual.
+|2|Closure|The service, office, or area is closed.
+|3|Unmanned Operation|The service is available but not manned.
+|===
+
+=== Category of Temporal Variation
+
+*Definition* : An assessment of the likelihood of change over time.
+
+*CamelCase* : categoryOfTemporalVariation
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*ListedValue* : 
+[cols="a,a,a,*",options="headers"]
+|===
+|Code|Label|Definition
+|1|Extreme Event|Indication of the possible impact of a significant event (for example hurricane, earthquake, volcanic eruption, landslide, etc), which is considered likely to have changed the seafloor or landscape significantly.
+|4|Likely to Change|Continuous or frequent change to non-bathymetric features (for example river siltation, glacier creep/recession, sand dunes, buoys, marine farms, etc).
+|5|Unlikely to Change|Significant change to the seafloor is not expected.
+|6|Unassessed|Not having been assessed.
+|===
+
+=== Category of Text
+
+*Definition* : Classification of completeness of textual information in relation to the source material from which it is derived.
+
+*CamelCase* : categoryOfText
+
+*Alias* : CATTXT 
+
+*Remarks* : No remarks.
+
+*ListedValue* : 
+[cols="a,a,a,*",options="headers"]
+|===
+|Code|Label|Definition
+|1|Abstract or Summary|A statement summarizing the important points of a text.
+|2|Extract|An excerpt or excerpts from a text.
+|3|Full Text|The whole text.
+|===
+
+=== Category of Vessel Registry
+
+*Definition* : The locality of vessel registration or enrolment relative to the nationality of a port, territorial sea, administrative area, exclusive zone or other location.
+
+*CamelCase* : categoryOfVesselRegistry
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*ListedValue* : 
+[cols="a,a,a,*",options="headers"]
+|===
+|Code|Label|Definition
+|1|Domestic|The vessel is registered or enrolled under the same national flag as the port, harbour, territorial sea, exclusive economic zone, or administrative area in which the object that possesses this attribute applies or is located.
+|2|Foreign|The vessel is registered or enrolled under a national flag different from the port, harbour, territorial sea, exclusive economic zone, or other administrative area in which the object that possesses this attribute applies or is located.
+|===
+
+=== City Name
+
+*Definition* : The name of a town or city.
+
+*CamelCase* : cityName
+
+*Alias* : CITYNM 
+
+*Remarks* : No remarks.
+
+
+=== Communication Channel
+
+*Definition* : A channel number assigned to a specific radio frequency, frequencies or frequency band.
+
+*CamelCase* : communicationChannel
+
+*Alias* : COMCHA 
+
+*Remarks* : The expected input is the specific VHF-Channel. The attribute 'communication channel' encodes the various VHF-channels used for communication.
+
+
+=== Comparison Operator
+
+*Definition* : Numerical comparison.
+
+*CamelCase* : comparisonOperator
+
+*Alias* : COMPOP 
+
+*Remarks* : Provides the relation between the value given in the model and the real ship's value.
+
+*ListedValue* : 
+[cols="a,a,a,*",options="headers"]
+|===
+|Code|Label|Definition
+|1|Greater Than|The value of the left value is greater than that of the right.
+|2|Greater Than or Equal To|The value of the left expression is greater than or equal to that of the right.
+|3|Less Than|The value of the left expression is less than that of the right.
+|4|Less Than or Equal To|The value of the left expression is less than or equal to that of the right.
+|5|Equal To|The two values are equivalent.
+|6|Not Equal To|The two values are not equivalent.
+|===
+
+=== Contact Instructions
+
+*Definition* : Instructions provided on how to contact a particular person, organisation or service.
+
+*CamelCase* : contactInstructions
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+
+=== Country Name
+
+*Definition* : The name of a nation.
+
+*CamelCase* : countryName
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+
+=== Date End
+
+*Definition* : The latest date on which an object (for example a buoy) will be present.
+
+*CamelCase* : dateEnd
+
+*Alias* : DATEND 
+
+*Remarks* : The Date End should be encoded using 4 digits for the calendar year (YYYY), 2 digits for the month (MM) (for example April = 04) and 2 digits for the day (DD). When no specific month and/or day is required/known, indication of the month and/or day is omitted, and replaced with dashes (-). When no specific year is required (that is, the event or date range ends at the same time each year) the following two cases may be considered:- same day each year: ----MMDD- same month each year: ----MM--This conforms to ISO 8601: 2004. Date End indicates the latest date of an event or the end of a date range. It is used to indicate the end of a fixed date range, the end of a periodic date range, or the removal or cancellation of a feature at a specific date in the future.
+
+
+=== Date Fixed
+
+*Definition* : The date of an event.
+
+*CamelCase* : dateFixed
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+
+=== Date Start
+
+*Definition* : The earliest date on which an object (for example a buoy) will be present.
+
+*CamelCase* : dateStart
+
+*Alias* : DATSTA 
+
+*Remarks* : The Date Start should be encoded using 4 digits for the calendar year (YYYY), 2 digits for the month (MM) (for example April = 04) and 2 digits for the day (DD). When no specific month and/or day is required/known, indication of the month and/or day is omitted, and replaced with dashes (-). When no specific year is required (that is, the event or date range ends at the same time each year) the following two cases may be considered:- same day each year: ----MMDD- same month each year: ----MM--This conforms to ISO 8601: 2004. Date Start indicates the earliest date of an event or the start of a date range. It is used to indicate the start of a fixed date range, the start of a periodic date range, or the deployment or implementation of a feature at a specific date in the future.
+
+
+=== Date Variable
+
+*Definition* : A day which is not fixed in the Gregorian calendar.
+
+*CamelCase* : dateVariable
+
+*Alias* : 
+
+*Remarks* : Examples: The fourth Thursday in November; new moon day of Kartika (Diwali); Easter Sunday.
+
+
+=== Day of Week
+
+*Definition* : Any one of seven days in a week.
+
+*CamelCase* : dayOfWeek
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*ListedValue* : 
+[cols="a,a,a,*",options="headers"]
+|===
+|Code|Label|Definition
+|1|Sunday|The day of the week following Saturday and preceding Monday.
+|2|Monday|The day of the week following Sunday and preceding Tuesday.
+|3|Tuesday|The day of the week following Monday and preceding Wednesday.
+|4|Wednesday|The day of the week following Tuesday and preceding Thursday.
+|5|Thursday|The day of the week following Wednesday and preceding Friday.
+|6|Friday|The day of the week following Thursday and preceding Saturday.
+|7|Saturday|The day of the week following Friday and preceding Sunday.
+|===
+
+=== Day of Week is Range
+
+*Definition* : A statement expressing if the days of the week identified define a range or not.
+
+*CamelCase* : dayOfWeekIsRange
+
+*Alias* : 
+
+*Remarks* : A True value is an indication that the identified days of the week define a range between and inclusive of those days.
+
+
+=== Delivery Point
+
+*Definition* : Details of where post can be delivered such as the apartment, name and/or number of a street, building or PO Box.
+
+*CamelCase* : deliveryPoint
+
+*Alias* : DELPNT 
+
+*Remarks* : No remarks.
+
+
+=== Designation Identifier
+
+*Definition* : An identifier which is an instance of a particular, named scheme
+
+*CamelCase* : designationIdentifier
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+
+=== Designation Scheme
+
+*Definition* : An official name, title or description. This can be an identifier itself, or an identifier which is an instance of a named designation scheme.
+
+*CamelCase* : designationScheme
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+
+=== Destination
+
+*Definition* : The place or general direction to which a vessel is going or directed.
+
+*CamelCase* : destination
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+
+=== Distance
+
+*Definition* : A numeric measure of the spatial separation between two locations.
+
+*CamelCase* : distance
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+
+=== File Locator
+
+*Definition* : The location of a fragment of text or other information in a support file.
+
+*CamelCase* : fileLocator
+
+*Alias* : 
+
+*Remarks* : Application schemas must describe how the associated file is identified. The associated file will commonly be named in a file reference co-attribute of the same complex attribute. Each DCEG must specify requirements for the format of the associated file and the semantics of file locator. For example, the value of file locator may be an HTML ID in an HTML file, line number in a text file) or a bookmark in a PDF file.
+
+
+=== File Reference
+
+*Definition* : The file name of an externally referenced text file.
+
+*CamelCase* : fileReference
+
+*Alias* : TXTDSC 
+
+*Remarks* : No remarks.
+
+
+=== Frequency Shore Station Receives
+
+*Definition* : The shore station receiver frequency.
+
+*CamelCase* : frequencyShoreStationReceives
+
+*Alias* : FRQRXV 
+
+*Remarks* : No remarks.
+
+
+=== Frequency Shore Station Transmits
+
+*Definition* : The shore station transmitter frequency.
+
+*CamelCase* : frequencyShoreStationTransmits
+
+*Alias* : FRQTXM 
+
+*Remarks* : No remarks.
+
+
+=== Headline
+
+*Definition* : Words set at the head of a passage or page to introduce or categorize.
+
+*CamelCase* : headline
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+
+=== Horizontal Distance Uncertainty
+
+*Definition* : The best estimate of the horizontal accuracy of horizontal clearances and distances.
+
+*CamelCase* : horizontalDistanceUncertainty
+
+*Alias* : HORACC 
+
+*Remarks* : The error is assumed to be positive and negative. The plus/minus character must not be encoded.
+
+
+=== In Ballast
+
+*Definition* : Whether the vessel is in ballast.
+
+*CamelCase* : inBallast
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+
+=== Interoperability Identifier
+
+*Definition* : A common unique identifier for entities which describe a single real-world feature, and which is used to identify instances of the feature in end-user systems where the feature may be included in multiple data product types.
+
+*CamelCase* : interoperabilityIdentifier
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+
+=== Jurisdiction
+
+*Definition* : The jurisdiction applicable to an administrative area.
+
+*CamelCase* : jurisdiction
+
+*Alias* : JRSDTN 
+
+*Remarks* : No remarks.
+
+*ListedValue* : 
+[cols="a,a,a,*",options="headers"]
+|===
+|Code|Label|Definition
+|1|International|Involving more than one country; covering more than one national area.
+|2|National|An area administered or controlled by a single nation.
+|3|National Sub-Division|An area smaller than the nation in which it lies.
+|===
+
+=== Language
+
+*Definition* : The method of human communication, either spoken or written, consisting of the use of words in a structured and conventional way.
+
+*CamelCase* : language
+
+*Alias* : 
+
+*Remarks* : The language is encoded by a 3 character code following ISO 639-2/T.
+
+
+=== Linkage
+
+*Definition* : Location (address) for online access using a URL/URI address or similar addressing scheme.
+
+*CamelCase* : linkage
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+
+=== Logical Connectives
+
+*Definition* : Expresses whether all the constraints described by its co-attributes must be satisfied, or only one such constraint need be satisfied.
+
+*CamelCase* : logicalConnectives
+
+*Alias* : LOGCON 
+
+*Remarks* : Is intended to be used with co-attributes that encode limits on vessel dimensions, type of cargo, and other characteristics. The combination of constraints described by logicalConnectives and its co-attributes defines a subset of vessels to which information described by a feature or information type instance applies (or does not apply, is required, recommended, etc.). The relationship between the vessel subset and the information is indicated by an association - see PermissionType and InclusionType). The two listed values of logicalConnective are two of the basic operations of Boolean logic. The third basic operation (not) is not used.
+
+*ListedValue* : 
+[cols="a,a,a,*",options="headers"]
+|===
+|Code|Label|Definition
+|1|Logical Conjunction|All the conditions described by the other attributes of the object, or sub-attributes of the same complex attribute, are true.
+|2|Logical Disjunction|At least one of the conditions described by the other attributes of the object, or sub-attributes of the same complex attributes, is true.
+|===
+
+=== Maximum Display Scale
+
+*Definition* : The largest intended viewing scale for the data.
+
+*CamelCase* : maximumDisplayScale
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+
+=== Membership
+
+*Definition* : Indicates whether a vessel is included or excluded from the regulation/restriction/recommendation/nautical information.
+
+*CamelCase* : membership
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*ListedValue* : 
+[cols="a,a,a,*",options="headers"]
+|===
+|Code|Label|Definition
+|1|Included|Vessels with these characteristics are included in the regulation/restriction/recommendation/nautical information.
+|2|Excluded|Vessels with these characteristics are excluded from the regulation/restriction/recommendation/nautical information.
+|===
+
+=== Minimum Display Scale
+
+*Definition* : The smallest intended viewing scale for the data.
+
+*CamelCase* : minimumDisplayScale
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+
+=== MMSI Code
+
+*Definition* : The Maritime Mobile Service Identity (MMSI) Code is formed of a series of nine digits which are transmitted over the radio path in order to uniquely identify ship stations, ship earth stations,coast stations, coast earth stations, and group calls. These identities are formed in such a way that the identity or part thereof can be used by telephone and telex subscribers connected to the general telecommunications network principally to call ships automatically.
+
+*CamelCase* : mMSICode
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+
+=== Name
+
+*Definition* : The individual name of a feature.
+
+*CamelCase* : name
+
+*Alias* : OBJNAM 
+
+*Remarks* : No remarks.
+
+
+=== Name of Resource
+
+*Definition* : Name of the online resource.
+
+*CamelCase* : nameOfResource
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+
+=== Name Usage
+
+*Definition* : Classification of the type and display level of the name of a feature in an end-user system.
+
+*CamelCase* : nameUsage
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*ListedValue* : 
+[cols="a,a,a,*",options="headers"]
+|===
+|Code|Label|Definition
+|1|Default Name Display|The name is intended to be displayed when the end-user system is set to the default name/text display setting.
+|2|Alternate Name Display|The name is intended to be displayed when the end-user system is set to an alternate name/text display setting, for example an alternate language.
+|3|No Chart Display|The name or text is not intended to be displayed.
+|===
+
+=== Online Function
+
+*Definition* : Code for function performed by the online resource (ISO 19115)
+
+*CamelCase* : onlineFunction
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*ListedValue* : 
+[cols="a,a,a,*",options="headers"]
+|===
+|Code|Label|Definition
+|1|Download|Online instructions for transferring data from one storage device or system to another.
+|3|Offline Access|Online instructions for requesting the resource from the provider.
+|4|Order|Online order process for obtaining the resource.
+|5|Search|To make painstaking investigation or examination.
+|6|Complete Metadata|Complete metadata provided.
+|7|Browse Graphic|Browse graphic provided.
+|8|Upload|Online resource upload capability provided.
+|9|Email Service|Online email service provided.
+|10|Browsing|Online browsing provided.
+|11|File Access|Online file access provided.
+|===
+
+=== Online Resource Description
+
+*Definition* : Detailed text description of what the online resource is/does (ISO 19115)
+
+*CamelCase* : onlineResourceDescription
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+
+=== Optimum Display Scale
+
+*Definition* : The largest intended viewing scale for the data.
+
+*CamelCase* : optimumDisplayScale
+
+*Alias* : CSCALE 
+
+*Remarks* : No remarks.
+
+
+=== Orientation Uncertainty
+
+*Definition* : The best estimate of the accuracy of a bearing.
+
+*CamelCase* : orientationUncertainty
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+
+=== Orientation Value
+
+*Definition* : The angular distance measured from true north to the major axis of the feature.
+
+*CamelCase* : orientationValue
+
+*Alias* : ORIENT 
+
+*Remarks* : No remarks.
+
+
+=== Pictorial Representation
+
+*Definition* : Indicates whether a pictorial representation of the feature is available.
+
+*CamelCase* : pictorialRepresentation
+
+*Alias* : PICREP 
+
+*Remarks* : The 'pictorial representation' could be a drawing or a photo. The string encodes the file name of an external graphic file (pixel/vector).
+
+
+=== Picture Caption
+
+*Definition* : Short description of the purpose of the image.
+
+*CamelCase* : pictureCaption
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+
+=== Picture Information
+
+*Definition* : A set of information to provide credits to picture creator, copyright owner etc.
+
+*CamelCase* : pictureInformation
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+
+=== Postal Code
+
+*Definition* : Known in various countries as a postcode, or ZIP code, the postal code is a series of letters and/or digits that identifies each postal delivery area.
+
+*CamelCase* : postalCode
+
+*Alias* : POSCOD Postcode ZIP Code 
+
+*Remarks* : No remarks.
+
+
+=== Protocol
+
+*Definition* : Connection protocol to be used. Example: ftp, http get KVP, http POST, etc.
+
+*CamelCase* : protocol
+
+*Alias* : PROTCL 
+
+*Remarks* : No remarks.
+
+
+=== Protocol Request
+
+*Definition* : Request used to access the resource. Structure and content depend on the protocol and standard used by the online resource, such as Web Feature Service standard.
+
+*CamelCase* : protocolRequest
+
+*Alias* : PROTRQ 
+
+*Remarks* : No remarks.
+
+
+=== Quality of Horizontal Measurement
+
+*Definition* : The degree of reliability attributed to a position.
+
+*CamelCase* : qualityOfHorizontalMeasurement
+
+*Alias* : QUAPOS 
+
+*Remarks* : No remarks.
+
+*ListedValue* : 
+[cols="a,a,a,*",options="headers"]
+|===
+|Code|Label|Definition
+|1|Surveyed|The position(s) was(were) determined by the operation of making measurements for determining the relative position of points on, above or beneath the earth's surface. Survey implies a regular, controlled survey of any date.
+|2|Unsurveyed|Survey data is does not exist or is very poor.
+|3|Inadequately Surveyed|Not surveyed to modern standards; or due to its age, scale, or positional or vertical uncertainties is not suitable to the type of navigation expected in the area.
+|4|Approximate|A position that is considered to be less than third-order accuracy, but is generally considered to be within 30.5 metres of its correct geographic location. Also may apply to an object whose position does not remain fixed.
+|5|Position Doubtful|Of uncertain position. The expression is used principally on charts to indicate that a wreck, shoal, etc., has been reported in various positions and not definitely determined in any.
+|6|Unreliable|A feature's position has been obtained from questionable or unreliable data.
+|7|Reported (Not Surveyed)|An object whose position has been reported and its position confirmed by some means other than a formal survey such as an independent report of the same object.
+|8|Reported (Not Confirmed)|An object whose position has been reported and its position has not been confirmed.
+|9|Estimated|The most probable position of an object determined from incomplete data or data of questionable accuracy.
+|10|Precisely Known|A position that is of a known value, such as the position of an anchor berth or other defined object.
+|11|Calculated|A position that is computed from data.
+|===
+
+=== Reported Date
+
+*Definition* : The date that the item was observed, done, or investigated.
+
+*CamelCase* : reportedDate
+
+*Alias* : SORDAT 
+
+*Remarks* : No remarks.
+
+
+=== Restriction
+
+*Definition* : The official legal statute of each kind of restricted area.
+
+*CamelCase* : restriction
+
+*Alias* : RESTRN 
+
+*Remarks* : Defines the kind of restriction(s), for example, the restriction for 'a game preserve' may be 'entry prohibited', the restriction for an 'anchoring prohibition' is 'anchoring prohibited'. The complete information about the restriction(s), actually held in handbooks or other publications, may be encoded using an Information type.
+
+*ListedValue* : 
+[cols="a,a,a,*",options="headers"]
+|===
+|Code|Label|Definition
+|1|Anchoring Prohibited|An area within which anchoring is not permitted.
+|2|Anchoring Restricted|A specified area designated by appropriate authority, within which anchoring is restricted in accordance with certain specified conditions.
+|3|Fishing Prohibited|An area within which fishing is not permitted.
+|4|Fishing Restricted|A specified area designated by appropriate authority, within which fishing is restricted in accordance with certain specified conditions.
+|5|Trawling Prohibited|An area within which trawling is not permitted.
+|6|Trawling Restricted|A specified area designated by appropriate authority, within which trawling is restricted in accordance with certain specified conditions.
+|7|Entry Prohibited|An area within which navigation and/or anchoring is prohibited.
+|8|Entry Restricted|A specified area designated by appropriate authority, within which navigation is restricted in accordance with certain specified conditions.
+|9|Dredging Prohibited|An area within which dredging is not permitted.
+|10|Dredging Restricted|A specified area designated by appropriate authority, within which dredging is restricted in accordance with certain specified conditions.
+|11|Diving Prohibited|An area within which diving is not permitted.
+|12|Diving Restricted|A specified area designated by appropriate authority, within which diving is restricted in accordance with certain specified conditions.
+|13|No Wake|Mariners must adjust the speed of their vessels to reduce the wave or wash which may cause erosion or disturb moored vessels.
+|14|Area To Be Avoided|An IMO declared routeing measure comprising an area within defined limits in which either navigation is particularly hazardous or it is exceptionally important to avoid casualties and which should be avoided by all ships, or certain classes of ships.
+|15|Construction Prohibited|The erection of permanent or temporary fixed structures or artificial islands is prohibited.
+|16|Discharging Prohibited|An area within which discharging or dumping is prohibited.
+|17|Discharging Restricted|A specified area designated by an appropriate authority, within which discharging or dumping is restricted in accordance with specified conditions.
+|18|Industrial or Mineral Exploration/Development Prohibited|An area within which industrial or mineral exploration and development are prohibited.
+|19|Industrial or Mineral Exploration/Development Restricted|A specified area designated by an appropriate authority, within which industrial or mineral exploration and development is restricted in accordance with certain specified conditions.
+|20|Drilling Prohibited|An area within which excavating a hole on the sea-bottom with a drill is prohibited.
+|21|Drilling Restricted|A specified area designated by an appropriate authority, within which excavating a hole on the sea-bottom with a drill is restricted in accordance with certain specified conditions.
+|22|Removal of Historical Artefacts Prohibited|An area within which the removal of historical artefacts is prohibited.
+|23|Cargo Transhipment (Lightening) Prohibited|An area in which cargo transhipment (lightening) is prohibited.
+|24|Dragging Prohibited|An area in which the dragging of anything along the bottom, e.g. bottom trawling, is prohibited.
+|25|Stopping Prohibited|An area in which a vessel is prohibited from stopping.
+|26|Landing Prohibited|An area in which landing is prohibited.
+|27|Speed Restricted|An area within which speed is restricted.
+|38|Use of Spuds Prohibited|The use of anchoring spuds (telescopic piles) is prohibited.
+|39|Swimming Prohibited|An area in which swimming is prohibited.
+|40|SOx Emission Restricted|An area within which the emission of SOx is restricted.
+|41|NOx Emission Restricted|An area within which the emission of NOx is restricted.
+|42|Power-Driven Vessels Prohibited|An area within which any vessel propelled by machinery is prohibited.
+|===
+
+=== Scale Minimum
+
+*Definition* : The minimum scale at which the feature may be used for example for ECDIS presentation.
+
+*CamelCase* : scaleMinimum
+
+*Alias* : SCAMIN 
+
+*Remarks* : The modulus of the scale is indicated, that is 1:1 250 000 is encoded as 1250000.
+
+
+=== Source
+
+*Definition* : The publication, document, or reference work from which information comes or is acquired.
+
+*CamelCase* : source
+
+*Alias* : 
+
+*Remarks* : May be populated with the corresponding paper chart Notice to Mariners numbers, although other references are permitted.
+
+
+=== Source Date
+
+*Definition* : The production date of the source; for example the date of measurement.
+
+*CamelCase* : sourceDate
+
+*Alias* : SORDAT 
+
+*Remarks* : No remarks.
+
+
+=== Source Type
+
+*Definition* : Type of the source.
+
+*CamelCase* : sourceType
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*ListedValue* : 
+[cols="a,a,a,*",options="headers"]
+|===
+|Code|Label|Definition
+|1|Law or Regulation|Treaty, convention, or international agreement; law or regulation issued by a national or other authority.
+|2|Official Publication|Publication not having the force of law, issued by an international organisation or a national or local administration.
+|7|Mariner Report, Confirmed|Reported by mariner(s) and confirmed by another source.
+|8|Mariner Report, Not Confirmed|Reported by mariner(s) but not confirmed.
+|9|Industry Publications and Reports|Shipping and other industry publications, including graphics, charts and web sites.
+|10|Remotely Sensed Images|Information obtained from satellite images.
+|11|Photographs|Information obtained from photographs.
+|12|Products Issued by HO Services|Information obtained from products issued by Hydrographic Offices.
+|13|News Media|Information obtained from news media.
+|14|Traffic Data|Information obtained from the analysis of traffic data.
+|===
+
+=== Status
+
+*Definition* : The condition of an object at a given instant in time.
+
+*CamelCase* : status
+
+*Alias* : STATUS 
+
+*Remarks* : No remarks.
+
+*ListedValue* : 
+[cols="a,a,a,*",options="headers"]
+|===
+|Code|Label|Definition
+|1|Permanent|Intended to last or function indefinitely.
+|2|Occasional|Acting on special occasions; happening irregularly.
+|3|Recommended|Presented as worthy of confidence, acceptance, use, etc.
+|4|Not in Use|Use has ceased, but the facility still exists intact; disused.
+|5|Periodic/Intermittent|Recurring at intervals.
+|6|Reserved|Set apart for some specific use.
+|7|Temporary|Meant to last only for a time.
+|9|Mandatory|Compulsory; enforced.
+|13|Historic|Famous in history; of historical interest.
+|14|Public|Belonging to, available to, used or shared by, the community as a whole and not restricted to private use.
+|18|Existence Doubtful|A feature that has been reported but has not been definitely determined to exist.
+|28|Buoyed|Marked by buoys.
+|===
+
+=== Telecommunication Carrier
+
+*Definition* : The name of a provider or type of carrier for a telecommunication service. This service may include land line based, shore based or satellite based radio connections.
+
+*CamelCase* : telecommunicationCarrier
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+
+=== Telecommunication Identifier
+
+*Definition* : An identifier, such as words, numbers, letters, symbols, or any combination of those used to establish a contact to a particular person, organisation or service.
+
+*CamelCase* : telecommunicationIdentifier
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+
+=== Telecommunication Service
+
+*Definition* : Classification of methods of communication over a distance by electrical, electronic, or electromagnetic means.
+
+*CamelCase* : telecommunicationService
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*ListedValue* : 
+[cols="a,a,a,*",options="headers"]
+|===
+|Code|Label|Definition
+|1|Voice|The transfer or exchange of information by using sounds that are being made by mouth and throat when speaking.
+|2|Facsimile|A system of transmitting and reproducing graphic matter (as printing or still pictures) by means of signals sent over telephone lines.
+|3|SMS|Short Message Service is a form of text messaging communication on phones and mobile phones.
+|4|Data|A representation of facts, concepts or instructions in a formalised manner suitable for communication, interpretation or processing.
+|5|Streamed Data|Data that is constantly received by and presented to an end-user while being delivered by a provider.
+|6|Telex|A system of communication in which messages are sent over long distances by using a telephone system and are printed by using a special machine (called a teletypewriter).
+|7|Telegraph|An apparatus, system or process for communication at a distance by electric transmission over wire.
+|8|Email|Messages and other data exchanged between individuals using computers in a network.
+|===
+
+=== Text
+
+*Definition* : A non-formatted digital text string.
+
+*CamelCase* : text
+
+*Alias* : INFORM NINFOM 
+
+*Remarks* : Should be used, for example, to hold the information that is for short cautionary or explanatory notes. Therefore, text populated in text must not exceed 300 characters. Text may be in English, or in a national language. No formatting of text is possible within text. If formatted text, or text strings exceeding 300 characters, is required, then an alternate concept should be used.
+
+
+=== Text Offset Bearing
+
+*Definition* : The angular distance measured from true north that text associated with a feature is positioned from the feature in an end-user system.
+
+*CamelCase* : textOffsetBearing
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+
+=== Text Offset Distance
+
+*Definition* : The distance that text associated with a feature is positioned from the feature in an end-user system.
+
+*CamelCase* : textOffsetDistance
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+
+=== Text Rotation
+
+*Definition* : A statement that expresses if text associated with a feature is to be rotated in the ECDIS display or not.
+
+*CamelCase* : textRotation
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+
+=== Text Type
+
+*Definition* : The attribute from which a text string is derived.
+
+*CamelCase* : textType
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*ListedValue* : 
+[cols="a,a,a,*",options="headers"]
+|===
+|Code|Label|Definition
+|1|Name|The individual name of a feature.
+|===
+
+=== Thickness of Ice Capability
+
+*Definition* : The thickness of ice that the ship can safely transit.
+
+*CamelCase* : thicknessOfIceCapability
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+
+=== Time of Day End
+
+*Definition* : The time corresponding to the end of an active period.
+
+*CamelCase* : timeOfDayEnd
+
+*Alias* : 
+
+*Remarks* : The time of day end must be encoded using 2 digits for the hour (hh), 2 digits for the minutes(mm) and 2 digits for the seconds (ss). This conforms to ISO 8601:2004.
+
+
+=== Time of Day Start
+
+*Definition* : The time corresponding to the start of an active period.
+
+*CamelCase* : timeOfDayStart
+
+*Alias* : 
+
+*Remarks* : The time of day start must be encoded using 2 digits for the hour (hh), 2 digits for the minutes(mm) and 2 digits for the seconds (ss). This conforms to ISO 8601:2004.
+
+
+=== Uncertainty Fixed
+
+*Definition* : The best estimate of the fixed horizontal or vertical accuracy component for positions, depths, heights, vertical distances and vertical clearances.
+
+*CamelCase* : uncertaintyFixed
+
+*Alias* : POSACC SOUACC VERACC 
+
+*Remarks* : No remarks.
+
+
+=== Uncertainty Variable Factor
+
+*Definition* : The factor to be applied to the variable component of an uncertainty equation so as to provide the best estimate of the variable horizontal or vertical accuracy component for positions, depths, heights, vertical distances and vertical clearances.
+
+*CamelCase* : uncertaintyVariableFactor
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+
+=== Vessel Performance
+
+*Definition* : A description of the required handling characteristics of a vessel including hull design, main and auxiliary machinery, cargo handling equipment, navigation equipment and manoeuvring behaviour.
+
+*CamelCase* : vesselPerformance
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+
+=== Vessels Characteristics
+
+*Definition* : Characteristics of vessels.
+
+*CamelCase* : vesselsCharacteristics
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*ListedValue* : 
+[cols="a,a,a,*",options="headers"]
+|===
+|Code|Label|Definition
+|1|Length Overall|The maximum length of the ship.
+|2|Length at Waterline|The ship's length measured at the waterline.
+|3|Breadth|The width or beam of the vessel.
+|4|Draught|The depth of water necessary to float a vessel fully loaded.
+|6|Displacement Tonnage|A measurement of the weight of the vessel, usually used for warships. (Merchant ships are usually measured based on the volume of cargo space; see tonnage). Displacement is expressed either in long tons of 2,240 pounds or metric tonnes of 1,000 kg. Since the two units are very close in size (2,240 pounds = 1,016 kg and 1,000 kg = 2,205 pounds), it is common not to distinguish between them. To preserve secrecy, nations sometimes misstate a warship's displacement.
+|7|Displacement Tonnage, Light|The weight of the ship excluding cargo, fuel, ballast, stores, passengers, and crew, but with water in the boilers to steaming level.
+|8|Displacement Tonnage, Loaded|The weight of the ship including cargo, passengers, fuel, water, stores, dunnage and such other items necessary for use on a voyage, which brings the vessel down to her load draft.
+|9|Deadweight Tonnage|The difference between displacement, light and displacement, loaded. A measure of the ship's total carrying capacity.
+|10|Gross Tonnage|The entire internal cubic capacity of the ship expressed in tons of 100 cubic feet to the ton, except certain spaces with are exempted such as: peak and other tanks for water ballast, open forecastle bridge and poop, access of hatchways, certain light and air spaces, domes of skylights, condenser, anchor gear, steering gear, wheel house, galley and cabin for passengers.
+|11|Net Tonnage|Obtained from the gross tonnage by deducting crew and navigating spaces and allowances for propulsion machinery.
+|12|Panama Canal/Universal Measurement System Net Tonnage|The Panama Canal/Universal Measurement System (PC/UMS) is based on net tonnage, modified for Panama Canal purposes. PC/UMS is based on a mathematical formula to calculate a vessel's total volume; a PC/UMS net ton is equivalent to 100 cubic feet of capacity.
+|13|Suez Canal Net Tonnage|The Suez Canal Net Tonnage (SCNT) is derived with a number of modifications from the former net register tonnage of the Moorsom System and was established by the International Commission of Constantinople in its Protocol of 18 December 1873. It is still in use, as amended by the Rules of Navigation of the Suez Canal Authority, and is registered in the Suez Canal Tonnage Certificate.
+|===
+
+=== Vessels Characteristics Unit
+
+*Definition* : The unit used for vessel characteristics attribute.
+
+*CamelCase* : vesselsCharacteristicsUnit
+
+*Alias* : VSLUNT 
+
+*Remarks* : No remarks.
+
+*ListedValue* : 
+[cols="a,a,a,*",options="headers"]
+|===
+|Code|Label|Definition
+|1|Metres|The basic unit of length in the International System of Units (SI) system.
+|3|Metric Ton|The tonne or metric ton (U.S.), often redundantly referred to as a metric tonne, is a unit of mass equal to 1,000 kg (2,205 lb) or approximately the mass of one cubic metre of water at four degrees Celsius. It is sometimes abbreviated as mt in the United States, but this conflicts with other SI symbols. The tonne is not a unit in the International System of Units (SI), but is accepted for use with the SI. In SI units and prefixes, the tonne is a megagram (Mg). The Imperial and US customary units comparable to the tonne are both spelled ton in English, though they differ in mass. Pronunciation of tonne (the word used in the UK) and ton is usually identical, but is not too confusing unless accuracy is important as the tonne and UK long ton differ by only 1.6.
+|4|Ton|Long ton (weight ton or imperial ton) is the name for the unit called the "ton" in the avoirdupois or Imperial system of measurements, as used in the United Kingdom and several other Commonwealth countries. It has been mostly replaced by the tonne, and in the United States by the short ton. One long ton is equal to 2,240 pounds (1,016 kg) or 35 cubic feet (0.9911 m) of salt water with a density of 64 lb/ft (1.025 g/ml). It has some limited use in the United States, most commonly in measuring the displacement of ships, and was the unit prescribed for warships by the Washington Naval Treaty for example battleships were limited to a mass of 35,000 long tons (36,000 t; 39,000 ST).
+|5|Short Ton|A unit of weight equal to 2,000 pounds (907.18474 kg). In the United States it is often called simply ton without distinguishing it from the metric ton (tonne, 1,000 kilograms) or the long ton (2,240 pounds / 1,016.0469088 kilograms); rather, the other two are specifically noted. There are, however, some US applications for which unspecified tons normally means long tons (for example, Navy ships) or metric tons (world grain production figures). Both the long and short ton are defined as 20 hundredweights, but a hundredweight is 100 pounds (45.359237 kg) in the US system (short or net hundredweight) and 112 pounds (50.80234544 kg) in the Imperial system (long or gross hundredweight).
+|6|Gross Ton|Gross tonnage (GT) is a function of the volume of all ship's enclosed spaces (from keel to funnel) measured to the outside of the hull framing. There is a sliding scale factor. So GT is a kind of capacity-derived index that is used to rank a ship for purposes of determining manning, safety and other statutory requirements and is expressed simply as GT, which is a unitless entity, even though its derivation is tied to the cubic meter unit of volumetric capacity.Tonnage measurements are now governed by an IMO Convention (International Convention on Tonnage Measurement of Ships, 1969 (London-Rules)), which applies to all ships built after July 1982. In accordance with the Convention, the correct term to use now is GT, which is a function of the moulded volume of all enclosed spaces of the ship.
+|7|Net Ton|Net tonnage (NT) is based on a calculation of the volume of all cargo spaces of the ship. It indicates a vessels earning space and is a function of the moulded volume of all cargo spaces of the ship.
+|9|Suez Canal Net Tonnage|The Suez Canal Net Tonnage (SCNT) is derived with a number of modifications from the former net register tonnage of the Moorsom System and was established by the International Commission of Constantinople in its Protocol of 18 December 1873. It is still in use, as amended by the Rules of Navigation of the Suez Canal Authority, and is registered in the Suez Canal Tonnage Certificate.
+|===
+
+=== Vessels Characteristics Value
+
+*Definition* : The value of a particular characteristic such as a dimension or tonnage of a vessel.
+
+*CamelCase* : vesselsCharacteristicsValue
+
+*Alias* : 
+
+*Remarks* : Indicates range limits in expressions characterizing vessels by dimensions and tonnages. The unit of measure, characteristic, and comparison operator (greater, less, etc.) are encoded separately.
+
+
+=== Action or Activity
+
+*Definition* : The action or activity of a vessel.
+
+*CamelCase* : actionOrActivity
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*ListedValue* : 
+[cols="a,a,a,*",options="headers"]
+|===
+|Code|Label|Definition
+|1|Navigating With a Pilot|Carrying a qualified pilot as part of the vessel navigation team.
+|2|Entering Port|Navigating a vessel into a port.
+|3|Leaving Port|Navigating a vessel out of a port.
+|4|Berthing|A signal station for the control of vessels when berthing.
+|5|Slipping|Detaching a vessel from a wharf or jetty.
+|6|Anchoring|Attaching a vessel to the seabed by means of an anchor and cable.
+|7|Weighing Anchor|Detaching a vessel from the seabed by recovering an anchor and cable.
+|8|Transiting|Navigating a vessel along a route or through a narrow gap, such as under a bridge or through a lock.
+|9|Overtaking|Navigating a vessel past another traveling broadly in the same direction.
+|10|Reporting|Providing details such as the name, location or intentions of a vessel.
+|11|Working Cargo|Loading or unloading cargo.
+|12|Landing|Placing crew or passengers on shore.
+|13|Diving|A signal or message warning of diving activity.
+|14|Fishing|Hunting or catching fish.
+|15|Discharging Overboard|Releasing anything into the sea; often ballast water; or spoil from dredging elsewhere.
+|16|Passing|Navigating a vessel past another travelling broadly in the opposite direction.
+|17|Ballast Water Exchange|Discharge and uptake of ballast water.
+|18|Hull Cleaning|The removal or treatment of biofouling (accumulation of aquatic organisms including microfouling and macrofouling) from a ship's submerged surfaces, including hull and niche areas, conducted either in-water or during dry-docking. The process includes both proactive cleaning (periodic removal of microfouling) and reactive cleaning (removal of micro- and macrofouling as corrective action).
+|===
+
+=== Category of Marine Protected Area
+
+*Definition* : Classification of marine protected areas based on IUCN (International Union for Conservation of Nature and Natural Resources) categories.
+
+*CamelCase* : categoryOfMarineProtectedArea
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*ListedValue* : 
+[cols="a,a,a,*",options="headers"]
+|===
+|Code|Label|Definition
+|1|IUCN Category Ia|Strict Nature Reserve: Protected area managed mainly for science.
+|2|IUCN Category Ib|Wilderness Area: Protected area managed mainly for wilderness protection.
+|3|IUCN Category II|National Park: Protected area managed mainly for ecosystem protection and recreation.
+|4|IUCN Category III|Natural Monument: Protected area managed mainly for conservation of specific natural features.
+|5|IUCN Category IV|Habitat/Species Management Area: Protected area managed mainly for conservation through management intervention.
+|6|IUCN Category V|Protected Landscape/Seascape: Protected area managed mainly for landscape/seascape conservation and recreation.
+|7|IUCN Category VI|Managed Resource Protected Area: Protected area managed mainly for the sustainable use of natural ecosystems.
+|===
+
+=== Category of RxN
+
+*Definition* : The principal subject matter of regulations, restrictions, recommendations or nautical information.
+
+*CamelCase* : categoryOfRxN
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*ListedValue* : 
+[cols="a,a,a,*",options="headers"]
+|===
+|Code|Label|Definition
+|1|Navigation|The process of directing the movement of a craft from one point to another.
+|2|Communication|Transmitting and/or receiving electronic communication signals.
+|3|Environmental Protection|Pertaining to environmental protection.
+|4|Wildlife Protection|Pertaining to wildlife protection.
+|5|Security|Pertaining to security.
+|6|Customs|The agency or establishment for collecting duties, tolls.
+|7|Cargo Operation|Pertaining to cargo operations.
+|8|Refuge|Pertaining to a place of safety or refuge.
+|9|Health|The authority with responsibility for checking the validity of the health declaration of a vessel and for declaring free pratique.
+|10|Natural Resources or Exploitation|Pertaining to natural resources or exploitation.
+|11|Port|Person or corporation, owners of, or entrusted with or invested with the power of managing a port. May be called a Harbour Board, Port Trust, Port Commission, Harbour Commission, Marine Department.
+|12|Finance|An authority with responsibility for the control and movement of money.
+|13|Agriculture|The science, art, or practice of cultivating the soil, producing crops, and raising livestock and in varying degrees the preparation and marketing of the resulting products.
+|===
+
+=== Category of Vessel
+
+*Definition* : Classification of vessels by function or use.
+
+*CamelCase* : categoryOfVessel
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*ListedValue* : 
+[cols="a,a,a,*",options="headers"]
+|===
+|Code|Label|Definition
+|1|General Cargo Vessel|A vessel which is designed for carrying general cargo, e.g. boxes, sacks.
+|2|Container Carrier|A vessel designed to carry ISO containers.
+|3|Tanker|A vessel which is designed for carrying liquid goods, for example oil or water.
+|4|Bulk Carrier|A vessel which is designed for carrying bulk goods, e.g. coal, ore or grain.
+|5|Passenger Vessel|A day trip or cabin vessel constructed and equipped to carry more than 12 passengers.
+|6|Roll-On Roll-Off|A vessel designed to allow road vehicles to be driven on and off; often a ferry.
+|7|Refrigerated Cargo Vessel|A vessel designed to carry refrigerated cargo.
+|8|Fishing Vessel|A vessel that is used and equipped for the fishing of living aquatic resources.
+|9|Service|A vessel which provides a service such as a tug, anchor handler, survey or supply vessel.
+|10|Warship|A vessel designed for the conduct of military operations.
+|11|Towed or Pushed Composite Unit|Either a tug and tow, or any combination of a tug providing propulsion to barges or vessels secured ahead or alongside.
+|12|Tug and Tow|A combination of tug(s) and non-powered tow(s).
+|13|Light Recreational|A pleasure boat or watercraft, or an excursion vessel used for short cruises such as whale watching.
+|14|Semi-Submersible Offshore Installation|An installation which is designed to float at all times and which is normally anchored in position when deployed in the offshore gas and oil industry.
+|15|Jack-Up Exploration or Project Installation|An exploration or project installation with legs which can be raised and lowered. The legs are raised when the installation is re-positioned. When stationary the legs are lowered to the sea floor and the working platform is raised clear of the sea surface.
+|16|Livestock Carrier|A vessel designed to carry large quantities of live animals.
+|17|Sport Fishing|A vessel used in fishing for pleasure or competition.
+|===
+
+== Complex Attributes
+
+=== Bearing Information
+
+*Definition* : A bearing is the direction one object is from another object.
+
+*CamelCase* : bearingInformation
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*SubAttri ButeBinding* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|S-10x Attribute|S-57 Acronym|Allowable Encoding Value|Type|Multiplicity
+|Cardinal Direction|(CARDIR)|1:North +
+2:North Northeast +
+3:Northeast +
+4:East Northeast +
+5:East +
+6:East Southeast +
+7:Southeast +
+8:South Southeast +
+9:South +
+10:South Southwest +
+11:Southwest +
+12:West Southwest +
+13:West +
+14:West Northwest +
+15:Northwest +
+16:North Northwest +
+|EN|0, 1
+|Distance|||RE|0, 1
+|Information|(INFORM)||C|0, *
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;File Locator|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;File Reference|(TXTDSC)||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Headline|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Language|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Text|(INFORM)||(S) TE|0, 1
+|Orientation|||C|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Orientation Uncertainty|||(S) RE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Orientation Value|(ORIENT)||(S) RE|1, 1
+|===
+
+=== Contact Address
+
+*Definition* : Direction or superscription of a letter, package, etc., specifying the name of the place to which it is directed, and optionally a contact person or organisation who should receive it.
+
+*CamelCase* : contactAddress
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*SubAttri ButeBinding* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|S-10x Attribute|S-57 Acronym|Allowable Encoding Value|Type|Multiplicity
+|Delivery Point|(DELPNT)||TE|0, 1
+|City Name|(CITYNM)||TE|0, 1
+|Administrative Division|||TE|0, 1
+|Country Name|||TE|0, 1
+|Postal Code|(POSCOD)||TE|0, 1
+|===
+
+=== Designation
+
+*Definition* : An official name, title or description. This can be an identifier or an identifier which is an instance of a named designation scheme.
+
+*CamelCase* : designation
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*SubAttri ButeBinding* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|S-10x Attribute|S-57 Acronym|Allowable Encoding Value|Type|Multiplicity
+|Designation Scheme|||TE|0, 1
+|Designation Identifier|||TE|0, 1
+|Jurisdiction|(JRSDTN)|1:International +
+2:National +
+3:National Sub-Division +
+|EN|0, 1
+|Text|(INFORM)||TE|0, 1
+|===
+
+=== Feature Name
+
+*Definition* : Provides the name of an entity, defines the national language of the name, and provides the option to display the name at various system display settings.
+
+*CamelCase* : featureName
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*SubAttri ButeBinding* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|S-10x Attribute|S-57 Acronym|Allowable Encoding Value|Type|Multiplicity
+|Language|||TE|1, 1
+|Name|(OBJNAM)||TE|1, 1
+|Name Usage||1:Default Name Display +
+2:Alternate Name Display +
+3:No Chart Display +
+|EN|0, 1
+|===
+
+=== Fixed Date Range
+
+*Definition* : An active period of a single fixed event or occurrence, as the date range between discrete start and end dates.
+
+*CamelCase* : fixedDateRange
+
+*Alias* : 
+
+*Remarks* : Dates must be encoded in the format YYYYMMDD; using 4 digits for the calendar year (YYYY) and, optionally, 2 digits for the month (MM) (for example April = 04) and 2 digits for the day (DD). When no specific month and/or day is required/known, the values are replaced with dashes (-). The date range of a recurring event or occurrence must be encoded using periodicDateRange.
+
+*SubAttri ButeBinding* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|S-10x Attribute|S-57 Acronym|Allowable Encoding Value|Type|Multiplicity
+|Date Start|(DATSTA)||TD|0, 1
+|Date End|(DATEND)||TD|0, 1
+|===
+
+=== Frequency Pair
+
+*Definition* : A pair of frequencies for transmitting and receiving radio signals. The shore station transmits and receives on the frequencies indicated.
+
+*CamelCase* : frequencyPair
+
+*Alias* : FRQPAR 
+
+*Remarks* : No remarks.
+
+*SubAttri ButeBinding* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|S-10x Attribute|S-57 Acronym|Allowable Encoding Value|Type|Multiplicity
+|Frequency Shore Station Receives|(FRQRXV)||IN|0, 1
+|Frequency Shore Station Transmits|(FRQTXM)||IN|0, 1
+|===
+
+=== Graphic
+
+*Definition* : Pictorial information such as a photograph, sketch or other graphic, optionally accompanied by descriptive information about the graphic and the location relative to its subject from which it was made.
+
+*CamelCase* : graphic
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*SubAttri ButeBinding* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|S-10x Attribute|S-57 Acronym|Allowable Encoding Value|Type|Multiplicity
+|Pictorial Representation|(PICREP)||TE|1, *
+|Picture Caption|||TE|0, 1
+|Source Date|(SORDAT)||DA|0, 1
+|Picture Information|||TE|0, 1
+|Bearing Information|||C|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cardinal Direction|(CARDIR)|1:North +
+2:North Northeast +
+3:Northeast +
+4:East Northeast +
+5:East +
+6:East Southeast +
+7:Southeast +
+8:South Southeast +
+9:South +
+10:South Southwest +
+11:Southwest +
+12:West Southwest +
+13:West +
+14:West Northwest +
+15:Northwest +
+16:North Northwest +
+|(S) EN|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Distance|||(S) RE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Information|(INFORM)||(S) C|0, *
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;File Locator|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;File Reference|(TXTDSC)||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Headline|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Language|||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Text|(INFORM)||(S) TE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Orientation|||(S) C|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Orientation Uncertainty|||(S) RE|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Orientation Value|(ORIENT)||(S) RE|1, 1
+|===
+
+=== Horizontal Position Uncertainty
+
+*Definition* : The best estimate of the accuracy of a position.
+
+*CamelCase* : horizontalPositionUncertainty
+
+*Alias* : POSACC 
+
+*Remarks* : The expected input is the maximum of the two-dimensional error. The error is assumed to be positive and negative.
+
+*SubAttri ButeBinding* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|S-10x Attribute|S-57 Acronym|Allowable Encoding Value|Type|Multiplicity
+|Uncertainty Fixed|(POSACC)||RE|1, 1
+|Uncertainty Variable Factor|||RE|0, 1
+|===
+
+=== Information
+
+*Definition* : Textual information about the feature. The information may be provided as a string of text or as a file name of a single external text file that contains the text.
+
+*CamelCase* : information
+
+*Alias* : INFORM 
+
+*Remarks* : At least one of the sub-attributes file reference or text must be populated.The sub-attribute file reference is generally used for long text strings or those that require formatting, however, there is no restriction on the type of text (except for lexical level) that can be held in files referenced by sub-attribute file reference.
+
+*SubAttri ButeBinding* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|S-10x Attribute|S-57 Acronym|Allowable Encoding Value|Type|Multiplicity
+|File Locator|||TE|0, 1
+|File Reference|(TXTDSC)||TE|0, 1
+|Headline|||TE|0, 1
+|Language|||TE|0, 1
+|Text|(INFORM)||TE|0, 1
+|===
+
+=== Online Resource
+
+*Definition* : Information about online sources from which a resource or data can be obtained.
+
+*CamelCase* : onlineResource
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*SubAttri ButeBinding* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|S-10x Attribute|S-57 Acronym|Allowable Encoding Value|Type|Multiplicity
+|Linkage|||UI|1, 1
+|Protocol|(PROTCL)||TE|0, 1
+|Application Profile|(APPPRF)||TE|0, 1
+|Name of Resource|||TE|0, 1
+|Online Resource Description|||TE|0, 1
+|Protocol Request|(PROTRQ)||TE|0, 1
+|Online Function||1:Download +
+3:Offline Access +
+4:Order +
+5:Search +
+6:Complete Metadata +
+7:Browse Graphic +
+8:Upload +
+9:Email Service +
+10:Browsing +
+11:File Access +
+|EN|0, 1
+|===
+
+=== Orientation
+
+*Definition* : (1) The angular distance measured from true north to the major axis of the feature. (2) In ECDIS, the mode in which information on the ECDIS is being presented. Typical modes include: north-up - as shown on a nautical chart, north is at the top of the display; Ships head-up - based on the actual heading of the ship, (e.g. Ships gyrocompass); course-up display - based on the course or route being taken.
+
+*CamelCase* : orientation
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*SubAttri ButeBinding* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|S-10x Attribute|S-57 Acronym|Allowable Encoding Value|Type|Multiplicity
+|Orientation Uncertainty|||RE|0, 1
+|Orientation Value|(ORIENT)||RE|1, 1
+|===
+
+=== Periodic Date Range
+
+*Definition* : The active period of a recurring event or occurrence.
+
+*CamelCase* : periodicDateRange
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*SubAttri ButeBinding* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|S-10x Attribute|S-57 Acronym|Allowable Encoding Value|Type|Multiplicity
+|Date Start|(DATSTA)||TD|1, 1
+|Date End|(DATEND)||TD|1, 1
+|===
+
+=== RxN Code
+
+*Definition* : A summary of the impact of the most common types of regulation, restriction, recommendation and nautical information on a vessel.
+
+*CamelCase* : rxNCode
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*SubAttri ButeBinding* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|S-10x Attribute|S-57 Acronym|Allowable Encoding Value|Type|Multiplicity
+|Category of RxN||1:Navigation +
+2:Communication +
+3:Environmental Protection +
+4:Wildlife Protection +
+5:Security +
+6:Customs +
+7:Cargo Operation +
+8:Refuge +
+9:Health +
+10:Natural Resources or Exploitation +
+11:Port +
+12:Finance +
+13:Agriculture +
+|CL|0, 1
+|Action or Activity||1:Navigating With a Pilot +
+2:Entering Port +
+3:Leaving Port +
+4:Berthing +
+5:Slipping +
+6:Anchoring +
+7:Weighing Anchor +
+8:Transiting +
+9:Overtaking +
+10:Reporting +
+11:Working Cargo +
+12:Landing +
+13:Diving +
+14:Fishing +
+15:Discharging Overboard +
+16:Passing +
+17:Ballast Water Exchange +
+18:Hull Cleaning +
+|CL|0, 1
+|Headline|||TE|0, 1
+|===
+
+=== Schedule by Day of Week
+
+*Definition* : The nature and timings of a daily schedule by days of the week.
+
+*CamelCase* : scheduleByDayOfWeek
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*SubAttri ButeBinding* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|S-10x Attribute|S-57 Acronym|Allowable Encoding Value|Type|Multiplicity
+|Category of Schedule||1:Normal Operation +
+2:Closure +
+3:Unmanned Operation +
+|EN|0, 1
+|Time Intervals by Day of Week|||C|1, 10
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Day of Week||1:Sunday +
+2:Monday +
+3:Tuesday +
+4:Wednesday +
+5:Thursday +
+6:Friday +
+7:Saturday +
+|(S) EN|0, 7
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Day of Week is Range|||(S) BO|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Time of Day End|||(S) TI|0, 99
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Time of Day Start|||(S) TI|0, 99
+|===
+
+=== Spatial Accuracy
+
+*Definition* : Provides an indication of the vertical and horizontal positional uncertainty of bathymetric data, optionally within a specified date range.
+
+*CamelCase* : spatialAccuracy
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*SubAttri ButeBinding* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|S-10x Attribute|S-57 Acronym|Allowable Encoding Value|Type|Multiplicity
+|Fixed Date Range|||C|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date Start|(DATSTA)||(S) TD|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date End|(DATEND)||(S) TD|0, 1
+|Horizontal Position Uncertainty|(POSACC)||C|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Uncertainty Fixed|(POSACC)||(S) RE|1, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Uncertainty Variable Factor|||(S) RE|0, 1
+|Vertical Uncertainty|(VERACC)||C|0, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Uncertainty Fixed|(POSACC)||(S) RE|1, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Uncertainty Variable Factor|||(S) RE|0, 1
+|===
+
+=== Source Indication
+
+*Definition* : Information about the source document, publication, or reference from which object data or textual material included or referenced in a dataset are derived.
+
+*CamelCase* : sourceIndication
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*SubAttri ButeBinding* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|S-10x Attribute|S-57 Acronym|Allowable Encoding Value|Type|Multiplicity
+|Category of Authority|(CATAUT)||EN|0, 1
+|Country Name|||TE|0, 1
+|Source|||TE|0, 1
+|Source Type||1:Law or Regulation +
+2:Official Publication +
+7:Mariner Report, Confirmed +
+8:Mariner Report, Not Confirmed +
+9:Industry Publications and Reports +
+10:Remotely Sensed Images +
+11:Photographs +
+12:Products Issued by HO Services +
+13:News Media +
+14:Traffic Data +
+|EN|0, 1
+|Reported Date|(SORDAT)||TD|0, 1
+|Feature Name|||C|0, *
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Language|||(S) TE|1, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Name|(OBJNAM)||(S) TE|1, 1
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Name Usage||1:Default Name Display +
+2:Alternate Name Display +
+3:No Chart Display +
+|(S) EN|0, 1
+|===
+
+=== Survey Date Range
+
+*Definition* : The complex attribute describes the period of the hydrographic survey, as the time between its sub-attributes.
+
+*CamelCase* : surveyDateRange
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*SubAttri ButeBinding* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|S-10x Attribute|S-57 Acronym|Allowable Encoding Value|Type|Multiplicity
+|Date Start|(DATSTA)||TD|0, 1
+|Date End|(DATEND)||TD|1, 1
+|===
+
+=== Telecommunications
+
+*Definition* : A means or channel of communicating at a distance by electrical or electromagnetic means such as telegraphy, telephony, or broadcasting.
+
+*CamelCase* : telecommunications
+
+*Alias* : 
+
+*Remarks* : If no value is populated for the sub-attribute telecommunication service, this means the service is by voice communication. If no value is populated for the sub-attribute telecommunication carrier, this means the service is by land line communication.
+
+*SubAttri ButeBinding* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|S-10x Attribute|S-57 Acronym|Allowable Encoding Value|Type|Multiplicity
+|Category of Communication Preference||1:Preferred Calling +
+2:Alternate Calling +
+3:Preferred Working +
+4:Alternate Working +
+|EN|0, 1
+|Telecommunication Identifier|||TE|1, 1
+|Telecommunication Carrier|||TE|0, 1
+|Contact Instructions|||TE|0, 1
+|Telecommunication Service||1:Voice +
+2:Facsimile +
+3:SMS +
+4:Data +
+5:Streamed Data +
+6:Telex +
+7:Telegraph +
+8:Email +
+|EN|0, *
+|===
+
+=== Text Content
+
+*Definition* : Textual material, or a pointer to a resource providing textual material. May be accompanied by basic information about its source and relationship to the source.
+
+*CamelCase* : textContent
+
+*Alias* : TXTCON 
+
+*Remarks* : Exactly one of sub-attributes onlineResource or information must be completed in one instance of textContent. Product specifications may restrict the use or content of onlineResource for security. For example, a product specification may forbid populating onlineResource. Product specification authors must consider whether applications using the data product may be prevented from accessing off-system resources by security policies.
+
+*SubAttri ButeBinding* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|S-10x Attribute|S-57 Acronym|Allowable Encoding Value|Type|Multiplicity
+|Category of Text|(CATTXT)|1:Abstract or Summary +
+2:Extract +
+3:Full Text +
+|EN|0, 1
+|Source|||TE|0, 1
+|Source Type||1:Law or Regulation +
+2:Official Publication +
+7:Mariner Report, Confirmed +
+8:Mariner Report, Not Confirmed +
+9:Industry Publications and Reports +
+10:Remotely Sensed Images +
+11:Photographs +
+12:Products Issued by HO Services +
+13:News Media +
+14:Traffic Data +
+|EN|0, 1
+|Reported Date|(SORDAT)||TD|0, 1
+|===
+
+=== Time Intervals by Day of Week
+
+*Definition* : The regular weekly operation times of a service or schedule.
+
+*CamelCase* : timeIntervalsByDayOfWeek
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*SubAttri ButeBinding* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|S-10x Attribute|S-57 Acronym|Allowable Encoding Value|Type|Multiplicity
+|Day of Week||1:Sunday +
+2:Monday +
+3:Tuesday +
+4:Wednesday +
+5:Thursday +
+6:Friday +
+7:Saturday +
+|EN|0, 7
+|Day of Week is Range|||BO|0, 1
+|Time of Day End|||TI|0, 99
+|Time of Day Start|||TI|0, 99
+|===
+
+=== Vertical Uncertainty
+
+*Definition* : The best estimate of the vertical accuracy of depths, heights, vertical distances and vertical clearances.
+
+*CamelCase* : verticalUncertainty
+
+*Alias* : VERACC 
+
+*Remarks* : Encodes the vertical uncertainty associated with any vertical measurement.
+
+*SubAttri ButeBinding* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|S-10x Attribute|S-57 Acronym|Allowable Encoding Value|Type|Multiplicity
+|Uncertainty Fixed|(POSACC)||RE|1, 1
+|Uncertainty Variable Factor|||RE|0, 1
+|===
+
+=== Vessel Measurements Specification
+
+*Definition* : Combinations of values of measurable characteristics or dimensions of vessels, used to specify size and tonnage ranges.
+
+*CamelCase* : vesselMeasurementsSpecification
+
+*Alias* : 
+
+*Remarks* : Combines (i) specifications of vessels' measurable characteristics (length, beam, tonnages, etc.), (ii) limit values for the specified characteristics (with units), (iii) arithmetical comparison operators (greater than, etc.), and (iv) logical operators (AND/OR) to define a subset of vessels characterized by the specified ranges. For example, the combination (draught, 10.5, metres, greaterThan) describes "vessels with draught greater than 10.5 metres".
+
+*SubAttri ButeBinding* : 
+[cols="a,a,a,a,a,*",options="headers"]
+|===
+|S-10x Attribute|S-57 Acronym|Allowable Encoding Value|Type|Multiplicity
+|Comparison Operator|(COMPOP)|1:Greater Than +
+2:Greater Than or Equal To +
+3:Less Than +
+4:Less Than or Equal To +
+5:Equal To +
+6:Not Equal To +
+|EN|1, 1
+|Vessels Characteristics||1:Length Overall +
+2:Length at Waterline +
+3:Breadth +
+4:Draught +
+6:Displacement Tonnage +
+7:Displacement Tonnage, Light +
+8:Displacement Tonnage, Loaded +
+9:Deadweight Tonnage +
+10:Gross Tonnage +
+11:Net Tonnage +
+12:Panama Canal/Universal Measurement System Net Tonnage +
+13:Suez Canal Net Tonnage +
+|EN|1, 1
+|Vessels Characteristics Value|||RE|1, 1
+|Vessels Characteristics Unit|(VSLUNT)|1:Metres +
+3:Metric Ton +
+4:Ton +
+5:Short Ton +
+6:Gross Ton +
+7:Net Ton +
+9:Suez Canal Net Tonnage +
+|EN|1, 1
+|===
+
+== Roles
+
+=== The Authority
+
+*Definition* : A pointer to an Authority object
+
+*CamelCase* : theAuthority
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+=== Authority service hours
+
+*Definition* : The authority for which service hours are given
+
+*CamelCase* : theAuthority_srvHrs
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+=== Contact details
+
+*Definition* : A pointer to an Contact Details object
+
+*CamelCase* : theContactDetails
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+=== Control authority
+
+*Definition* : The controlling organization or authority for a geographically located service
+
+*CamelCase* : controlAuthority
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+=== Is applicable to
+
+*Definition* : The object or class of objects to which the regulation, restriction, recommendation, or nautical information applies
+
+*CamelCase* : isApplicableTo
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+=== Organisation-Related RxN
+
+*Definition* : Reference to regulation, recommendation, restriction or general information related to an organisation
+
+*CamelCase* : organisationRelatedRxN
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+=== Permission
+
+*Definition* : Association class for associations describing whether the subsets of vessels determined by the ship characteristics specified in APPLIC may (or must, etc.) transit, enter, or use a feature.
+
+*CamelCase* : permission
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+=== Partial working day
+
+*Definition* : The work hours for a non-standard workday
+
+*CamelCase* : partialWorkingDay
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+=== Responsible authority
+
+*Definition* : The responsible authority
+
+*CamelCase* : responsibleAuthority
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+=== Service Hours (reference)
+
+*Definition* : Service hours for an authority or service provider
+
+*CamelCase* : theServiceHours
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+=== The information
+
+*Definition* : A pointer to an object that provides more information about the referencing feature or information type.
+
+*CamelCase* : theInformation
+
+*Alias* : 
+
+*Remarks* : Registry definition "The information" merely repeats the name.
+
+=== The organisation
+
+*Definition* : The organisation to which information relates
+
+*CamelCase* : theOrganisation
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+=== The Quality Information
+
+*Definition* : A pointer to an information type providing spatial quality information.
+
+*CamelCase* : theQualityInformation
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+=== The RxN
+
+*Definition* : The regulation, restriction, recommendation, or nautical information
+
+*CamelCase* : theRxN
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+=== The Applicable RxN
+
+*Definition* : The applicable regulation, restriction, recommendation or nautical information
+
+*CamelCase* : theApplicableRxN
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+=== The Cartographic Text
+
+*Definition* : A pointer to a specific cartographically positioned location for text.
+
+*CamelCase* : theCartographicText
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+=== The Position Provider
+
+*Definition* : A pointer to a specific feature(s).
+
+*CamelCase* : thePositionProvider
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+=== The service hours for a non-standard workday
+
+*Definition* : The usual service hours to which an exception applies
+
+*CamelCase* : theServiceHours_nsdy
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+== Information Associations
+
+=== Additional information
+
+*Definition* : A feature association for the binding between at least one instance of a geo feature and an instance of an information type.
+
+*CamelCase* : AdditionalInformation
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*Role* : The information
+
+=== Authority contact
+
+*Definition* : Contact information for an authority
+
+*CamelCase* : AuthorityContact
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*Role* : The Authority
+
+*Role* : Contact details
+
+=== Authority hours
+
+*Definition* : Service hours for an authority
+
+*CamelCase* : AuthorityHours
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*Role* : Authority service hours
+
+*Role* : Service Hours (reference)
+
+=== Associated RxN
+
+*Definition* : Association between a geographic location and a regulation, restriction, recommendation, or nautical information
+
+*CamelCase* : AssociatedRxN
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*Role* : The RxN
+
+=== Exceptional workday
+
+*Definition* : Exception to the usual working day
+
+*CamelCase* : ExceptionalWorkday
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*Role* : The service hours for a non-standard workday
+
+*Role* : Partial working day
+
+=== Protected area authority
+
+*Definition* : There may be more than one such authority depending on how responsibilities are divided
+
+*CamelCase* : ProtectedAreaAuthority
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*Role* : Responsible authority
+
+=== Related organisation
+
+*Definition* : Related organisation
+
+*CamelCase* : RelatedOrganisation
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*Role* : Organisation-Related RxN
+
+*Role* : The organisation
+
+=== InclusionType
+
+*Definition* : Association class specifying the relationship between the subset of vessels described by an APPLIC data object and a regulation (restriction, recommendation, or nautical information).
+
+*CamelCase* : InclusionType
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*Role* : The Applicable RxN
+
+*Role* : Is applicable to
+
+=== Permission Type
+
+*Definition* : Association class for associations describing whether the subsets of vessels determined by the ship characteristics specified in APPLIC may (or must, etc.) transit,  enter, or use  a feature.
+
+*CamelCase* : PermissionType
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*Role* : Permission
+
+=== Service control
+
+*Definition* : The controlling authority for a service area
+
+*CamelCase* : ServiceControl
+
+*Alias* : 
+
+*Remarks* : This is an information association linking a location where a service is provided with an information type describing the provider. Contrast to serviceProvisionArea, which is a feature association linking the area served with another feature describing the provider. Role controlledService encodable only as a generic inverse association in 3.0.0 datasets as it is an information->feature link
+
+*Role* : Control authority
+
+=== Spatial Association
+
+*Definition* : An association for the binding between a spatial type and its spatial quality information.
+
+*CamelCase* : SpatialAssociation
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*Role* : The Quality Information
+
+== Feature Associations
+
+=== Text association
+
+*Definition* : A feature association for the binding between a geo feature and the cartographically positioned location for text.
+
+*CamelCase* : TextAssociation
+
+*Alias* : 
+
+*Remarks* : No remarks.
+
+*Role* : The Position Provider
+
+*Role* : The Cartographic Text
+
