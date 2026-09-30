@@ -20,7 +20,7 @@ Changes to this Specification are coordinated by IHO NIPWG. New editions will be
 |2.0.0 |December 2025 |  |Draft Edition 2.0.0; apply amendmenta accepted by task group; align with S-100 5.2.0. 
 |2.0.0 |January 2026 |  |Draft Edition 2.0.0; align more closely with S-131 and S-127 including nilling; miscellaneous requirements for validation.
 |2.0.0 | March 2026 | NIPWG | Applied NIPWG review comments
-|2.0.0 | September 2026 | NIPWG | Applied Member State comments
+|2.0.0 | September 2026 | NIPWG | Applied Member State comments and clarified remark for discovery metadata min. display scale 
 
 |===
 
