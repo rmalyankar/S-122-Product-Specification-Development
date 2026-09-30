@@ -385,7 +385,7 @@ model the subset using more than one *Applicability* object. Multiple
 instances of *Applicability* associated to the same feature or information
 type are interpreted as alternatives (inclusive OR).
 
-<<fig_4.15>> depicts the classes and attributes that can be used to
+<<fig_4.16>> depicts the classes and attributes that can be used to
 define subsets of vessels according to specified characteristics.
 
 [[fig_4.16]]
