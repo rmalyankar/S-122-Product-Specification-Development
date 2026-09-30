@@ -315,7 +315,7 @@ to reduce clutter.
 
 The *AssociatedRxN* association between a feature type and a *Regulations*,
 *Restrictions*, *Recommendations*, or *NauticalInformation* object
-(see <<fig_4.14>>) indicates that the *Regulations*, etc., is applicable
+(see <<fig_4.15>>) indicates that the *Regulations*, etc., is applicable
 within the associated feature. If it is necessary to identify an authority
 or organization related to a particular regulation (restriction, etc.)
 object, this may be done using the *RelatedOrganisation* association

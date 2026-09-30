@@ -1,0 +1,108 @@
+==== General
+
+The Marine Protected Area _categoryOfMarineProtectedArea_ attribute is an open enumeration codelist whose ‘standard’ values are specified
+by the IUCN categorization.
+
+National or other categorisations may be encoded using the _designation_ complex attribute.
+
+If there is a formal categorisation according to a defined scheme under which unique identifiers are assigned to protected areas,
+the name or other official identifer of the scheme must be populated in the sub-attribute _designationScheme_ and the identifier of the area
+under the scheme must be populated in the sub-attribute _designationIdentifier_.
+
+If there is no defined scheme, the _designation.text_ attribute must be populated with an identifier for the protected area.
+
+Encoding the applicable restrictions in a _restriction_ attribute is strongly recommended.  If the allowed values of the _restriction_ attribute
+are considered insufficient to provide necessary details, a *Restrictions* information type should be created and linked to the *MarineProtectedArea* feature.
+
+Duplicative encoding in *MarineProtectedArea* and *RestrictedArea* features should be avoided. If the information to be encoded in the two is exactly
+the same, the boundaries are coincident, and each feature type can encode all the available information, encoding as a *MarineProtectedArea* should be preferred.
+
+Constraints on navigation and human activities as restricted, allowed, prohibited, or unspecified should be mapped to the S-122 enumerated restrictions
+and action categories.  Short text summaries of the key regulations should be provided if the content cannot be directly mapped to the enumerated categories. 
+
+==== Marine management areas
+
+Marine management areas should be encoded using _designation_ with:
+
+* _designation.designationScheme_ = (type of management area)
+* _designation.designationIdentifier_ = (Site code if assigned by designating authority) or _designation.text_ = (geographic identifier)
+* _designation.jurisdiction_ = (according to designating government authority or agency)
+
+If the area has been given a name by the designating authority but no other identifier, the name may be encoded in _designation.text_
+with "unspecified".
+
+This method can be used to encode marine mammal management areas and similar areas designated for protection of animals or environment.
+
+If the protection or designation is seasonal or otherwise time-dependent, the dates between which the protection is operative should be encoded
+using _fixedDateRange_ or _periodicDateRange_ complex attribute. NOAA slow zones or dynamic management areas may be thus indicated, since the
+designation is for a specified period.
+
+For example:
+
+* _designation.designationScheme_ = Seasonal Management Area
+* _designation.text_ = Migratory Route and Calving Grounds - Ports of New York/New Jersey
+* _designation.jurisdiction_ = National
+
+==== Natura 2000 sites
+
+Natura 2000 is a network of protected areas on land and at sea designated under the European Union Birds and Habitats Directives. Descriptive lists
+are maintained by national authorities and a European database are based on the information that national authorities have submitted to the European Environment
+Agency, for each of the Natura 2000 sites. The list is supposed to be updated annually and each annual list may be identified by a citation identifier.
+Natura 2000 sites should be encoded with:
+
+* _designation.designationScheme_ = Natura2000 <optional citation identifier>
+* _designation.designationIdentifier_ = (Natura 2000 site code)
+* _designation.jurisdiction_ = (of designating authority - _National_ if the designation orignates from a national government)
+
+For example:
+
+* _designation.designationScheme_ = Natura2000 eea_t_natura2000_p_2023_v01_r00
+* _designation.designationIdentifier_ = NL2008001
+* _designation.jurisdiction_ = National
+
+==== Other Effective Area-Based Conservation Measures
+
+Other Effective Area-Based Conservation Measures (OECMs) should use
+
+* _designation.designationScheme_ = Other Effective Area-Based Conservation Measure
+* _designation.designationIdentifier_ = (Site code if assigned) or _designation.text_ = (name oe geographic identifier)
+* _designation.jurisdiction_ = (according to designating government authority or agency)
+
+==== Ecosystem Protection Zones
+
+Ecosystem Protection Zones (EPZ) may be populated using complex attribute _designation_ with:
+
+* _designation.designationScheme_ = Ecosystem Protection Zone
+* _designation.designationIdentifier_ = (Site code if assigned by designating authority) or _designation.text_ = (name oe geographic identifier)
+* _designation.jurisdiction_ = (according to designating government authority or agency)
+
+
+==== Restrictions and regulations for protected areas
+
+Navigation within marine protected areas can be limited by regulations/restrictions and recommendations. That 
+information is usually provided by relevant authorities. If the _restriction_ attribute suffices to encode such 
+information, it must be used; otherwise an appropriate *Restrictions*, *Regulations*, *Recommendations*, or 
+*NauticalInformation* information type can be associated to the *MarineProtectedArea*.
+
+Information that is conditional on vessel characteristics may be encoded using the *PermissionType* association 
+to an information type that defines the set of vessels to which the conditions apply. (See the S-122 Product Specification and
+clauses <<sec_limitations,droploc%>> and <<sec_text_regs,droploc%>> of this DCEG for more information about coding such conditions.)
+
+==== Jurisdiction information
+
+The _jurisdiction_ attribute describes the type of jurisdiction over the area (national, sub-national, or international). It should be used to describe the
+type of authority or type of protection scheme under which the location was designated as a protected area.
+
+The attribute _jurisdiction_ is an optional attribute which is available in two places (as a direct local attribute of *MarineProtectedArea* and as a sub-attribute
+of _designation_). It should be populated either directly in *MarineProtectedArea* if the complex attribute _designation_ is not present, or as
+a sub-attribute of _designation_ when that complex attribute is present.
+
+==== Remarks
+
+* Multiple _categoryOfMarineProtectedArea_ and/or _designation_ attributes may be encoded in the same *MarineProtectedArea* feature if a site is
+protected under different protection schemes. The geometry must be the same under all schemes or authorities; if there is a difference under
+different schemes or in the precise areas designated by different authorities, overlapping *MarineProtectedArea* features may be encoded.
+* If complex attribute _designation_ is present, one of sub-attributes _designationIdentifier_ or _text_ must be populated.
+
+
+

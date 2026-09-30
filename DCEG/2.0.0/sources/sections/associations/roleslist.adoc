@@ -1,0 +1,162 @@
+
+[[role_theAuthority]]
+=== Authority
+
+*Definition* : A pointer to an Authority object
+
+*CamelCase* : theAuthority
+
+*Remarks* : 
+
+[[role_theAuthority_srvHrs]]
+=== Authority Service Hours
+
+*Definition* : The authority for which service hours are given
+
+*CamelCase* : theAuthority_srvHrs
+
+*Remarks* : 
+
+[[role_theContactDetails]]
+=== Contact Details
+
+*Definition* : A pointer to an Contact Details object
+
+*CamelCase* : theContactDetails
+
+*Remarks* : 
+
+[[role_controlAuthority]]
+=== Control Authority
+
+*Definition* : The controlling organization or authority for a geographically located service
+
+*CamelCase* : controlAuthority
+
+*Remarks* : 
+
+[[role_isApplicableTo]]
+=== Is Applicable To
+
+*Definition* : The object or class of objects to which the regulation, restriction, recommendation, or nautical information applies
+
+*CamelCase* : isApplicableTo
+
+*Remarks* : 
+
+[[role_organisationRelatedRxN]]
+=== Organisation-Related RxN
+
+*Definition* : Reference to regulation, recommendation, restriction or general information related to an organisation
+
+*CamelCase* : organisationRelatedRxN
+
+*Remarks* : 
+
+[[role_permission]]
+=== Permission
+
+*Definition* : Association class for associations describing whether the subsets of vessels determined by the ship characteristics specified in APPLIC may (or must, etc.) transit, enter, or use a feature.
+
+*CamelCase* : permission
+
+*Remarks* : 
+
+[[role_partialWorkingDay]]
+=== Partial Working Day
+
+*Definition* : The work hours for a non-standard workday
+
+*CamelCase* : partialWorkingDay
+
+*Remarks* : 
+
+[[role_responsibleAuthority]]
+=== Responsible Authority
+
+*Definition* : The responsible authority
+
+*CamelCase* : responsibleAuthority
+
+*Remarks* : 
+
+[[role_theServiceHours]]
+=== Service Hours (reference)
+
+*Definition* : Service hours for an authority or service provider
+
+*CamelCase* : theServiceHours
+
+*Remarks* : 
+
+[[role_theInformation]]
+=== The Information
+
+*Definition* : A pointer to an object that provides more information about the referencing feature or information type.
+
+*CamelCase* : theInformation
+
+*Remarks* : Registry definition "The information" merely repeats the name.
+
+[[role_theOrganisation]]
+=== The Organisation
+
+*Definition* : The organisation to which information relates
+
+*CamelCase* : theOrganisation
+
+*Remarks* : 
+
+[[role_theQualityInformation]]
+=== The Quality Information
+
+*Definition* : A pointer to an information type providing spatial quality information.
+
+*CamelCase* : theQualityInformation
+
+*Remarks* : 
+
+[[role_theRxN]]
+=== The RxN
+
+*Definition* : The regulation, restriction, recommendation, or nautical information
+
+*CamelCase* : theRxN
+
+*Remarks* : 
+
+[[role_theApplicableRxN]]
+=== The Applicable RxN
+
+*Definition* : The applicable regulation, restriction, recommendation or nautical information
+
+*CamelCase* : theApplicableRxN
+
+*Remarks* : 
+
+[[role_theCartographicText]]
+=== The Cartographic Text
+
+*Definition* : A pointer to a specific cartographically positioned location for text.
+
+*CamelCase* : theCartographicText
+
+*Remarks* : 
+
+[[role_thePositionProvider]]
+=== The Position Provider
+
+*Definition* : A pointer to a specific feature(s).
+
+*CamelCase* : thePositionProvider
+
+*Remarks* : 
+
+[[role_theServiceHours_nsdy]]
+=== The service hours for a non-standard workday
+
+*Definition* : The usual service hours to which an exception applies
+
+*CamelCase* : theServiceHours_nsdy
+
+*Remarks* : 

@@ -1,0 +1,11 @@
+==== General
+
+Traffic control and other vessel traffic service areas are encoded in S-122 datasets only when they are related 
+to protected area information in some way, for example if it is necessary to provide information about reporting 
+entry into and departure from a protected area.
+
+==== Remarks
+
+* The _serviceAccessProcedure_ and _requirementsForMaintenanceOfListeningWatch_ attributes used in other product specifications are not available in S-122.
+* Any similar requirements pertaining specifically to protected areas should be encoded in the _textContent_ attribute. (There may be a general
+requirement in the applicable national shipping regulations instead of or in addition to a specific requirement.)

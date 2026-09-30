@@ -1,0 +1,36 @@
+<<<
+[[sec_domain_features]]
+== Domain Features
+
+=== General
+
+==== Spatial primitives
+
+Encoding MPA features as surfaces (polygonal areas) in preference to points or curves is preferred, as being more useful for route planning and route monitoring applications.
+Restrictions apply over a defined spatial extent which requires a polygon. On the other hand, a small-scale dataset covering large regions and not intended for navigation
+may find it more efficient to encode the nominal locations of protected areas as curves or simple bounding box polygons (in the absence of point primitives as
+a permitted spatial primitive). 
+
+==== Purpose-guided encoding of MPA data
+
+Data producers are reminded that S-122 is intended to act as an overlay to S-101 data and should supplement the information provided in underlying S-101 datasets.
+Consideration may need to be given to the scale ranges of underlying S-101 datasets and the effects on the visibility or otherwise of protected areas on-screen
+in determining whether an S-122 dataset should be developed.
+
+Decisions about what information should be included in the dataset should be guided by the intended purpose of the dataset.
+
+* For the IHO use case, when the dataset is intended to be used in route monitoring or route planning, encoding restrictions that bear directly on
+navigation(entry, speed, anchoring) and on-water activities (types of fishing, discharge) is critical.
+** Restrictions should be mapped to the listed values in available enumeration and codelist attributes.
+** A reference to the original regulation (where an online source is available) may be provided but mariners cannot be  realistically expected to read the regulations in full.
+** Text-heavy encodings should be minimised. This means making a judicious use of support files and limiting the length of text provided in support files.
+* For  broader application of S-122 where encoding more detailed management would be required, extra detail can be provided and more liberal use can be made of support
+files.
+
+include::features/InformationArea.adoc[]
+
+include::features/MarineProtectedArea.adoc[]
+
+include::features/RestrictedArea.adoc[]
+
+include::features/VesselTrafficServiceArea.adoc[]

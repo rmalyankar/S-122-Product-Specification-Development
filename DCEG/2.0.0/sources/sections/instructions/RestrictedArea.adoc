@@ -1,0 +1,52 @@
+==== General
+
+(see S-4 – B-431.4; B-435.7; B-435.11; B-437.1-7; B-439.2-4; B-445.9; B-448; B-448.1 and B-449.5) 
+
+There are many types of areas within which certain activities are discouraged or prohibited, or from which certain 
+classes of vessels are excluded. The general term for all areas in which certain aspects of navigation may be 
+restricted or prohibited by regulations is “Restricted Area”, or equivalent. The word “prohibited”, or its equivalent, 
+may appear in terms relating to activities which are contrary to the regulations, e.g. “Anchoring Prohibited”, “Entry 
+Prohibited”. 
+
+If it is required to encode a restricted area, it must be done using the feature *RestrictedArea*, or other features having the attribute _restriction_ (specifically, *MarineProtectedArea*)
+if such other features are more representative of conditions in the area (that is, the reason for the restriction is because it is a marine protected area).
+
+**RestrictedArea**s should be encoded in S-122 datasets only when they are one of the listed 
+categories or otherwise related to marine protected areas, environmental, or wildlife protection.
+
+Duplicative encoding in *MarineProtectedArea* and *RestrictedArea* features should be avoided. If all the available information
+can be encoded in a *MarineProtectedArea*, it is not necessary to encode a coincident *RestrictedArea*. A *RestrictedArea* feature
+overlaying a *MarineProtectedArea* feature should be encoded only if the boundaries and/or thematic attributes differ.
+
+===== Nature reserves (see S-4 – B-437.3) 
+If it is required to encode a marine nature reserve area with navigational restrictions, it must be done using a 
+*RestrictedArea* feature, with attribute _categoryOfRestrictedArea_ = 4 (nature reserve). 
+
+===== Speed limits (see S-4 – B-430.2) 
+
+Speed is often limited inside MPAs in order to protect the species that inhabit the area. If it is required to encode 
+this restriction, it must be done using a *RestrictedArea* feature, with the attribute _restriction_ = 
+27 (speed restricted), with the speed limit and its unit of measurement encoded using an associated instance of 
+the information type *Regulations*(see clause <<ftable_Regulations,droploc%>>).
+
+===== Areas to be avoided (see S-4 – B-435.7) 
+
+If it is required to encode an IMO designated Area to be Avoided, it must be done using a *RestrictedArea* feature, with
+attribute _restriction_ = 14 (area to be avoided).
+  
+===== Environmentally Sensitive Sea Areas (see S-4 – B-437)
+ 
+If it is required to encode an Environmentally Sensitive Sea Area with navigational restrictions, it must be done 
+using a *Restricted Area* feature, with attribute _categoryOfRestrictedArea_ = 27 (ESSA) or 28 
+(PSSA). 
+
+An Environmentally Sensitive Sea Area that is shown on the source as a point symbol should be encoded using 
+a small surface *RestrictedArea* feature.
+
+==== Remarks
+ 
+* The attribute _categoryOfRestrictedArea_ is used to describe the type of area, while the attribute _restriction_
+describes the restrictions. 
+* An associated instance of the information types *Restrictions*, *Regulations*, *Recommendations* and *NauticalInformation*,
+complex attributes text content sub-attribute _information_ or solely attribute 
+_information_ may be used to provide an additional explanation about the restriction, where required.
